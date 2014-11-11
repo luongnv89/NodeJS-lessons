@@ -1,0 +1,3235 @@
+￼
+Hands-on Node.js
+Pedro Teixeira
+This book is for sale at http://leanpub.com/hands-on-nodejs This version was published on 2013-12-02
+This is a Leanpub book. Leanpub empowers authors and publishers with the Lean Publishing process. Lean Publishing is the act of publishing an in-progress ebook using lightweight tools and many iterations to get reader feedback, pivot until you have the right book and build traction once you do.
+©2011 - 2013 Pedro Teixeira
+￼
+Tweet This Book!
+Please help Pedro Teixeira by spreading the word about this book on Twitter! The suggested hashtag for this book is #hands-on-nodejs.
+Find out what other people are saying about the book by clicking on this link to search for this hashtag on Twitter:
+https://twitter.com/search?q=#hands-on-nodejs
+Contents
+Introduction............................................ 1 Whythesudden,exponentialpopularity?........................... 1 Whatdoesthisbookcover?................................... 2 Whatdoesthisbooknotcover? ................................ 2 Prerequisites........................................... 2 Exercises............................................. 2 Sourcecode........................................... 2 Wherewillthisbookleadyou?................................. 3
+Why?................................................ 4 Whytheeventloop? ...................................... 4 Solution1:Createmorecallstacks ............................ 4 Solution2:Useevent-drivenI/O ............................. 5 WhyJavaScript?......................................... 6 HowILearnedtoStopFearingandLoveJavaScript . . . . . . . . . . . . . . . . . . . 7 FunctionDeclarationStyles ............................ 8 Functionsarefirst-classobjects .......................... 10 JSHint............................................ 11 JavaScriptversions..................................... 12 References............................................ 12
+Startingup............................................. 13 InstallNode........................................... 13
+Understanding........................................... 15 UnderstandingtheNodeeventloop .............................. 15 Anevent-queueprocessingloop ............................. 15 Callbacksthatwillgenerateevents............................ 16 Don’tblock! ........................................ 16
+ModulesandNPM......................................... 18 Modules............................................. 18 HowNoderesolvesamodulepath ............................ 18 Coremodules.................................... 18
+CONTENTS
+Moduleswithcompleteorrelativepath...................... 18 Asafile....................................... 19 Asadirectory.................................... 19 Asaninstalledmodule............................... 19
+NPM-NodePackageManager................................. 19 Globalvs.Local ...................................... 19 NPMcommands...................................... 20
+npmls[filter .................................... 20 npminstallpackage[@filters............................ 20 npmrmpackage_name[@version......................... 21 npmview[@.................................... 22
+ThePackage.jsonManifest ................................... 22
+Utilities............................................... 24 console.............................................. 24 util................................................ 25
+Buffers............................................... 27 Sliceabuffer........................................... 28 Copyabuffer .......................................... 28 BufferExercises......................................... 28
+Exercise1.......................................... 28 Exercise2.......................................... 29 Exercise3.......................................... 29
+EventEmitter ........................................... 30 .addListener........................................... 30 .once............................................... 30 .removeAllListeners....................................... 31 CreatinganEventEmitter ................................... 31 EventEmitterExercises..................................... 32
+Exercise1.......................................... 32 Exercise2.......................................... 32
+Timers ............................................... 33 setTimeout............................................ 33 clearTimeout........................................... 33 setInterval............................................ 34 clearInterval........................................... 34 setImmediate .......................................... 34
+Escapingtheeventloop .................................. 35 Anoteontailrecursion .................................. 35
+Low-levelfile-system....................................... 37
+CONTENTS
+fs.statandfs.fstat ........................................ 37 Openafile............................................ 38 Readfromafile......................................... 39 Writeintoafile......................................... 39
+CloseYourfiles....................................... 40 File-systemExercises ...................................... 40 Exercise1-getthesizeofafile.............................. 40 Exercise2-readachunkfromafile ........................... 41 Exercise3-readtwochunksfromafile ......................... 41 Exercise4-Overwriteafile................................ 41 Exercise5-appendtoafile................................ 41 Exercise6-changethecontentofafile ......................... 41
+HTTP................................................ 42 HTTPServer........................................... 42 Thehttp.ServerRequestobject............................... 43 req.url........................................ 43 req.method..................................... 43 req.headers..................................... 43 Thehttp.ServerResponseobject .......................... 44 Writeaheader................................ 44 Changeorsetaheader ........................... 45 Removeaheader .............................. 45 Writeapieceoftheresponsebody..................... 45 HTTPClient........................................... 46 http.get() ...................................... 46 http.request()........................................ 46 HTTPExercises......................................... 48 Exercise1.......................................... 48 Exercise2.......................................... 48 Exercise3.......................................... 48 Exercise4.......................................... 48
+Streams............................................... 49 ReadStream........................................... 49 Waitfordata........................................ 49 Knowwhenitends .................................... 49 Pauseit........................................... 50 Resumeit.......................................... 50 WriteStream........................................... 50 Writetoit ......................................... 50 Waitforittodrain..................................... 51 Somestreamexamples ..................................... 51
+CONTENTS
+Filesystemstreams..................................... 51
+Networkstreams...................................... 52 TheSlowClientProblemandBack-pressure ......................... 52 Whatcanwedo?...................................... 53 Pipe............................................. 54
+TCP................................................. 55 Writeastringorabuffer.................................... 55 end................................................ 56 ...andalltheothermethods................................... 56 Idlesockets ........................................... 56 Keep-alive............................................ 57 Delayornodelay........................................ 57 server.close()........................................... 57 Listening............................................. 58 TCPclient............................................ 58 Errorhandling.......................................... 59 TCPExercises.......................................... 60
+Exercise1.......................................... 60 Exercise2.......................................... 60
+Datagrams(UDP) ......................................... 61 Datagramserver......................................... 61 Datagramclient......................................... 62 DatagramMulticast....................................... 63
+Receivingmulticastmessages............................... 64 Sendingmulticastmessages................................ 64 Whatcanbethedatagrammaximumsize?........................ 65
+UDPExercises.......................................... 65 Exercise1.......................................... 65
+Childprocesses .......................................... 66 Executingcommands...................................... 66 Spawningprocesses....................................... 67 Killingprocesses......................................... 68 ChildProcessesExercises.................................... 68
+Exercise1.......................................... 68
+StreamingHTTPchunkedresponses .............................. 69 Astreamingexample ................................... 69 StreamingExercises....................................... 70 Exercise1.......................................... 70
+TLS/SSL.............................................. 71
+CONTENTS
+Public/privatekeys....................................... 71 Privatekey......................................... 71 Publickey ......................................... 71
+TLSClient............................................ 72 TLSServer............................................ 73 Verification......................................... 73 TLSExercises .......................................... 73 Exercise1.......................................... 73 Exercise2.......................................... 73 Exercise3.......................................... 74 Exercise4.......................................... 74 Exercise5.......................................... 74
+HTTPS ............................................... 75 HTTPSServer.......................................... 75 HTTPSClient.......................................... 75
+Makingmodules.......................................... 77 CommonJSmodules....................................... 77 Onefilemodule......................................... 77 Anaggregatingmodule..................................... 78 Apseudo-class.......................................... 79 Apseudo-classthatinherits .................................. 79 node_modulesandnpmbundle ................................ 80
+Bundling.......................................... 81
+Debugging............................................. 82 console.log............................................ 82 Nodebuilt-indebugger..................................... 82 NodeInspector ......................................... 83 Liveedit............................................. 86
+AutomatedUnitTesting ..................................... 87 Atestrunner .......................................... 87 Assertiontestingmodule.................................... 89
+should.js .......................................... 89 Asserttruthfulness: ............................. 89 oruntruthfulness: .............................. 90 ===true................................... 90 ===false................................... 90 emptiness .................................. 90 equality ................................... 90 equal(strictequality) ............................ 90 assertnumericrange(inclusive)withwithin. . . . . . . . . . . . . . . . 91
+CONTENTS
+testnumericvalueisabovegivenvalue:.................. 91 testnumericvalueisbelowgivenvalue:.................. 91 matchingregularexpressions........................ 91 testlength .................................. 91 substringinclusion ............................. 91 asserttypeof................................. 91 propertyexistence.............................. 92 arraycontainment.............................. 92 ownobjectkeys............................... 92 responds to, asserting that a given property is a function: . . . . . . . . . 92
+Puttingitalltogether...................................... 92
+Callbackflow ........................................... 95 Theboomerangeffect...................................... 96 Usingcaolan/async ....................................... 97
+Collections......................................... 97 ParallelIterations.................................. 97 async.forEach.................................... 98 async.map...................................... 99 async.forEachLimit................................. 100 async.filter .....................................100 async.reject . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 101 async.reduce ....................................102 async.detect . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 103 async.some . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104 async.every . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+Flow Control . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 105 async.series . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 105 async.parallel.................................... 106 async.whilst . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107 async.until .....................................108 async.waterfall ................................... 108 async.queue . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 109
+Appendix-ExerciseResults ...................................110 Chapter: Buffers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110 Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110 Exercise 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110 Exercise 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111 Chapter:EventEmitter ..................................... 111
+CONTENTS
+Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111 Exercise 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 112 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 112 Chapter:Low-levelFileSystem................................. 112 Exercise1-getthesizeofafile.............................. 112 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 113 Exercise2-readachunkfromafile ........................... 113 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 113 Exercise3-readtwochunksfromafile ......................... 114 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114 Exercise4-Overwriteafile................................ 114 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 115 Exercise5-appendtoafile................................ 115 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 115 Exercise6-changethecontentofafile ......................... 116 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 116 Chapter:HTTP .........................................117 Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117 Exercise 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118 Exercise 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119 Exercise 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119 Chapter:Childprocesses .................................... 120 Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 120 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 120 Chapter:StreamingHTTPChunkedresponses ........................ 122 Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 122 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 122 Chapter:UDP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123 Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123 Chapter:TCP ..........................................123 Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 123 Exercise 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124 Chapter:SSL/TLS .......................................125 Exercise 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125
+CONTENTS
+OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125 Exercise 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 128 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 128 Exercise 3 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129 Exercise 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129 Exercise 5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 130 OneSolution: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 130
+Introduction
+At the European JSConf 2009, a young programmer by the name of Ryan Dahl, introduced a project he had been working on. This project was a platform that combined Google’s V8 JavaScript engine and an event loop to create a server-side platform programmable in JavaScript. The project took a different direction from other server-side JavaScript platforms: all I/O primitives were event-driven, and there was no way around it. Leveraging the power and simplicity of JavaScript, it turned the difficult task of writing asynchronous applications into an easy one. Since receiving a standing ovation at the end of his talk, Dahl’s project has been met with unprecedented growth, popularity and adoption.
+The project was named Node.js, now known to developers simply as ‘Node’. Node provides purely evented, non-blocking infrastructure for building highly concurrent software.
+Node allows you to easily construct fast and scalable network services.
+Why the sudden, exponential popularity?
+Server-side JavaScript has been around for some time, what makes this platform so appealing?
+In previous server-side JavaScript implementations, javascript was the raison d’etre, and the approach focussed on translating common practices from other platforms like Ruby, PERL and Python, into JavaScript. Node took a leap from this and said: “Let’s use the successful event-driven programming model of the web and use it to make an easy way to build scalable servers. And let’s make it the only way people can do anything on this platform.”.
+It can be argued that JavaScript itself contributed to much of Node’s success, but that would not explain why other the server-side projects proceeding Node have not yet come close in popularity. The ubiquity of JavaScript surely has played a role, but, as Ryan Dahl points out, unlike other Server- side JavaScript attempts, unifying the client and server into a common language was not the primary goal for Node.
+In my perspective there are three factors contributing to Node’s success:
+1. Node is Easy - Node makes event-driven I/O programming, the best way to do I/O program- ming, much easier to understand and achieve than in any other existing platform.
+2. Node is Lean - Node does not try to solve all problems. It lays the foundation and supports the basic internet protocols using clean, functional APIs.
+3. Node does not Compromise - Node does not try to be compatible with pre-existing software, it takes a fresh look at what many believe is the right direction.
+Introduction 2
+What does this book cover?
+We will analyze what makes Node a different proposal to other server-side solutions, why you should use it, and how to get started. We will start with an overview but quickly dive into some code module-by-module. By the end of this book you should be able to build and test your own Node modules, service producers/consumers and feel comfortable using Node’s conventions and API.
+What does this book not cover?
+This book does not attempt to cover the complete Node API. Instead, we will cover what the author thinks is required to build most applications he would build on Node.
+This book does not cover any Node frameworks; Node is a great tool for building frameworks and many are available, such as cluster management, inter-process communication, web frameworks, network traffic collection tools, game engines and many others. Before you dive into any of those you should be familiar with Node’s infrastructure and what it provides to these building blocks.
+Prerequisites
+This book does not assume you have any prior knowledge of Node, but the code examples are written in JavaScript, so familiarity with the JavaScript language will help.
+Exercises
+This book has exercises in some chapters. At the end of this book you can find the exercise solutions, but I advise you to try do them yourself. Consult this book or use the comprehensive API documentation on the official http://nodejs.org1 website.
+Source code
+You can find some of the source code and exercises used in this book on GitHub:
+https://github.com/pgte/handson_nodejs_source_code2
+or you can download it directly:
+https://github.com/pgte/handson_nodejs_source_code/zipball/master3
+1http://nodejs.org 2https://github.com/pgte/handson_nodejs_source_code 3https://github.com/pgte/handson_nodejs_source_code/zipball/master
+￼
+Introduction 3
+Where will this book lead you?
+By the end of it, you should understand the Node API and be able to pursue the exploration of other things built on top of it, being adaptors, frameworks and modules.
+Let’s get started!
+Why?
+Why the event loop?
+The Event Loop is a software pattern that facilitates non-blocking I/O (network, file or inter-process communication). Traditional blocking programming does I/O in the same fashion as regular function calls; processing may not continue until the operation is complete. Here is some pseudo-code that demonstrates blocking I/O:
+1 varpost=db.query('SELECT*FROMpostswhereid=1');
+2 //processingfromthislineonwardcannotexecuteuntilthelineabovecompletes 3 doSomethingWithPost(post);
+4 doSomethingElse();
+What is happening here? While the database query is being executed, the whole process/thread idles, waiting for the response. This is called blocking. The response to this query may take many thousands of CPU cycles, rendering the entire process unusable during this time. The process could have been servicing other client requests instead of just waiting for the database operation to complete.
+Programming in this way does not allow you to parallelize I/O (such as performing another database query or communicating with a remote web service). The call stack becomes frozen, waiting for the database server to reply.
+This leaves you with two possible solutions to keep the process busy while it’s waiting: create more call stacks or use event callbacks.
+Solution 1: Create more call stacks
+In order for your process to handle more concurrent I/O, you have to have more concurrent call stacks. For this, you can use threads or some kind of cooperative multi-threading scheme like co- routines, fibers, continuations, etc.
+The multi-threaded concurrency model can be very difficult to configure, understand and debug, mainly because of the complexity of synchronization when accessing and modifying shared state; you never know when the thread you are running is going to be taken out of execution, which can lead to bugs that are strange and difficult to reproduce.
+On the other hand, cooperative multi-threading is a “trick” where you have more than one stack, and each “thread” of execution explicitly de-schedules itself to give time to another parallel “thread” of execution. This can relax the synchronization requirements but can become complex and error- prone, since the thread scheduling is left in the hands of the programmer.
+1 2 3 4 5 6 7
+Solution 2: Use event-driven I/O
+Event-driven I/O is a scheme where you register callbacks to be invoked when an interesting I/O event happens.
+An event callback is a function that gets invoked when something significant happens (e.g. the result of a database query is available.)
+To use event callbacks in the previous example, you could change it to:
+callback=function(post){
+doSomethingWithPost(post); // this will only execute when the db.query function\
+returns. };
+db.query('SELECT*FROMpostswhereid=1',callback); doSomethingElse();//thiswillexecuteindependentofthereturnedstatusofthe\
+ db.query call.
+Here you are defining a function to be invoked when the database operation is complete, then passing this function as a callback argument to the db query operation. The db operation becomes responsible for executing the callback when the result is available.
+You can use an inline anonymous function to express this in a more compact fashion:
+db.query('SELECT*FROMpostswhereid=1', function(post) {
+doSomethingWithPost(post); // this will only execute when the db.query functi\ onreturns.
+1
+2
+3
+4 5}
+6 7 8
+); doSomethingElse();//thiswillexecuteindependentofthereturnedstatusofthe\
+ db.query call.
+While db.query() is executing, the process is free to continue running doSomethingElse(), and even service new client requests.
+For quite some time, the C systems-programming “hacker” community has known that event-driven programming is the best way to scale a server to handle many concurrent connections. It has been known to be more efficient regarding memory: less context to store, and time: less context-switching.
+This knowledge has been infiltrating other platforms and communities: some of the most well- known event loop implementations are Ruby’s Event Machine, Perl’s AnyEvent and Python’s Twisted, and some others.
+Why? 5
+￼
+1 2 3 4 5
+Why? 6
+Tip: For more info about event-driven server implementations, see http://en.wikipedia.org/wiki/Reactor_-
+pattern4.
+Implementing an application using one of these event-driven frameworks requires framework- specific knowledge and framework-specific libraries. For example: when using Event Machine, you must avoid using all the synchronous libraries available in Ruby-land (i.e. most libraries). To gain the benefit of not blocking, you are limited to using libraries that are specific for Event Machine. If you use blocking libraries, your program will not be able to scale optimally because the event loop is constantly being blocked, which may delay the processing of I/O events and makes your application slow, defeating the original purpose of using event-driven I/O.
+Node has been devised as a non-blocking I/O server platform from day one, which means that you should expect everything built on top of it to be non-blocking (with some specific and very explicit exceptions). Since JavaScript itself is very minimal and does not impose any way of doing I/O (it does not have a standard I/O library like C, Ruby or Python), Node has a clean slate to build upon.
+Why JavaScript?
+Ryan Dahl began this pet project of his by building a platform that was programmable in C, but he soon realized that maintaining the context between callbacks was too complicated and could lead to poorly structured code. He then turned to Lua.
+Lua already has several blocking I/O libraries and the mix of blocking and non-blocking could confuse average developers and prevent many of them from building scalable applications, so Lua wasn’t ideal either. Dahl then thought to JavaScript.
+JavaScript has closures and first-class functions, making it indeed a powerful match with evented I/O programming.
+Closures are functions that inherit the variables from their enclosing environment. When a function callback executes it will magically remember the context in which it was declared, along with all the variables available in that context and any parent contexts. This powerful feature is at the heart of Node’s success among programming communities. Let’s see a little bit of this goodness in action:
+In the web browser, if you want to listen for an event, a button click for instance, you may do something like:
+varclickCount=0; document.getElementById('mybutton').onclick=function(){
+  clickCount ++;
+  alert('Clicked ' + clickCount + ' times.');
+};
+or, using jQuery: 4http://en.wikipedia.org/wiki/Reactor_pattern
+￼
+1 2 3 4 5
+varclickCount=0; $('button#mybutton').click(function(){
+  clickCount ++;
+  alert('Clicked ' + clickCount + ' times.');
+});
+In both examples we assign or pass a function as an argument. This function will then be executed later once the relevant event (button clicking in this case) happens. The click handling function has access to every variable in scope at the point where the function is declared, i.e. practically speaking, the click handler has access to the clickCount variable, declared in the parent closure.
+Here we are using a global variable, “clickCount”, where we store the number of times the user has clicked a button. We can also avoid having a global variable accessible to the rest of the system, by wrapping it inside another closure, making the clickCount variable only accessible within the closure we created:
+(function(){
+var clickCount = 0; $('button#mybutton').click(function() {
+    clickCount ++;
+    alert('Clicked ' + clickCount + ' times.');
+  });
+})();
+In line 7 we are invoking a function immediately after defining it. If this is strange to you, don’t worry! We will cover this pattern later.
+Here you don’t have to worry about synchronization: your callback function will not be interrupted until it returns - you have that guarantee.
+How I Learned to Stop Fearing and Love JavaScript
+JavaScript has good and bad parts. It was created in 1995 by Netscape’s Brendan Eich, in a rush to ship the latest version of the Netscape web browser. Due to this rush some good, even wonderful, parts got into JavaScript, but also some bad parts.
+This book will not cover the distinction between JavaScript good and bad parts. (For all we know, we will only provide examples using the good parts.) For more on this topic you should read Douglas Crockford book named “JavaScript, The Good Parts”, edited by O’Reilly.
+1 2 3 4 5 6 7
+Why? 7
+￼￼
+1
+2 3}
+1 2 3
+Here we declare a function, but it’s not of much use, because we do not invoke it. What’s more, we have no way to invoke it as it has no name.
+We can invoke an anonymous function in-place:
+(function(){ console.log('hello');
+})();
+Here we are executing the function immediately after declaring it. Notice we wrap the entire function declaration in parenthesis.
+We can also name functions like this:
+1
+2 3}
+Why? 8
+In spite of its drawbacks, JavaScript quickly - and somewhat unpredictably - became the de-facto language for web browsers. Back then, JavaScript was used primarily to inspect and manipulate HTML documents, allowing the creation the first dynamic, client-side web applications.
+In late 1998, the World Wide Web Consortium (W3C), standardized the Document Object Model (DOM), an API devised to inspect and manipulate HTML documents on the client side. In response to JavaScript’s quirks and the initial hatred towards the DOM API, JavaScript quickly gained a bad reputation, also due to some incompatibilities between browser vendors (and sometimes even between products from the same vendor!).
+Despite mild to full-blown hate in some developer communities, JavaScript became widely adopted. For better or for worse, today JavaScript is the most widely deployed programming language on planet Earth – and growing.
+If you learn the good features of the language - such as prototypical inheritance, function closures, etc. - and learn to avoid or circumvent the bad parts, JavaScript can be a very pleasant language to work in.
+Function Declaration Styles
+A function can be declared in many ways in JavaScript. The simplest is declaring it anonymously:
+function(){ console.log('hello');
+functionmyFunction(){ console.log('hello');
+Here we are declaring a named function with the name: “myFunction”. myFunction will be available inside the scope in which it’s declared
+1
+myFunction();
+and also within inner scopes:
+1
+2 3} 4
+5
+6
+7
+1
+2 3}
+Why? 9
+functionmyFunction(){ console.log('hello');
+(function(){ myFunction();
+})();
+A result of JavaScript treating functions as first-class objects means we can assign a function to a variable:
+varmyFunc=function(){ console.log('hello');
+This function is now available as the value of the myFunc variable. We can assign that function to another variable:
+1 varmyFunc2=myFunc;
+And invoke them just like any other function:
+1 myFunc();
+2 myFunc2();
+We can mix both techniques, having a named function stored in a variable:
+1 varmyFunc2=functionmyFunc(){
+console.log('hello');
+2
+3}
+4 myFunc2();
+(Note though, we cannot access myFunc from outside the scope of myFunc itself!)
+We can then use a variable or a function name to pass variables into functions like this:
+5
+1 2 3
+1
+2
+3 4} 5 }; 6
+Why? 10
+1 varmyFunc=function(){ 2 console.log('hello'); 3}
+4
+    console.log(myFunc);
+or simply declare it inline if we don’t need it for anything else:
+console.log(function(){ console.log('hello');
+});
+Functions are first-class objects
+In fact, there are no second-class objects in JavaScript. JavaScript is the ultimate object-oriented language, where (almost) everything is indeed, an object. As that, a function is an object where you can set properties, pass it around inside arguments and return them.
+Example:
+        setTimeout(callbackfunction, timeout)
+7 (function(){
+8 var timeout = 1000; // 1 second
+9 var count = 0;
+10 var schedule = scheduler(timeout, function doStuff() {
+11 console.log(++ count);
+12 schedule();
+13 });
+14 schedule()
+15 })();
+16
+17 //"timeout"and"count"variables
+18 //donotexistinthisscope.
+In this little example we create a function and store it in a variable called “scheduler” (starting on line 1). This function returns a function that sets up a timer that will execute a given function within a certain number of miliseconds (line 3). This timeout will schedule a callback function to be called after a time delay of 1 second, as specified by the timeout variable.
+varscheduler=function(timeout,callbackfunction){ return function() {
+Why? 11
+In line 9 we declare a function that will immediately be executed in line 15. This is a normal way to create new scopes in JavaScript. Inside this scope we create 2 variables: “timeout” (line 8) and “count” (line 9). Note that these variables will not be accessible to the outer scope.
+Then, on line 10, we invoke the scheduler function, passing in the timeout value as first argument and a function called doStuff as second argument. This returns a function that we store in the local schedule variable, which we later invoke (line 14), provoking the setTimeout to be called. When the timeout occurs, this function will increment the variable count and log it, and also call the schedule all over again.
+So in this small example we have: functions passed as argument, functions to create scope, functions to serve as asynchronous callbacks and returning functions. We also here present the notions of encapsulation (by hiding local variables form the outside scope) and recursion (the function is calling itself at the end).
+In JavaScript you can even set and access attributes in a function, something like this:
+1 varmyFunction=function(){
+2 // do something crazy
+3 };
+4 myFunction.someProperty='abc';
+5 console.log(myFunction.someProperty);
+6 //#=>"abc"
+JavaScript is indeed a powerful language, and if you don’t already, you should learn it and embrace its good parts.
+JSHint
+It’s not to be covered here, but JavaScript indeed has some bad parts, and they should be avoided at all costs.
+One tool that’s proven invaluable to me is JSHint. JSHint analyzes your JavaScript file and outputs a series of errors and warnings, including some known misuses of JavaScript, such as using globally- scoped variables (like when you forget the “var” keyword), and freezing values inside iteration that have callbacks that use them, and many others that are useful.
+JHLint can be installed using
+1 $npminstall-gjshint
+If you don’t have Node installed see section about NPM5. and can be run from the command line like this:
+5index.html#npm
+￼
+Why? 12
+1 $jshintmyfile.js
+You can also define what rules this tool should obey by defining and customizing a .jshintrc inside your home directory. For more information on JSHint plrease refer to the official documentation at http://www.jshint.com/docs/6.
+JavaScript versions
+JavaScript is a standard with its own name - ECMAScript - and it has gone through various iterations. Currently Node natively supports everything the V8 JavaScript engine supports ECMA 3rd edition and parts of the new ECMA 5th edition.
+These parts of ECMA 5 are nicely documented on the following github wiki page: https://github.com/joyent/node/wi 5-Mozilla-Features-Implemented-in-V87
+References
+Event Machine: http://rubyeventmachine.com/8
+Twisted: http://twistedmatrix.com/trac/9
+AnyEvent: http://software.schmorp.de/pkg/AnyEvent.html10
+JavaScript, the Good Parts - Douglas Crockford - O’Reilly - http://www.amazon.com/exec/obidos/ASIN/0596517742/ JSHint http://www.jshint.com/12
+6http://www.jshint.com/docs/
+7https://github.com/joyent/node/wiki/ECMA- 5- Mozilla- Features- Implemented- in- V8 8http://rubyeventmachine.com/
+9http://twistedmatrix.com/trac/
+10http://software.schmorp.de/pkg/AnyEvent.html 11http://www.amazon.com/exec/obidos/ASIN/0596517742/wrrrldwideweb 12http://www.jshint.com/
+￼
+Starting up Install Node
+If you don’t have the latest version of Node.js installed in your local machine you should do that now: Head out to http://nodejs.org13 and click on the “Install” button.
+Depending on your platform, you will get a package installer downloaded that you should execute to install Node. This works if you have a MacOS or a Windows machine. If you’re on a Linux box, your distribution probably supports the latest stable version of Node.js, but you can always download and build from the source code.
+After you are done, you should be able to run the node executable on the command line:
+1 $node-v 2 v0.10.22
+The node executable can be executed in two main fashions: CLI (command-line interface) or file. To launch the CLI, just type, in the command line:
+1 $node
+and you will get a JavaScript command line prompt, which you can use to evaluate JavaScript. It’s
+great for kicking the tires and trying out some stuff quickly.
+You can also launch Node on a file, which will make Node parse and evaluate the JavaScript on that file, and when it ends doing that, it enters the event loop. Once inside the event loop, node will exit if it has nothing to do, or will wait and listen for events.
+Let’s then create our first Hello World HTTP server in Node.js inside a file named hello_world.js: hello_world.js:
+13http://nodejs.org
+￼
+Starting up 14
+1 varhttp=require('http');
+2 varserver=http.createServer();
+3 server.on('request',function(req,res){
+4 res.end('Hello World!');
+5 });
+6 server.listen(8080);
+You can launch Node on a file like this:
+1 $nodehello_world.js
+Now, open a web browser and point it to http://localhost:808014:
+￼Hello World on the browser
+￼14http://localhost:8080
+Understanding Understanding the Node event loop
+Node makes evented I/O programming simple and accessible, putting speed and scalability on the fingertips of the common programmer.
+But the event loop comes with a price. Even though you are not aware of it (and Node makes a good job at this), you should understand how it works. Every good programmer should know the intricacies of the platforms he / she is building for, its do’s and don’ts, and in Node it should be no different.
+An event-queue processing loop
+You should think of the event loop as a loop that processes an event queue. Interesting events happen, and when they do, they go in a queue, waiting for their turn to be processed. Then, there is an event loop popping out these events, one by one, and invoking the associated callback functions, one at a time. The event loop pops one event out of the queue and invokes the associated callback. When the callback returns, the event loop pops the next event and invokes the associated callback function. When the event queue is empty, the event loop waits for new events if there are some pending calls or servers listening, or just quits of there are none.
+So, let’s jump into our first Node example. Write a file named hello.js with the following content: Source code in chapters/understanding/1_hello.js
+1 setTimeout(function(){
+2 console.log('World!');
+3 },2000);
+4 console.log('Hello');
+Run it using the node command line tool:
+1 $nodehello.js
+You should see the word “Hello” written out, and then, 2 seconds later, “World!”. Shouldn’t “World!” have been written first since it appears first on the code? No, and to answer that properly we must analyze what happens when executing this small program.
+1 2 3 4 5 6
+On line 1 we declare an anonymous function that prints out “World!”. This function, which is not yet executed, is passed in as the first argument to a setTimeout call, which schedules this function to run after 2000 milliseconds have passed. Then, on line 4, we output “Hello” into the console.
+Two seconds later the anonymous function we passed in as an argument to the setTimeout call is invoked, printing “World!”.
+So, the first argument to the setTimeout call is a function we call a “callback”. It’s a function which will be called later, when the event we set out to listen to (in this case, a time-out of 2 seconds) occurs.
+We can also pass callback functions to be called on events like when a new TCP connection is established, some file data is read or some other type of I/O event.
+After our callback is invoked, printing “World”, Node understands that there is nothing more to do and exits.
+Callbacks that will generate events
+Let’s complicate this a bit further. Let’s keep Node busy and keep on scheduling callbacks like this: Source code in chapters/understanding/2_repeat.js
+(functionschedule(){ setTimeout(function() {
+    console.log('Hello World!');
+    schedule();
+  }, 1000);
+})();
+Here we are wrapping the whole thing inside a function named “schedule”, and we are invoking it immediately after declaring it on line 6. This function will schedule a callback to execute in 1 second. This callback, when invoked, will print “Hello World!” and then run schedule again.
+On every callback we are registering a new one to be invoked one second later, never letting Node finish and exit. This little script will just keep printing “Hello World”.
+Don’t block!
+Node’s primary concern and the main use case for an event loop is to create highly scalable servers. Since an event loop runs in a single thread, it only processes the next event when the callback returns. If you could see the call stack of a busy Node application you would see it going up and down really fast, invoking callbacks and picking up the next event in queue. But for this to work well you have to clear the event loop as fast as you can.
+Understanding 16
+1
+2
+3
+4
+5
+6
+7
+8 9}
+Understanding 17
+There are two main categories of things that can block the event loop: synchronous I/O and big loops.
+Node API is not all asynchronous. Some parts of it are synchronous like, for instance, some file operations. Don’t worry, they are very well marked: they always terminate in “Sync” - like fs.readFileSync - , and they should not be used, or used only when initializing (more about that later). On a working server you should never use a blocking I/O function inside a callback, since you’re blocking the event loop and preventing other callbacks - probably belonging to other client connections - from being served. You’ll just be increasing the response latency, decreasing the responsiveness of your service or application.
+One function that is synchronous and does not end in “Sync” is the “require” function, which should only be used when initializing an app or a module. Tip: Don’t put a require statement inside a callback, since it is synchronous and thus will slow down your event loop. Do all your require’ing during the initialization phase of Node and not inside any callback (later addressed).
+The second category of blocking scenarios is when you are performing loops that take a lot of time, like iterating over thousands of objects or doing complex CPU intensive, time consuming operations in memory. There are several techniques that can be used to work around that, which I’ll cover later.
+Here is a case where we present some simple code that blocks the event loop:
+varopen=false;
+setTimeout(function(){ open = true;
+},1000) while(!open){
+// wait
+10
+11 console.log('opened!');
+Here we are setting a timeout, on line 3, that invokes a function that will set the open variable to true. This function is set to be triggered in one second. On line 7 we are waiting for the variable to become true.
+We could be led to believe that, in one second the timeout will happen and set open to true, and that the while loop will stop and that we will get “opened!” (line 11) printed.
+But this never happens. Node will never execute the timeout callback because the event loop is stuck on this while loop started on line 7, never giving it a chance to process the timeout event!
+Modules and NPM Modules
+Client-side JavaScript has a bad reputation also because of the common namespace shared by all scripts, which can lead to conflicts and security leaks.
+Node implements the CommonJS modules standard, where each module is separated from the other modules, having a separate namespace to play with, and exporting only the desired properties.
+To include an existing module you can use the require function like this: 1 varmodule=require('module_name');
+This will fetch a module that was installed by NPM (more about NPM later). If you want to author modules (as you should when building an application), you can also use the relative notation like this:
+1 varmodule=require("./path/to/module_name");
+This will fetch the module from a path relative to the current file we are executing. We will cover
+creating modules in a later section.
+In this format you can use an absolute path (starting with “/”) or a relative one (starting with “.”).
+Modules are loaded only once per process, that is, when you have several require calls to the same module, Node caches the require call if it resolves to the same file. Which leads us to the next chapter.
+How Node resolves a module path
+So, how does node resolve a call to “require(module_path)”? Here is the recipe:
+Core modules
+There are a list of core modules, which Node includes in the distribution binary. If you require one of those modules, Node just returns that module and the require() ends.
+Modules with complete or relative path
+If the module path begins with “./” or “/”, Node tries to load the module as a file. If it does not succeed, it tries to load the module as a directory.
+Modules and NPM 19
+As a file
+When loading as a file, if the file exists, Node just loads it as JavaScript text. If not, it tries doing the same by appending “.js” to the given path. If not, it tries appending “.node” and load it as a binary add-on.
+As a directory
+If appending “/package.json” is a file, try loading the package definition and look for a “main” field. Try to load it as a file.
+If unsuccessful, try to load it by appending “/index” to it.
+As an installed module
+If the module path does not begin with “.” or “/” or if loading it with complete or relative paths does not work, Node tries to load the module as a module that was previously installed. For that it adds “/node_modules” to the current directory and tries to load the module from there. If it does not succeed it tries adding “/node_modules” to the parent directory and load the module from there. If it does not succeed it moves again to the parent directory and so on, until either the module is found or the root of the tree is found.
+This means that you can put your Node modules into your app directory, and Node will find those.
+Later we will see how using this feature together with NPM we can bundle and “freeze” your application dependencies.
+Also you can, for instance, have a node_modules directory on the home folder of each user, and so on. Node tries to load modules from these directories, starting first with the one that is closest up the path.
+NPM - Node Package Manager
+NPM has become the standard for managing Node packages throughout time, and tight collaboration between Isaac Schlueter - the original author of NPM - and Ryan Dahl - the author and maintainer on Node - has further tightened this relationship to the point where, starting at version 0.4.0, Node supports the package.json file format to indicate dependencies and package starting file. NPM is also installed when you install Node.
+Global vs. Local
+NPM has two fundamentally different ways of working: local and global.
+In the global mode, all packages are installed inside a shared folder, and you can keep only one version of each package.
+Modules and NPM 20
+In local mode you can have different installed packages per directory: In this mode NPM keeps a local directory named “node_modules” where it keeps the local modules installed. By switching directories you are inside different local contexts that can have different modules installed.
+NPM works in local mode by default. To enable global mode you must explicitly use the “-g” switch to any of the following commands.
+NPM commands
+NPM can be used on the command line. The basic commands are:
+]
+npm ls [filter]
+Use this to see the list of all packages and their versions (npm ls with no filter), or filter by a tag (npm filter tag). Examples:
+List all installed packages:
+1 $npmlsinstalled List all stable packages:
+1 $npmlsstable
+You can also combine filters:
+1 $npmlsinstalledstable
+You can also use npm ls to search by name:
+1 $npmlsfug
+(this will return all packages that have “fug” inside its name or tags)
+You can also query it by version, prefixed with the “@” character:
+1 $npmls@1.0 ]
+npm install package[@filters]
+With this command you can install a package and all the packages it depends on. To install the latest version of a package do:
+Modules and NPM 21
+1 $npminstallpackage_name Example:
+1 $npminstallexpress
+To install a specific version of a package do:
+1 $npminstallpackage_name@version Example:
+1 $npminstallexpress@2.0.0beta
+To install the latest within a version range you can specify, for instance:
+1 $npminstallexpress@">=0.1.0 2
+3 Youcanalsocombinemanyfilterstoselectaspecificversion,combiningversion\
+4 range and / or tags like this:
+5
+6 $npminstallsax@">=0.1.0 7
+8 Alltheabovecommandsinstallpackagesintothelocaldirectory.Toinstallapac\
+9 kageglobally,usethe"-g"switchlikethis:
+10
+11 $npminstall-gexpress
+[
+package_name[@version] ...]]npm rm package_name[@version] [package_name[@version] ...]
+Use this command to uninstall packages. If versions are omitted, then all the found versions are removed.
+Example:
+1 $npmrmsax
+If you wish to remove a package that was installed globally you need to explicitly use the “-g” switch:
+1{ 2
+3
+4
+"name": "myapp",
+"version": 1.0.0,
+"dependencies": {
+5
+6 7} 8}
+"request": "*",
+"async": "*"
+Modules and NPM 22
+1 $npmrm-gexpress [
+[.]...]]npm view [@] [[.]...]
+To view all of a package info. Defaults to the latest version if version is omitted. View the latest info on the “connect” package:
+1 $npmviewconnect
+View information about a specific version:
+1 $npmviewconnect@1.0.3
+Further on we will look more into NPM and how it can help us bundle and “freeze” application
+dependencies.
+The Package.json Manifest
+Each application or module can (and should) have a manifest file named package.json at it’s root. This files tells, amongst other things, the name of the module, the current version of it and what it’s dependencies are.
+If a module or application depends on other modules it should have a package.json file at it’s root stating which modules it depends on.
+For instance, if my application is named “myapp” and depends on third-party modules request and async it should contain a package.json file like this:
+This manifest states that this application depends on any version of the modules request and async, denoted by the * as the version specification. Should the application rely on specific versions of any of these modules, it should specify the version like this:
+1{ 2
+3
+4
+"name": "myapp",
+"version": 1.0.0,
+"dependencies": {
+5
+6 7} 8}
+"request": "2.27.0",
+"async": "0.2.9"
+1{ 2
+3
+4
+"name": "myapp",
+"version": 1.0.0,
+"dependencies": {
+5
+6 7} 8}
+"request": "2.27.x",
+"async": "0.2.x"
+Modules and NPM 23
+Here we’re tying the application to these two specific versions, but we can set the version specification to be more loose:
+In this case we’re saying that the application depends on request version 2 (major) . 27 (minor) and that any patch version is acceptable. The request version 2.27.3, should it exist, satisfies this requirement, as does version 2.27.0.
+It’s common practise to depend on a specific major and minor version and not specify the patch version, since patch versions should thoeretically only solve issues.
+If you’re going to deploy your application into several machines, consider specifying the exact version: pin down the major, minor and patch versions of each module. This prevents having two distinct Node processes running different versions of modules that may cause different behaviour, preventing bugs from being easily reproduced and traced.
+￼￼
+Utilities
+console
+Node provides a global “console” object to which you can output strings using:
+1 console.log("Hello");
+This simply outputs the string into the process stdout after formatting it. You can pass in, instead of
+a string, an object like this:
+1 vara={1:true,2:false};
+2 console.log(a);//=>{'1':true,'2':false}
+In this case console.log outputs the object using util.inspect (covered later); You can also use string interpolation like this:
+1 vara={1:true,2:false};
+2 console.log('Thisisanumber:%d,andthisisastring:%s,andthisisanobjec\
+3 toutputtedasJSON:%j',42,'Hello',a);
+Which outputs:
+1 Thisisanumber:42,andthisisastring:Hello,andthisisanobjectoutputte\
+2 dasJSON:{"1":true,"2":false}
+console also allows you to write into the the stderr using:
+1 console.warn("Warning!");
+and to print a stack trace:
+Utilities 25
+1 console.trace(); 2
+3 Trace:
+4 at
+5 at
+6 at
+7 at
+8 at
+9 at
+10 at
+11 at
+12 at
+13 at
+util
+Node has an util module which bundles some functions like:
+1 varutil=require('util');
+2 util.log('Hello');
+which outputs a the current timestamp and the given string like this:
+1 14Mar16:38:31-Hello
+The inspect function is a nice utility which can aid in quick debugging by inspecting and printing
+an object properties like this:
+1 varutil=require('util');
+2 vara={1:true,2:false};
+3 console.log(util.inspect(a));
+4 //=>{'1':true,'2':false}
+util.inspect accepts more arguments, which are:
+1 util.inspect(object,showHidden,depth=2,showColors);
+[object Context]:1:9
+Interface. (repl.js:171:22)
+Interface.emit (events.js:64:17)
+Interface._onLine (readline.js:153:10)
+Interface._line (readline.js:408:8)
+Interface._ttyWrite (readline.js:585:14)
+ReadStream. (readline.js:73:12)
+ReadStream.emit (events.js:81:20)
+ReadStream._emitKey (tty_posix.js:307:10)
+ReadStream.onData (tty_posix.js:70:12)
+Utilities 26
+the second argument, showHidden should be turned on if you wish inspect to show you non- enumerable properties, which are properties that belong to the object prototype chain, not the object itself. depth, the third argument, is the default depth on the object graph it should show. This is useful for inspecting large objects. To recurse indefinitely, pass a null value.
+Tip: util.inspect keeps track of the visited objects, so circular dependencies are no problem, and will appear as “[Circular]” on the outputted string.
+The util module has some other niceties, such as inheritance, which will be covered in a more appropriate chapter.
+Buffers
+Natively, JavaScript is not very good at handling binary data, so Node adds a native buffer implementation with a JavaScript way of manipulating it. It’s the standard way in Node to transport data.
+Generally, you can pass buffers on every Node API requiring data to be sent.
+Also, when receiving data on a callback, you get a buffer (except when you specify a stream encoding, in which case you get a String).
+This will be covered later.
+You can create a Buffer from an UTF-8 string like this:
+1 varbuf=newBuffer('HelloWorld!');
+You can also create a buffer from strings with other encodings, as long as you pass it as the second
+argument:
+1 varbuf=newBuffer('8b76fde713ce','base64'); Accepted encodings are: “ascii”, “utf8” and “base64”.
+or you can create a new empty buffer with a specific size:
+1 varbuf=newBuffer(1024); and you can manipulate it:
+1 buf[20]=56;//setbyte20to56
+You can also convert it to a UTF-8-encoded string:
+1 varstr=buf.toString();
+or into a string with an alternative encoding:
+Buffers 28
+1 varstr=buf.toString('base64');
+UTF-8 is the default encoding for Node, so, in a general way, if you omit it as we did on the
+buffer.toString() call, UTF-8 will be assumed. Slice a buffer
+A buffer can be sliced into a smaller buffer by using the appropriately named slice() method like this:
+1 varbuffer=newBuffer('thisisthestringinmybuffer');
+2 varslice=buffer.slice(10,20);
+Here we are slicing the original buffer that has 31 bytes into a new buffer that has 10 bytes equal to the 10th to 20th bytes on the original buffer.
+Note that the slice function does not create new buffer memory: it uses the original untouched buffer underneath.
+Tip: If you are afraid you will be wasting precious memory by keeping the old buffer around when slicing it, you can copy it into another like this:
+Copy a buffer
+You can copy a part of a buffer into another pre-allocated buffer like this:
+1 varbuffer=newBuffer('thisisthestringinmybuffer');
+2 varslice=newBuffer(10);
+3 vartargetStart=0,
+4 sourceStart = 10,
+5 sourceEnd = 20;
+6 buffer.copy(slice,targetStart,sourceStart,sourceEnd);
+Here we are copying part of buffer into slice, but only positions 10 through 20. Buffer Exercises
+Exercise 1
+Create an uninitialized buffer with 100 bytes length and fill it with bytes with values starting from 0 to 99. And then print its contents.
+Buffers 29
+Exercise 2
+Do what is asked on the previous exercise and then slice the buffer with bytes ranging 40 to 60. And then print it.
+Exercise 3
+Do what is asked on exercise 1 and then copy bytes ranging 40 to 60 into a new buffer. And then print it.
+Event Emitter
+On Node many objects can emit events. For instance, a TCP server can emit a ‘connect’ event every time a client connects. Or a file stream request can emit a ‘data’ event.
+.addListener
+You can listen for these events by calling one of these objects’ “addListener” method, passing in a callback function. For instance, a file ReadStream can emit a “data” event every time there is some data available to read.
+Instead of using the “addListener” function, you can also use the “on” method, which is simply an alias for “addListener”:
+1 varfs=require('fs');//getthefsmodule
+2 varreadStream=fs.createReadStream('/etc/passwd');
+3 readStream.on('data',function(data){
+4 console.log(data);
+5 });
+6 readStream.on('end',function(){
+7 console.log('file ended');
+8 });
+Here we are binding to the readStream’s “data” and “end” events, passing in callback functions to handle each of these cases. When one of these events happens, the readStream will call the callback function we pass in.
+You can either pass in an anonymous function as we are doing here, or you can pass a function name for a function available on the current scope, or even a variable containing a function.
+.once
+You may also want to listen for an event exactly once. For instance, if you want to listen to the first connection on a server, you should do something like this:
+1 2 3
+1
+2
+3 4}
+5
+1
+1
+2
+3
+4
+5
+6
+7 8} 9
+Event Emitter 31
+server.once('connection',function(stream){ console.log('Ah, we have our first user!');
+});
+This works exactly like our “on” example, except that our callback function will be called at most once. It has the same effect as the following code:
+functionconnListener(stream){
+console.log('Ah, we have our first user!'); server.removeListener('connection', connListener);
+server.on('connection',connListener);
+Here we are using removeListener, which also belongs to the EventEmitter pattern. It accepts the
+event name and the function it should remove.
+.removeAllListeners
+If you ever need to, you can also remove all listeners for an event from an Event Emitter by simply calling
+server.removeAllListeners('connection'); Creating an Event Emitter
+If you are interested in using this Event Emitter pattern - and you should - throughout your application, you can. You can create a pseudo-class and make it inherit from the EventEmitter like this:
+varEventEmitter=require('events').EventEmitter, util = require('util');
+//HereistheMyClassconstructor:
+varMyClass=function(option1,option2){ this.option1 = option1;
+this.option2 = option2;
+10 util.inherits(MyClass,EventEmitter);
+util.inherits is setting up the prototype chain so that you get the EventEmitter prototype methods
+available to your MyClass instances.
+This way instances of MyClass can emit events:
+Event Emitter 32
+1 MyClass.prototype.someMethod=function(){
+2 this.emit('custom event', 'some arguments'); 3}
+Here we are emiting an event named “custom event”, sending also some data (“some arguments” in this case).
+Now clients of MyClass instances can listen to “custom event” events like this:
+1 varmyInstance=newMyClass(1,2);
+2 myInstance.on('customevent',function(){
+3 console.log('got a custom event!');
+4 });
+Tip: The Event Emitter is a nice way of enforcing the decoupling of interfaces, a software design technique that improves the independence from specific interfaces, making your code more flexible.
+Event Emitter Exercises Exercise 1
+Build a pseudo-class named “Ticker” that emits a “tick” event every 1 second.
+Exercise 2
+Build a script that instantiates one Ticker and bind to the “tick” event, printing “TICK” every time it gets one.
+Timers
+Node implements the timers API also found in web browsers. The original API is a bit quirky, but it hasn’t been changed for the sake of consistency.
+setTimeout
+setTimeout lets you schedule an arbitrary function to be executed in the future. An example:
+1 vartimeout=2000;//2seconds
+2 setTimeout(function(){
+3 console.log('timed out!');
+4 },timeout);
+This code will register a function to be called when the timeout expires. Again, as in any place in JavaScript, you can pass in an inline function, the name of a function or a variable whose value is a function.
+You can use setTimeout with a timeout value of 0 so that the function you pass gets executed some time after the stack clears, but with no waiting. This can be used to, for instance schedule a function that does not need to be executed immediately.
+This was a trick sometimes used on browser JavaScript, but, as we will see, Node’s process.nextTick() can be used instead of this, and it’s more efficient.
+clearTimeout
+setTimeout returns a timeout handle that you can use to disable it like this:
+1 vartimeoutHandle=setTimeout(function(){console.log('yehaa!');},1000);
+2 clearTimeout(timeoutHandle);
+Here the timeout will never execute because we clear it right after we set it. Another example:
+Source code in chapters/timers/timers_1.js
+1 2 3 4 5 6 7 8
+vartimeoutA=setTimeout(function(){ console.log('timeout A');
+},2000);
+vartimeoutB=setTimeout(function(){ console.log('timeout B'); clearTimeout(timeoutA);
+},1000);
+Here we are starting two timers: one with 1 second (timeoutB) and the other with 2 seconds (timeoutA). But timeoutB (which fires first) unschedules timeoutA on line 7, so timeoutA never executes - and the program exits right after line 7 is executed.
+setInterval
+Set interval is similar to set timeout, but schedules a given function to run every X seconds like this: Source code in chapters/timers/timers_2.js
+varperiod=1000;//1second varinterval=setInterval(function(){
+console.log('tick'); },period);
+This will indefinitely keep the console logging “tick” unless you terminate Node. You can unschedule an interval by calling clearInterval.
+clearInterval
+clearInterval unschedules a running interval (previously scheduled with setInterval). varinterval=setInterval(...);clearInterval(interval);
+Here we are using the setInterval return value stored on the interval variable to unschedule it on line 2.
+setImmediate
+You can also schedule a callback function to run on the next run of the event loop. You can use it like this:
+1 2 3 4
+1
+Timers 34
+1 2 3 4
+setImmediate(function(){
+// this runs on the next event loop console.log('yay!');
+});
+As we saw, this method is prefered to setTimeout(fn, 0) because it is more efficient. Escaping the event loop
+On each loop, the event loop executes the queued I/O events sequentially by calling the associated callbacks. If, on any of the callbacks you take too long, the event loop won’t be processing other pending I/O events meanwhile. This can lead to an increased latency in our application or service. When executing something that may take too long, you can delay the execution until the next event loop, so waiting events will be processed meanwhile. It’s like going to the back of the line on a waiting line.
+To escape the current event loop you can use setImmediate() like this:
+setImmediate(function(){ // do something
+});
+You can use this to delay processing that does not have to run immediately, until the next event loop.
+For instance, you may need to remove a file, but perhaps you don’t need to do it before replying to the client. So, you could do something like this:
+stream.on('data',function(data){ stream.end('my response'); setImmediate(function() {
+    fs.unlink('path/to/file');
+  });
+});
+A note on tail recursion
+Let’s say you want to schedule a function that does some I/O - like parsing a log file - to execute periodically, and you want to guarantee that no two of those functions are executing at the same time. The best way is not to use a setInterval, since you don’t have that guarantee. The interval will fire regardless of whether the function has finished its duty or not.
+Supposing there is an asynchronous function called “async” that performs some I/O and gets a callback to be invoked when finished. We want to call it every second, so:
+1 2 3
+1 2 3 4 5 6
+Timers 35
+1 2 3 4 5 6
+1 2 3 4 5 6 7 8 9
+varinterval=1000;//1second setInterval(function(){
+async(function() { console.log('async is done!');
+}); },interval);
+If any two async() calls can’t overlap, you are better off using tail recursion like this:
+varinterval=1000;//1second (functionschedule(){
+setTimeout(function() { async(function() {
+      console.log('async is done!');
+      schedule();
+    });
+  }, interval)
+})();
+Here we are declaring a function named schedule (line 2) and we are invoking it immediately after we are declaring it (line 9).
+This function schedules another function to execute within one second (line 3 to 8). This other function will then call async() (line 4), and only when async is done we schedule a new one by calling schedule() again (line 6), this time inside the schedule function. This way we can be sure that no two calls to async execute simultaneously in this context.
+The difference is that we probably won’t have async called every second (unless async takes no time to execute), but we will have it called 1 second after the last one finished.
+Timers 36
+Low-level file-system
+Node has a nice streaming API for dealing with files in an abstract way, as if they were network streams, but sometimes you might need to go down a level and deal with the filesystem itself.
+First, a nice set of utilities:
+fs.stat and fs.fstat
+You can query some meta-info on a file (or dir) by using fs.stat like this:
+1 varfs=require('fs'); 2
+3 fs.stat('/etc/passwd',function(err,stats){
+4 if (err) {console.log(err.message); return; }
+5 console.log(stats);
+6 //console.log('this file is ' + stats.size + ' bytes long.');
+7 });
+If you print the stats object it will be something like:
+1 {dev:234881026,
+2 ino: 24606,
+3 mode: 33188,
+4 nlink: 1,
+5 uid: 0,
+6 gid: 0,
+7 rdev: 0,
+8 size: 3667,
+9 blksize: 4096,
+10 blocks: 0,
+11 atime: Thu, 17 Mar 2011 09:14:12 GMT,
+12 mtime: Tue, 23 Jun 2009 06:19:47 GMT,
+13 ctime: Fri, 14 Aug 2009 20:48:15 GMT
+14 }
+stats is a Stats instance, with which you can call:
+Low-level file-system 38
+1 stats.isFile()
+2 stats.isDirectory()
+3 stats.isBlockDevice()
+4 stats.isCharacterDevice()
+5 stats.isSymbolicLink()
+6 stats.isFIFO()
+7 stats.isSocket()
+If you have a plain file descriptor you can use fs.fstat(fileDescriptor, callback) instead.
+More about file descriptors later.
+If you are using the low-level filesystem API in Node, you will get file descriptors as a way to represent files. These file descriptors are plain integer numbers that represent a file in your Node process, much like in C POSIX APIs.
+Open a file
+You can open a file by using fs.open like this:
+1 varfs=require('fs');
+2 fs.open('/path/to/file','r',function(err,fd){
+3 // got fd
+4 });
+The first argument to fs.open is the file path. The second argument contains the flags, indicating the mode in which the file is to be opened. The flags can be ‘r’, ‘r+’, ‘w’, ‘w+’, ‘a’, or ‘a+’.
+Here follow the semantics for each flag, taken from the fopen man page:
+• r - Open text file for reading. The stream is positioned at the beginning of the file.
+• r+ - Open for reading and writing. The stream is positioned at the beginning of
+the file.
+• w - Truncate file to zero length or create text file for writing. The stream is
+positioned at the beginning of the file.
+• w+-Openforreadingandwriting.Thefileiscreatedifitdoesnotexist,otherwise
+it is truncated. The stream is positioned at the beginning of the file.
+• a-Openforwriting.Thefileiscreatedifitdoesnotexist.Thestreamispositioned at the end of the file. Subsequent writes to the file will always end up at the then
+current end of file.
+• a+-Openforreadingandwriting.Thefileiscreatedifitdoesnotexist.Thestream
+is positioned at the end of the file. Subsequent writes to the file will always end up at the then current end of file.
+On the callback function, you get a second argument (fd), which is a file descriptor- nothing more than an integer that identifies the open file, which you can use like a handler to read and write from.
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+Read from a file
+Once it’s open, you can also read from a file like this: Source code in chapters/fs/read.js
+varfs=require('fs'); fs.open('/var/log/system.log','r',function(err,fd){
+if (err) throw err;
+var readBuffer = new Buffer(1024),
+    bufferOffset = 0,
+    bufferLength = readBuffer.length,
+    filePosition = 100;
+fs.read(fd, readBuffer, bufferOffset, bufferLength, filePosition, function(err, readBytes) {
+if (err) throw err;
+console.log('just read ' + readBytes + ' bytes'); if (readBytes > 0) {
+        console.log(readBuffer.slice(0, readBytes));
+      }
+}); });
+Here we are opening the file, and when it’s opened we are asking to read a chunk of 1024 bytes from it, starting at position 100 (line 9). The last argument to the fs.read call is a callback function (line 10) which will be invoked when one of the following 3 happens:
+• there is an error,
+• something has been read or • nothing could be read.
+On the first argument, this callback gets an error if there was an one, or null. On the second argument (readBytes) it gets the number of bytes read into the buffer. If the read bytes is zero, the file has reached the end.
+Write into a file
+To write into a file descriptor you can use fs.write like this:
+Low-level file-system 39
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+varfs=require('fs');
+fs.open('/var/log/system.log','a',function(err,fd){ var writeBuffer = new Buffer('writing this string'),
+bufferOffset = 0,
+bufferLength = writeBuffer.length, filePosition = null;
+  fs.write(
+    fd,
+writeBuffer, bufferOffset, bufferLength, filePosition, function(err, written) {
+if (err) { throw err; }
+      console.log('wrote ' + written + ' bytes');
+    }
+); });
+Low-level file-system 40
+Here we are opening the file in append-mode (‘a’) on line 3, and then we are writing into it (line 8), passing in a buffer with the data we want written, an offset inside the buffer where we want to start writing from, the length of what we want to write, the file position and a callback. In this case we are passing in a file position of null, which is to say that he writes at the current file position. Here we are also opening in append-mode, so the file cursor is positioned at the end of the file.
+Close Your files
+On all these examples we did not close the files. This is because these are small simple examples destined to be run and returned. All open files will be closed once the process exits.
+In real applications you should keep track of those file descriptors and eventually close them using fs.close(fd[, callback]) when no longer needed.
+File-system Exercises
+You can check out the solutions at the end of this book.
+Exercise 1 - get the size of a file
+Having a file named a.txt, print the size of that files in bytes.
+Low-level file-system 41
+Exercise 2 - read a chunk from a file
+Having a file named a.txt, print bytes 10 to 14.
+Exercise 3 - read two chunks from a file
+Having a file named a.txt, print bytes 5 to 9, and when done, read bytes 10 to 14.
+Exercise 4 - Overwrite a file
+Having a file named a.txt, Overwrite it with the UTF-8-encoded string “ABCDEFGHIJLKLMNOPQRSTU- VXYZ0123456789abcdefghijklmnopqrstuvxyz”.
+Exercise 5 - append to a file
+Having a file named a.txt, append UTF-8-encoded string “abc” to file a.txt.
+Exercise 6 - change the content of a file
+Having a file named a.txt, change byte at pos 10 to the UTF-8 value of “7”.
+1 2 3 4 5 6 7 8 9
+HTTP HTTP Server
+You can easily create an HTTP server in Node. Here is the famous http server “Hello World” example:
+Source in file: http/http_server_1.js
+varhttp=require('http');
+varserver=http.createServer(); server.on('request',function(req,res){
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.write('Hello World!');
+  res.end();
+});
+server.listen(4000);
+On line 1 we get the ‘http’ module, from which we call createServer() (line 3) to create an HTTP server.
+We then listen for ‘request’ type events, passing in a callback function that takes two arguments: the request object and the response object. We can then use the response object to write back to the client.
+On line 5 we write a header (ContentType: text/plain) and the HTTP status 200 (OK).
+On line 6 we reply with the string “Hello World!” and on line 7 we terminate the request.
+On line 9 we bind the server to the port 4000.
+So, if you run this script on node you can then point your browser to http://localhost:4000 and you should see the “Hello World!” string on it.
+This example can be shortened to:
+Source in file: http/http_server_2.js
+1 2 3 4
+require('http').createServer(function(req,res){ res.writeHead(200, {'Content-Type': 'text/plain'}); res.end('Hello World!');
+}).listen(4000);
+Here we are giving up the intermediary variables for storing the http module (since we only need to call it once) and the server (since we only need to make it listen on port 4000). Also, as a shortcut, the http.createServer function accepts a callback function that will be invoked on every request.
+There is one last shortcut here: the response.end function can accept a string or buffer which it will send to the client before ending the request.
+The http.ServerRequest object
+When listening for “request” events, the callback gets one of these objects as the first argument. This object contains:
+req.url
+The URL of the request, as a string. It does not contain the schema, hostname or port, but it contains everything after that. You can try this to analyze the url:
+Source in file: http/http_server_3.js
+require('http').createServer(function(req,res){ res.writeHead(200, {'Content-Type': 'text/plain'}); res.end(req.url);
+}).listen(4000);
+and connect to port 4000 using a browser. Change the URL to see how it behaves.
+req.method
+This contains the HTTP method used on the request. It can be, for example, ‘GET’, ‘POST’, ‘DELETE’ or any other one.
+req.headers
+This contains an object with a property for every HTTP header on the request. To analyze it you can run this server:
+Source in file: http/http_server_4.js
+1 2 3 4
+HTTP 43
+1 2 3 4 5 6
+varutil=require('util');
+require('http').createServer(function(req,res){ res.writeHead(200, {'Content-Type': 'text/plain'}); res.end(util.inspect(req.headers));
+}).listen(4000);
+and connect your browser to port 4000 to inspect the headers of your request.
+Here we are using util.inspect(), an utility function that can be used to analyze the properties of any object.
+req.headers properties names are lower-case. For instance, if the browser sent a “Cache-Control: max-age: 0” header, req.headers will have a property named “cache-control” with the value “max- age: 0” (this last one is untouched).
+The http.ServerResponse object
+The response object (the second argument for the “request” event callback function) is used to reply to the client. With it you can:
+Write a header You can use res.writeHead(status, headers), where headers is an object that contains a property for every header you want to send.
+An example:
+Source in file: http/http_server_5.js
+varutil=require('util');
+require('http').createServer(function(req,res){ res.writeHead(200, {
+    'Content-Type': 'text/plain',
+    'Cache-Control': 'max-age=3600'
+  });
+  res.end('Hello World!');
+}).listen(4000);
+In this example we set 2 headers: one with “Content-Type: text/plain” and another with “Cache- Control: max-age=3600”.
+If you save the above source code into http_server_5.js and run it with:
+1 2 3 4 5 6 7 8 9
+HTTP 44
+HTTP 45
+1 $nodehttp_server_5.js
+You can query it by using your browser or using a command-line HTTP client like curl:
+1 $curl-ihttp://localhost:4000
+2 HTTP/1.1200OK
+3 Content-Type:text/plain
+4 Cache-Control:max-age=3600
+5 Connection:keep-alive
+6 Transfer-Encoding:chunked
+7
+8 HelloWorld!
+Change or set a header You can change a header you already set or set a new one by using 1 res.setHeader(name,value);
+This will only work if you haven’t already sent a piece of the body by using res.write().
+Remove a header You can remove a header you have already set by calling: 1 res.removeHeader(name,value);
+Again, this will only work if you haven’t already sent a piece of the body by using res.write() or res.end().
+Write a piece of the response body You can write a string: 1 res.write('Hello');
+or an existing buffer:
+1 varbuf=newBuffer('HelloWorld');
+2 buf[0]=45;
+3 res.write(buffer);
+This method can, as expected, be used to reply with dynamically generated strings or a binary file. Replying with binary data will be covered later.
+1 2 3 4 5 6 7 8 9
+10 11 12 13
+1 2
+1
+HTTP Client
+You can issue http requests using the “http” module. Node is specifically designed to be a server, but it can itself call other external services and act as a “glue” service. Or you can simply use it to run a simple http client script like this one:
+http.get()
+Source in file: http/http_client_1.js
+varhttp=require('http');
+varoptions={
+host: 'www.google.com', port: 80,
+path: '/index.html'
+};
+http.get(options,function(res){ console.log('got response: ' + res.statusCode);
+}).on('error',function(err){ console.log('got error: ' + err.message)
+});
+This example uses http.get to make an HTTP GET request to the url http://www.google.com:80/index.html. You can try it by saving it to a file named http_client_1.js and running:
+$nodehttp_client_1.js gotresponse:302
+http.request()
+Using http.request you can make any type of HTTP request: http.request(options,callback);
+The options are:
+• host: A domain name or IP address of the server to issue the request to.
+HTTP 46
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+• port: Port of remote server.
+• method: A string specifying the HTTP request method. Possible values: ‘GET’ (default),
+‘POST’, ‘PUT’, and ‘DELETE’.
+• path:Requestpath.Shouldincludequerystringandfragmentsifany.E.G.‘/index.html?page=12’
+• headers: An object containing request headers.
+The following method makes it easy to send body values (like when you are uploading a file or posting a form):
+Source in file: http/http_client_2.js
+varoptions={
+host: 'www.google.com', port: 80,
+path: '/upload', method: 'POST'
+};
+varreq=require('http').request(options,function(res){ console.log('STATUS: ' + res.statusCode); console.log('HEADERS: ' + JSON.stringify(res.headers)); res.setEncoding('utf8');
+res.on('data', function (chunk) { console.log('BODY: ' + chunk);
+}); });
+//writedatatorequestbody
+req.write("data\n");
+req.write("data\n");
+req.end();
+On lines 18 and 19 we are writing the HTTP request body data (two lines with the “data” string) and on line 20 we are ending the request. Only then the server replies and the response callback gets activated (line 8).
+Then we wait for the response. When it comes, we get a “response” event, which we are listening to on the callback function that starts on line 8. By then we only have the HTTP status and headers ready, which we print (lines 9 and 10).
+Then we bind to “data” events (line 12). These happen when we get a chunk of the response body data (line 12).
+This mechanism can be used to stream data from a server. As long as the server keeps sending body chunks, we keep receiving them.
+HTTP 47
+HTTP 48
+HTTP Exercises
+You can checkout the solutions at the end of this book.
+Exercise 1
+Make an HTTP server that serves files. The file path is provided in the URL like this: http://localhost:4000/path/to/my
+Exercise 2
+Make an HTTP server that outputs plain text with 100 new-line separated unix timestamps every second.
+Exercise 3
+Make an HTTP server that saves the request body into a file.
+Exercise 4
+Make a script that accepts a file name as first command line argument and uploads this file into the server built on the previous exercise.
+/
+Streams
+Node has a useful abstraction: Streams. More specifically, two very useful abstractions: Read Streams and Write Streams. They are implemented throughout several Node objects, and they represent inbound (ReadStream) or outbound (WriteStream) flow of data. We have already come across some of them, but here we will try to introduce them in a more formal way.
+ReadStream
+A ReadStream is like a faucet of data. After you have created one (and the method of creating them depends on the type of stream), you can:
+Wait for data
+By binding to the “data” event you can be notified every time there is a chunk being delivered by that stream. It can be delivered as a buffer or as a string.
+If you use stream.setEncoding(encoding), the “data” events pass in strings. If you don’t set an encoding, the “data” events pass in buffers. So here is an example:
+1 varreadStream=...
+2 readStream.on('data',function(data){
+3 // data is a buffer;
+4 });
+5
+6 varreadStream=...
+7 readStream.setEncoding('utf8');
+8 readStream.on('data',function(data){
+9 // data is a UTF-8-encoded string;
+10 });
+So here data passed in on the first example is a buffer, and the one passed on the second is a string
+because we are informing the stream about the encoding we are expecting.
+The size of each chunk may vary; it may depend on buffer size or on the amount of available data.
+Know when it ends
+A stream can end, and you can know when that happens by binding to the “end” event like this:
+Streams 50
+1 varreadStream=...
+2 readStream.on('end',function(){
+3 console.log('the stream has ended');
+4 });
+Pause it
+A read stream is like a faucet, and you can keep the data from coming in by pausing it like this:
+1 readStream.pause(); Resume it
+If it’s paused, the faucet can be reopened and the stream can start flowing again:
+1 readStream.resume();
+WriteStream
+A WriteStream is an abstraction on somewhere you can send data to. It can be a file or a network connection or even an object that outputs data that was transformed - like when zipping a file. With a WriteStream you can:
+Write to it
+You can write a buffer or a string by calling write:
+1 varwriteStream=...;
+2 writeStream.write('thisisanUTF-8string');
+Here Node assumes we are passing an UTF-8-encoded string. Alternatively you can specify another encoding like this:
+1 varwriteStream=...;
+2 writeStream.write('7e3e4acde5ad240a8ef5e731e644fbd1','base64');
+or you can simply write a buffer:
+Streams 51
+1 varwriteStream=...;
+2 varbuffer=newBuffer('thisisabufferwithsomestring');
+3 writeStream.write(buffer);
+Wait for it to drain
+Node does not block on I/O, so it does not block on read or write commands. On write commands, if Node is not able to flush the data into the kernel buffers, it will buffer that data for you, storing it in your process memory. Because of this, writeStream.write() returns a boolean. If write() manages to flush all data to the kernel buffer, it returns true. If not, it returns false.
+When a writeStream manages to flush the data into the kernel buffers, it emits a “drain” event so you can listen to it like this:
+1 varwriteStream=...;
+2 writeStream.on('drain',function(){
+3 console.log('write stream drained');
+4 });
+Later we will see how this draining notification combined with the pause and resume capabilities can come in handy when limiting the memory growth of your Node process.
+Some stream examples
+Here are some instances of Node streams.
+Filesystem streams
+You can create a read stream for a file path by doing something like:
+1 varfs=require('fs');
+2 varrs=fs.createReadStream('/path/to/file');
+3 ...
+Here you can pass a second argument to fs.createReadStream where you can specify the start and end position on your file, the encoding, the flags and the buffer size. Here are the defaults:
+1
+2
+3
+4
+5 6}
+Streams 52
+{flags:'r', encoding: null,
+fd: null,
+mode: 0666, bufferSize: 64 * 1024
+You can also create a write stream:
+1 varfs=require('fs');
+2 varrs=fs.createWriteStream('/path/to/file',options);
+3 ...
+Which also accepts a second argument with an options object. The options argument to cre- ateWriteStream has these default values:
+1 { flags: 'w', encoding: null, mode: 0666 }
+For instance, to create a file WriteStream that assumes UTF-8 encoding you can use:
+1 varfs=require('fs');
+2 varrs=fs.createWriteStream('/path/to/file',{encoding:'utf8'});
+Network streams
+There are all kinds of streams on the networking API of Node. For instance, a client TCP connection is a write and a read stream. An http request object is a read stream. An http response object is a write stream. That is, each implements the ReadStream / WriteStream methods and events.
+The Slow Client Problem and Back-pressure
+As we said, Node does not block on writes, and it buffers the data for you if the write cannot be flushed into the kernel buffers. Imagine this scenario: you are pumping data into a write stream (like a TCP connection to a browser), and your source of data is a read stream (like a file ReadStream):
+1 2 3 4 5 6 7 8 9
+require('http').createServer(function(req,res){ var rs = fs.createReadStream('/path/to/big/file'); rs.on('data', function(data) {
+    res.write(data);
+  });
+rs.on('end', function() { res.end();
+}); });
+If the file is local, the read stream should be fast. If the connection to the client is slow, the writeStream will be slow. So readStream “data” events will happen quickly, the data will be sent to the writeStream, but eventually Node will have to start buffering the data because the kernel buffers will be full.
+What will happen then is that the /path/to/big/file file will be buffered in memory for each request, and if you have many concurrent requests, Node memory consumption will inevitably increase, which may lead to other problems, like swapping, thrashing and memory exhaustion.
+What can we do?
+To address this problem you will have to make use of the pause and resume of the read stream, and pace it alongside your write stream so your memory does not fill up:
+Streams 53
+require('http').createServer(function(req,res){ var rs = fs.createReadStream('/path/to/big/file'); rs.on('data', function(data) {
+1
+2
+3
+4
+5 6}
+7 });
+8 res.on('drain', function() {
+9 rs.resume();
+if (!res.write(data)) { rs.pause();
+10 });
+11 rs.on('end', function() {
+12 res.end();
+13 });
+14 });
+On line 5 we are pausing the readStream if the write cannot flush it to the kernel, and we are resuming it (line 9) when the writeStream is drained.
+1 2 3 4
+1 2 3 4 5 6 7 8
+Pipe
+What was described here is a recurring pattern, and instead of this complicated chain of events, you can simply use stream.pipe(), which does exactly what we described:
+require('http').createServer(function(req,res){ var rs = fs.createReadStream('/path/to/big/file'); rs.pipe(res);
+});
+Much simpler, right? readStream.pipe accepts 1 argument containing the destination writable stream.
+By default, end() is called on the destination when the read stream ends. You can prevent that behavior by passing in end: false on the second argument options object like this:
+varfs=require('fs'); require('http').createServer(function(req,res){
+var rs = fs.createReadStream('/path/to/big/file'); rs.pipe(res, {end: false});
+rs.once('end', function() {
+    res.end("And that's all folks!");
+  }).listen(4000);
+});
+Streams 54
+TCP
+Node has a first-class HTTP server implementation, but this server descends from the “bare-bones” TCP server. Being so, everything described here applies also to every class descending from the net.Server, like the http.Server.
+You can create a TCP server using the “net” module like this:
+1 require('net').createServer(function(socket){ 2
+3 // new connection
+4
+5 socket.on('data', function(data) {
+6 // got data
+7 });
+8
+9 socket.on('end', function(data) {
+10 // connection closed
+11 });
+12
+13 socket.write('Some string'); 14
+15 }).listen(4001);
+On line 1 we use the createServer method on the net package, which we bind to TCP port 4001 on line 15. We can pass in a function callback to createServer to be invoked every time there is a “connection” event.
+Every time there is a connection event, our handler function gets invoked with one argument containing the TCP socket object representing the connection.
+On this socket object we can then listen to “data” events when we get a package of data and the “end” event when that connection is closed.
+On a socket we can also:
+Write a string or a buffer
+We can pass in a string or a buffer to be sent through the socket to the other peer. If a string is passed in, you can specify an encoding as a second argument like this:
+TCP 56
+1 flushed=socket.write('453d9ea499aa8247a54c951','base64'); If you don’t specify the encoding, Node will assume it’s UTF-8.
+The socket object is an instance of net.Socket, which is a writeStream, so the write method returns a boolean, saying whether it flushed to the kernel or not.
+You can also pass in a callback function to be invoked when the data is finally written out like this:
+1 varflushed=connection.write('453d','base64',function(){
+2 // flushed
+3 });
+or, assuming UTF-8:
+1 varflushed=connection.write('IamUTF-8!',function(){
+2 // flushed
+3 });
+end
+You can end the connection by calling the end method. This sends the TCP FIN packet, notifying the other end that this end wants to close the connection.
+But you can still get “data” events after you have issued this, simply because there still might be some data in transit, or the other end might be insisting on sending you some more data. Also, you can pass in some final data to be sent when invoking end:
+1 socket.end('Byebye!');
+...and all the other methods
+socket object is an instance of net.Socket, and it implements the writeStream and readStream interfaces, so all those methods are available, like pause() and resume(). Also you can bind to the “drain” events.
+Idle sockets
+You can also be notified when a socket has been idle for some time, i.e., there has been no data received. For that, you must define a timeout by calling setTimeout():
+TCP 57
+1 vartimeout=60000;//1minute
+2 socket.setTimeout(timeout);
+3 socket.on('timeout',function(){
+4 socket.write('idle timeout, disconnecting, bye!');
+5 socket.end();
+6 });
+or, in a shorter form:
+1 socket.setTimeout(60000,function(){
+2 socket.end('idle timeout, disconnecting, bye!');
+3 });
+Keep-alive
+In Node, a net.Socket can implement a keep-alive mechanism to prevent timeouts occurring on the network or on the peer. Node does that by sending an empty TCP packet with the ACK (Acknowledgement) flag turned on.
+You can enable the keep-alive functionality by:
+1 socket.keepAlive(true);
+You can also specify the delay between the last packet received and the next keep-alive packet on
+the second argument to the keepAlive call like this:
+1 socket.keepAlive(true,10000);//10seconds Delay or no delay
+When sending off TCP packets, the kernel buffers data before sending it off, and uses Nagle’s algorithm to determine when to send off the data. If you wish to turn this off and demand that the data gets sent immediately after write commands, use:
+1 socket.setNoDelay(true); server.close()
+This method closes the server, preventing it from accepting new connections. This function is asynchronous, and the server will emit the “close” event when actually closed:
+TCP 58
+1 varserver=...
+2 server.close();
+3 server.on('close',function(){
+4 console.log('server closed!');
+5 });
+Listening
+As we saw, after the server is created, we can bind it to a specific TCP port like this:
+1 varport=4001;
+2 varhost='0.0.0.0';
+3 server.listen(port,host);
+The second argument (host) is optional. If omitted, the server will accept connections directed to any IP address.
+This method is asynchronous. To be notified when the server is really bound you have to pass a callback like this:
+1 server.listen(port,host,function(){
+2 console.log('server listening on port ' + port);
+3 });
+or without a host:
+1 server.listen(port,function(){
+2 console.log('server listening on port ' + port);
+3 });
+TCP client
+You can connect to a TCP server using the “net” module like this:
+1 varnet=require('net');
+2 varport=4001;
+3 varconn=net.createConnection(port);
+Here we omitted the second argument for the createConnection function, which is the host name. If you omit it, it defaults to localhost.
+Now with a host name:
+1 2 3 4
+1 2 3
+1
+1
+1 2 3
+varnet=require('net');
+varport=80;
+varhost='www.google.com'; varconn=net.createConnection(port,host);
+Then you can listen for data:
+conn.on('data',function(data){ console.log('some data has arrived')
+});
+or send some data:
+conn.write('somestringovertoyou!'); or close it:
+conn.close();
+and also listen to the “close” event:
+conn.on('close',function(){ console.log('connection closed');
+});
+Socket conforms to the ReadStream and WriteStream interfaces, so you can use all of the previously described methods on it.
+Error handling
+When handling a socket on the client or the server you can (and should) handle the errors by listening to the “error” event like this:
+require('net').createServer(function(socket){ socket.on('error', function(error) {
+    // do something
+}); });
+If you don’t choose to catch an error, Node will handle an uncaught exception and terminate the current process. Unless you want that, you should handle the errors.
+1 2 3 4 5
+TCP 59
+TCP 60
+TCP Exercises
+You can check the solutions at the end of the book.
+Exercise 1
+Make a chat server that requires no authentication, just a TCP client connection. Each time the client sends some text, the server broadcasts it to the other clients.
+Exercise 2
+Make a chat client that accepts 2 command line arguments: host and port, and reads from stdin, sending data to the server on each new line.
+1 2 3 4 5 6 7 8 9
+10 11 12 13 14
+1
+Datagrams (UDP)
+UDP is a connection-less protocol that does not provide the delivery characteristics that TCP does. When sending UDP packets, you cannot guaranteed the order they might arrive in, nor whether they will even arrive at all.
+On the other hand, UDP can be quite useful in certain cases, like when you want to broadcast data, when you don’t need hard delivery guarantees and sequence or even when you don’t know the addresses of your peers.
+Datagram server
+You can setup a server listening on a UDP port like this: Code in udp/udp_server_1.js
+vardgram=require('dgram');
+varserver=dgram.createSocket('udp4'); server.on('message',function(message,rinfo){
+  console.log('server got message: ' + message + ' from ' + rinfo.address + ':' +\
+ rinfo.port);
+});
+server.on('listening',function(){
+var address = server.address();
+console.log('server listening on ' + address.address + ':' + address.port);
+});
+server.bind(4000);
+Here we are using the “dgram” module, which provides a way to create a UDP socket (line 3). The createSocket function accepts the socket type as the first argument , which can be either “udp4” (UDP over IPv4), “udp6” (UDP over IPv6) or “unix_dgram” (UDP over unix domain sockets).
+You can save this in a file named “udp_server_1.js” and run it:
+$nodeudp_server_1.js
+Which should output the server address, port and wait for messages. You can test it using a tool like “nc” like this:
+Datagrams (UDP) 62
+1 $echo'hello'|nc-c-u-w1localhost4000
+This sends an UDP packet with “hello” to localhost port 4000. You should then get on the server
+output something like:
+1 servergotmessage:hello
+2 from127.0.0.1:54950
+Datagram client
+To create an UDP client to send UDP packets you can do something like: Code in udp/udp_client_1.js
+1 vardgram=require('dgram');
+2
+3 varclient=dgram.createSocket('udp4'); 4
+5 varmessage=newBuffer('thisisamessage');
+6 client.send(message,0,message.length,4000,'localhost');
+7 client.close();
+Here we are creating a client using the same createSocket function we did to create the client, with the difference that we don’t bind.
+You have to be careful not to change the buffer you pass on client.send before the message has been sent. If you need to know when your message has been flushed to the kernel, you should pass a last argument to client.send with a callback function to be invoked when the buffer may be reused like this:
+1 client.send(message,0,message.length,4000,'localhost',function(){
+2 // you can reuse the buffer now
+3 });
+Since we are not binding, the message is sent from a UDP random port. If we wanted to send from a specfic port, we could have used client.bind(port) like this:
+Code in udp/udp_client_2.js
+Datagrams (UDP) 63
+1 vardgram=require('dgram');
+2
+3 varclient=dgram.createSocket('udp4'); 4
+5 varmessage=newBuffer('thisisamessage');
+6 client.bind(4001);
+7 client.send(message,0,message.length,4000,'localhost');
+8 client.close();
+Here we are binding to the specific port 4001, and when saving this file and executing it, the running server should output something like:
+1 servergotmessage:thisisamessagefrom127.0.0.1:4001
+This port binding on the client really mixes what a server and a client are, and can be useful for
+maintaining conversations like this:
+1 vardgram=require('dgram');
+2
+3 varclient=dgram.createSocket('udp4'); 4
+5 varmessage=newBuffer('thisisamessage');
+6 client.bind(4001);
+7 client.send(message,0,message.length,4000,'localhost');
+8 client.on('message',function(message,rinfo){
+9 console.log('and got the response: ' + message);
+10 client.close();
+11 });
+Here we are sending a message, and also listening to messages. When we receive one message we close the client.
+Don’t forget that UDP is unreliable, and whatever protocol you devise on top of it, account for the fact that messages can be lost or delivered out of order!
+Datagram Multicast
+One of the interesting uses of UDP is to distribute messages to several nodes using only one network message. This can have many uses like logging, cache cleaning and in the general case where you can afford to lose some messages.
+1 2 3 4 5 6 7 8 9
+10
+1
+Message multicasting can be useful when you don’t need to know the address of all peers. Peers just have to “tune in” and listen to that channel.
+Nodes can report their interest in listening to certain multicast channels by “tuning” into that channel. In IP addressing there is a space reserved for multicast addresses. In IPv4 the range is between 224.0.0.0 and 239.255.255.255, but some of these are reserved. 224.0.0.0 through 224.0.0.255 is reserved for local purposes (as administrative and maintenance tasks) and the range 239.0.0.0 to 239.255.255.255 has also been reserved for “administrative scoping”.
+Receiving multicast messages
+To join a multicast address like 230.1.2.3 you can do something like this: Code in udp/udp_multicast_listen.js
+varserver=require('dgram').createSocket('udp4');
+server.on('message',function(message,rinfo){
+console.log('server got message: ' + message + ' from ' + rinfo.address + ':' +\
+ rinfo.port);
+});
+server.bind(4000,function(){ server.addMembership('230.1.2.3');
+});
+On line 7 we are saying to the kernel that this UDP socket should receive multicast messages for the multicast address 230.1.2.3. When calling addMembership, you can pass the listening interface as an optional second argument. If omitted, Node will try to listen on every public interface.
+Then you can test the server using nc like this:
+$echo'hello'|nc-c-u-w1230.1.2.34000
+Sending multicast messages
+To send a multicast message you simply have to specify the multicast address like this:
+Datagrams (UDP) 64
+Datagrams (UDP) 65
+1 vardgram=require('dgram');
+2
+3 varclient=dgram.createSocket('udp4'); 4
+5 varmessage=newBuffer('thisisamulticastmessage');
+6 client.setMulticastTTL(10);
+7 client.send(message,0,message.length,4000,'230.1.2.3');
+8 client.close();
+Here, besides sending the message, we previously set the Multicast time-to-live to 10 (an arbitrary value here). This TTL tells the network how many hops (routers) it can travel through before it is discarded. Every time a UDP packet travels through a hop, the TTL counter is decremented, and if 0 is reached, the packet is discarded.
+What can be the datagram maximum size?
+It really depends on the network it travels through. The UDP header allows up to 65535 bytes of data, but if you are sending a packet across an Ethernet network, for instance, the Ethernet MTU is 1500 bytes, limiting the maximum datagram size. Also, some routers will attempt to fragment a large UDP packet into 512 byte chunks.
+UDP Exercises
+Exercise 1
+Create a UDP server that echoes the messages it receives back into the origin socket.
+1
+2
+3
+4
+5
+6 7}
+8 9
+1 2 3 4
+Child processes
+On Node you can spawn child processes, which can be another Node process or any process you can launch from the command line. For that you will have to provide the command and arguments to execute it. You can either spawn and live along side the process (spawn), or you can wait until it exits (exec).
+Executing commands
+You can then launch another process and wait for it to finish like this:
+varexec=require('child_process').exec;
+exec('cat*.jswc-l',function(err,stdout,stderr){ if (err) {
+console.log('child process exited with error code ' + err.code); return;
+  console.log(stdout);
+});
+Here on line 3 we are passing in “cat *.js wc -l” as the command, the first argument to the exec invokation. We are then passing as the second argument a callback function that will be invoked once the exec has finished.
+If the child process returned an error code, the first argument of the callback will contain an instance of Error, with the code property set to the child exit code.
+If not, the output of stdout and stderr will be collected and be offered to us as strings.
+You can also pass an optional options argument between the command and the callback function like this:
+varoptions={timeout:10000}; exec('cat*.jswc-l',options,function(err,stdout,stderr){
+//...
+});
+The available options are:
+Child processes 67
+• encoding: the expected encoding for the child output. Defaults to ‘utf8’;
+• timeout: the timeout in milliseconds for the execution of the command. Defaults to 0, which
+does not timeout;
+• maxBuffer:specifiesthemaximumsizeoftheoutputallowedonstdoutorstderr.Ifexceeded,
+the child is killed. Defaults to 200 * 1024;
+• killSignal: the signal to be sent to the child if it times out or exceeds the output buffers.
+Identified as a string;
+• cwd: current working directory;
+• env: environment variables to be passed into the child process. Defaults to null.
+On the killSignal option you can pass a string identifying the name of the signal you wish to send to the target process. Signals are identified in node as strings. For a complete list of strings type on your shell:
+1 $mansignal
+Scroll down, and you will see a list of constants representing the signals. Those are the strings used
+in Node.
+Spawning processes
+You can spawn a new child process based on the child_process.spawn function like this:
+1 varspawn=require('child_process').spawn; 2
+3 varchild=spawn('tail',['-f','/var/log/system.log']);
+4 child.stdout.on('data',function(data){
+5 console.log('stdout: ' + data);
+6 });
+Here we are spawning a child process to run the “tail” command, passing in as arguments “-f” and “/var/log/system.log”. This “tail” command will monitor the file “/var/log/system.log” - if it exists - and output every new data appended to it into the stdout.
+On line 4 we are listening to the child stdout and printing its output. So here, in this case, we are piping the changes to the “/var/log/system.log” file into our Node application. Besides the stdout, we can also listen to the stderr child output stream like this:
+1 2 3
+1 2 3 4 5 6
+1
+child.stderr.on('data',function(data){ console.log('stderr: ' + data);
+});
+Killing processes
+You can (and should) eventually kill child processes by calling the kill method on the child object:
+varspawn=require('child_process').spawn; varchild=spawn('tail',['-f','/var/log/system.log']); child.stdout.on('data',function(data){
+  console.log('stdout: ' + data);
+  child.kill();
+});
+This sends a SIGTERM signal to the child process.
+You can also send another signal to the child process. You need to specify it inside the kill call like
+this:
+child.kill('SIGKILL');
+Child Processes Exercises Exercise 1
+Create a server that a) opens a file b) listens on a unix domain socket and c) spawns a client. This client opens the socket to the server and waits for a file descriptor. The server then passes in the file descriptor we opened in a). The client writes to the file and quits. When the client process quits, the server quits.
+Child processes 68
+1
+Streaming HTTP chunked responses
+One of the great features of Node is to be extremely streamable, and since HTTP is a first-class protocol in Node, HTTP responses are no different.
+HTTP chunked encoding allows a server to keep sending data to the client without ever sending the body size.
+Unless you specify a “Content-Length” header, Node HTTP server sends the header
+Transfer-Encoding:chunked
+to the client, which makes it wait for a final chunk with length of 0 before giving the response as
+terminated.
+This can be useful for streaming data - text, audio, video - or any other data to the HTTP client.
+A streaming example
+Here we are going to code an example that pipes the output of a child process into the client: Source code in chapters/chunked/chunked.js
+varspawn=require('child_process').spawn;
+require('http').createServer(function(req,res){
+var child = spawn('tail', ['-f', '/var/log/system.log']); child.stdout.pipe(res);
+res.on('end', function() {
+    child.kill();
+  });
+}).listen(4000);
+Here we are creating an HTTP server (line 3) and binding it to port 4000 (line 9).
+When there is a new request we launch a new child process by executing the command “tail -f /var/log/system.log” (line 4) whose output is being piped into the response (line 5).
+When the response ends (because the browser window was closed, or the network connection was severed, for instance), we kill the child process so it does not hang around afterwards indefinitely.
+So here, in 9 lines of code, we are making a Node streaming server that spawns, pipes the output of a process and then kills it as needed.
+1 2 3 4 5 6 7 8 9
+Streaming HTTP chunked responses 70
+Streaming Exercises Exercise 1
+Create a mixed TCP and HTTP server that, for every HTTP request, streams all the TCP clients input into the request response.
+TLS / SSL
+TLS (Transport Layer Security) and SSL (Secure Socket Layer) allow client / server applications to communicate across a network in a way designed to prevent eavesdropping (others looking into your messages) and tampering (others changing your message). TLS and SSL encrypt the segments of network connections above the Transport layer, enabling both privacy and message authentication.
+TLS is a standard based on the earlier SSL specifications developed by Netscape. In fact, TLS 1.0 is also known as SSL 3.1 , and the latest version (TLS 1.2) is also known as SSL 3.3. So, from hereon, we will be using “TLS” instead of the deprecated “SSL”.
+Public / private keys
+Node TLS implementation is based on the OpenSSL library. Chances are you have the library installed, also as the openssl command-line utility. If it’s not installed, you should be looking for a package named “openssl”.
+Private key
+TLS is a public / private key infrastructure. Each client and server must have a private key. A private key can be created by the openssl utility on the command line like this:
+1 $opensslgenrsa-outmy.pem1024
+This should create a file named my.pem with your private key.
+Public key
+All servers and some clients need to have a certificate. Certificates are public keys signed by a Certificate Authority or self-signed. The first step to getting a certificate is to create a “Certificate Signing Request” (CSR) file. This can be done with:
+1 $opensslreq-new-keymy_key.pem-outmy_csr.pem
+This will create a CSR file named my_csr.pem.
+To create a self-signed certificate with the CSR, you can do this:
+1
+opensslx509-req-inmy_csr.pem-signkeymy_key.pem-outmy_cert.pem This will create a self-signed certificate file named my_cert.pem.
+Alternatively you can send the CSR to a Certificate Authority for signing.
+TLS Client
+You can connect to a TLS server using something like this:
+vartls=require('tls'), fs = require('fs'), port = 3000,
+host = 'myhost.com', options = {
+      key : fs.readFileSync('/path/to/my/private_key.pem'),
+      cert : fs.readFileSync('/path/to/my/certificate.pem')
+};
+varclient=tls.connect(port,host,options,function(){ console.log('connected');
+console.log('authorized: ' + client.authorized); client.on('data', function(data) {
+client.write(data); // just send data back to server });
+});
+First we need to inform Node of the client private key and client certificate, which should be strings. We are then reading the pem files into memory using the synchronous version of fs.readFile, fs.readFileSync.
+• Here we are using fs.readFileSync, a synchronous function. Won’t this block the event loop? No, this will just run on the initialization of our app. As long as you don’t use blocking functions
+inside an event handler, you should be ok.
+• Wait, what if this is a module we are requiring this inside a callback?
+You shouldn’t be requiring modules inside callbacks. They do synchronous file system access and will block your event loop.
+Then, on line 10 we are connecting to the server. tls.connect returns a CryptoStream object, which you can use normally as a ReadStream and WriteStream. On line 13 we just wait for data from the server as we would on a ReadStream, and then we, in this case, send it back to the server on line 14.
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+TLS / SSL 72
+1 2 3 4 5 6 7 8 9
+10
+TLS Server
+A TLS server is a subclass of net.Server. With it you can make everything you can with a net.Server, except that you are doing over a secure connection.
+Here is an example of a simple echo TLS server:
+vartls=require('tls'); fs = require('fs'); options = {
+      key : fs.readFileSync('/path/to/my/server_private_key.pem'),
+      cert : fs.readFileSync('/path/to/my/server_certificate.pem')
+};
+tls.createServer(options,function(s){ s.pipe(s);
+}).listen(4000);
+Besides the key and cert options, tls.createServer also accepts:
+• requestCert: If true the server will request a certificate from clients that connect and attempt to verify that certificate. Default: false.
+• rejectUnauthorized: If true the server will reject any connection which is not authorized with the list of supplied CAs. This option only has an effect if requestCert is true. Default: false.
+Verification
+On both the client and the server APIs, the stream has a property named authorized. This is a boolean indicating if the client was verified by one of the certificate authorities you are using, or one that they delegate to. If s.authorized is false, then s.authorizationError contains the description of how the authorization failed.
+TLS Exercises Exercise 1
+Create a certificate authority. Create a client certificate signed by this new certificate authority.
+Exercise 2
+Create a TLS echo server that uses the default certificate authorities.
+TLS / SSL 73
+TLS / SSL 74
+Exercise 3
+Create a TLS client that reads from stdin and sends it to the echo TLS server created on exercise 2. Exercise 4
+Make the TLS server only accept connections if the client is certified. Verify that he does not let the client created on exercise 3 connect.
+Exercise 5
+Make the TLS Server use the same certificate authority you used to sign the client certificate with. Verify that the server now accepts connections from this client.
+HTTPS
+HTTPS is the HTTP protocol over TLS. In Node, HTTPS is implemented as a separate module. The HTTPS API is very similar to the HTTP one, with some honorable small differences.
+HTTPS Server
+To create a server, you can do something like this:
+varhttps=require('https'),
+1
+2 fs = require('fs'); 3
+4
+5
+6
+7
+8
+9
+10 11 12
+varoptions={
+key: fs.readFileSync('/path/to/server/private_key.pem'), cert: fs.readFileSync('/path/to/server/cert.pem')
+};
+});
+So here, the first argument to https.createServer is an options object that, much like in the TLS module, provides the private key and the certificate strings.
+HTTPS Client
+To make an HTTPS request you must also use the https module like this:
+https.createServer(options,function(req,res){ res.writeHead(200, {'Content-Type': 'text/plain'}); res.end('Hello World!');
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+varhttps=require('https'); varoptions={
+  host: 'encrypted.google.com',
+  port: 443,
+  path: '/',
+  method: 'GET'
+};
+varreq=https.request(options,function(res){ console.log("statusCode: ", res.statusCode); console.log("headers: ", res.headers);
+res.on('data', function(d) { process.stdout.write(d);
+}); });
+req.end();
+Here the options object, besides the http.request options, also accepts:
+• port: port of host to request to. Defaults to 443.
+• key: The client private key string to use for SSL. Defaults to null.
+• cert: The client certificate to use. Defaults to null.
+• ca: An authority certificate or array of authority certificates to check the remote host against.
+You may want to use the key and cert options if the server needs to verify the client.
+Also, you may pass the ca argument, which is a certificate authority certificate or an array of them
+with which you may verify the server.
+Much like the http module, this module also offers a shortcut https.get method that can be used like this:
+varhttps=require('https'); varoptions={host:'encrypted.google.com',path:'/'};
+https.get(options,function(res){ res.on('data', function(d) { process.console.log(d.toString());
+});
+1 2 3 4 5 6 7
+HTTPS 76
+1
+2
+3 4}; 5
+6 7 8 9
+10 11
+1 2
+varonePublicMethod=function(){
+onePrivateMethod();
+return 'you already called this module ' + counter + ' times';
+}; module.exports=onePublicMethod;
+Here we are exporting (on the last line) only one function. If we save this module in the current directory under “my_module.js”:
+varmyModule=require('./my_module'); myModule();//=>'youalreadycalledthismodule1times';
+You can export any JavaScript object you wish, so, for instance, you can export an object that has a collection of functions like this:
+Making modules CommonJS modules
+When crafting your first Node app, you tend to cram everything into one file, but sooner or later you will need to expand.
+The Node way to spread your app is to compartmentalise it into logic blocks called modules. These modules will have an interface, exposing module properties like functions or simple attributes.
+One file module
+To create a module you simply have to create a file somewhere in your app dir tree (lib/my_module.js is perhaps the appropriate place to start).
+Inside each module you can use the global namespace without fear of stepping on another module’s toes. And, at the end, you expose only what you wish to expose by assigning it to module.exports. Here is a quick example:
+varcounter=0; varonePrivateMethod=function(){
+return counter;
+1
+2
+3
+4
+5
+6
+7
+8 9}
+Making modules 78
+varcounter1=0; varonePublicMethod=function(){
+return 'you already called this function ' + (++ counter1) + ' times'; };
+return 'you already called this function ' + (++ counter2) + ' times';
+10
+11 module.exports={
+12 functionA: onePublicMethod,
+13 functionB: anotherPublicMethod
+14 };
+A client using this module would look something like:
+1 varmyModule=require('./my_module');
+2 myModule.functionA();
+3 //=>'youalreadycalledthisfunction1times';
+4 myModule.functionA();
+5 //=>'youalreadycalledthisfunction2times';
+6 myModule.functionB();
+7 //=>'youalreadycalledthisfunction1times';
+An aggregating module
+Also, modules can aggregate other modules and mix and expose them as they wish. For instance, such a module could look like:
+1 varmoduleA=require('./moduleA');
+2 varmoduleB=require('./moduleB');
+3
+4 varmyFunc=function(){
+5 6} 7
+8
+9
+10 11 12
+return "doing some crazy stuff";
+varcounter2=0; varanotherPublicMethod=function(){
+module.exports={ funcA: moduleA.funcA, funcB: moduleB.funcB, funcC: myFunc
+}
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+A pseudo-class
+If you need to learn about JavaScript pseudo-classes and prototypical inheritance I can recommend that you read the book “Eloquent JavaScript”15 or Douglas Crockford’s “JavaScript - The Good Parts”.
+It is possible to implement a classlike(ish) behavior on your module using something like this:
+varLine=function(x1,y1,x2,y2){ this.x1 = x1;
+this.y1 = y1;
+this.x2 = x2;
+  this.y2 = x2;
+};
+Line.prototype.length=function(){ return Math.sqrt(
+    Math.pow(Math.abs(this.x1 - this.x2), 2) +
+    Math.pow(Math.abs(this.y1 - this.y2), 2)
+  );
+};
+module.exports.create=function(x1,y1,x2,y2){ return new Line(x1, y1, x2, y2);
+};
+Here we are creating the Line pseudo-class, but we are not exporting its constructor directly. Instead, we are exporting a “create” function, which calls the constructor for us. We are doing this because people using this module may not remember that it would be necessary to use the “new” keyword when invoking the constructor function. If they forgot to do so, this would be bound to the global namespace, yielding very strange results. To prevent it we just export one create function, leading to clear module usage like:
+varLine=require('./line'); varline=Line.create(2,4,10,15); console.log('thislinelengthis'+line.length());
+A pseudo-class that inherits
+Besides implementing a class behavior, you can also inherit it from another class. For instance, the EventEmitter class is a very useful to use like this:
+15http://eloquentjavascript.net/
+1 2 3
+Making modules 79
+￼
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+varutil =require('util'),
+EventEmitter = require('events').EventEmitter;
+varLine=function(x1,y1,x2,y2){ this.x1 = x1;
+this.y1 = y1;
+this.x2 = x2;
+this.y2 = x2; };
+util.inherits(Line,EventEmitter);
+Line.prototype.length=function(){ return Math.sqrt(
+Math.pow(Math.abs(this.x1 - this.x2), 2) +
+Math.pow(Math.abs(this.y1 - this.y2), 2) );
+};
+Note that you should call util.inherits before declaring the prototype properties on the pseudo-class (like the Line.prototype.length on the previous example). If you call util.inherits afterwards, they will be removed, since the prototype object is replaced on line 11.
+Now you should be ready to create your own modules, so your app code doesn’t have to live on a single file!
+node_modules and npm bundle
+As explained on the module loading chapter, Node tries to use the nearest “node_modules” directory by backtracking the current directory up to root. What this means is that, generally, you can put the external modules your application depends on into a node_modules folder inside your app root folder, thus bundling and “freezing” your application dependencies.
+Fortunately npm can do that for you. For that to work you need to declare your application dependencies inside a package.json file like this:
+Source code in chapters/packaging/app1
+Making modules 80
+Making modules 81
+1 {"name":"app1"
+2 ,"version":"0.1.0"
+3 ,"description":"Hands-onpackagingappexample"
+4 ,"main":"app.js"
+5 ,"dependencies":
+6{
+7 "express" : ">= 1.0",
+8 "jade" : "0.8.5"
+9}
+10 }
+This is a minimal package.json, you can add more information to it. You can type
+1 $npmhelpjson
+to get a man page documenting the JSON document format.
+On lines 7 and 8 we declare that this application depends on “express” and “jade” npm packages, specifying the version requirements.
+Bundling
+Having now the package.json package in your root directory you can bundle all your dependencies into a “node_modules” by typing into your console, in your app root dir:
+1 $npminstall
+This will create a “node_modules” inside the app root dir – if it doesn’t exist yet – and when your
+app is executed, node will first look into this directory to resolve modules.
+Using this technique you can package an application so you don’t run into cross-dependencies problems on co-existing applications and removing the need to install packages globally.
+Debugging
+If you find yourself in a situation where you need to inspect the inner workings of your Node app code, there are several tools that can come to your aid.
+console.log
+The simplest one is console.log. You can use it to inspect objects like this:
+1 varobj={a:1,b:2};
+2 console.log(obj); Which will print
+1 {a:1,b:2}
+Node built-in debugger
+If you need to halt execution to carefully inspect your app, you can use Node’s (simple and basic) built-in debugger.
+First, you have to insert an initial breakpoint in your app by inserting a debugger instruction like this:
+1 vara=1;
+2 debugger;
+3 varb=a+1;
+And then you can start the Node debuuger on your app like this:
+1 $nodedebugmy_app.js
+This will launch the Node debugger. You should now get the debugger prompt, but your app is not
+running just yet.
+Inside the debugger prompt you will have to type:
+Debugging 83
+1 $run
+And your app will start running, hitting your first debugger instruction.
+It will then stop on the breakpoint you set as soon as it is encountered. If you type
+1 $list
+you will see where you are inside your script.
+You can inspect the local scope. You can print variables like this:
+1 $printa If you type
+1 $next
+you will step into the next line of your script.
+If you type
+1 $continue
+your app will resume, stopping if it passes another (or the same) breakpoint.
+When inside the prompt you can kill your app by commanding:
+1 $kill
+Node Inspector
+Another debugging tool is Node Inspector. This debugger brings the full-fledged Chrome inspector to your Node app.
+You can install Node Inspector like this:
+1 $npminstallnode-inspector
+Node Inspector runs as a daemon by default on port 8080. You can launch it like this:
+Debugging 84
+1 $node-inspector&
+This will send the node-inspector process to the background.
+Next you need to fire up your app, but using a –debug or –debug-brk option on the node executable like this:
+1 $node--debug-brkmyapp.js
+The –debug-brk option will make your app break on the first line, while the –debug option will
+simply enable debugging.
+Tip: when debugging servers you will want to use –debug, and when debugging other scripts you
+may want to break on the first line by using –debug-brk.
+Now you can open your browser and point it to http://localhost:8080, and you should get something like this:
+￼
+Debugging 85
+You can set and unset breakpoints by clicking on the line numbers.
+When a breakpoint is reached, your app freezes and Node Inspector shows the context:
+￼You can see the two most interesting context panes on the right:
+The call stack, where you can see which functions were invoked to get to this point.
+The scope variables, where you can inspect the local variables, the global variables and the closure variables, which are variables that are defined on a higher function scope.
+Above those panes you can see some buttons which you can use to manipulate the executed instructions:
+Continue execution up until a breakpoint is reached. Execute this function and stop on the next line.
+￼￼
+Debugging 86
+￼Step into this function.
+Continue, and when this function ends return to the caller.
+Live edit
+You can change the code while you are debugging. For this you can double-click on a line of code and edit it. Change the code and hit the “Tab” key or click outside the edit area. And voila, you just changed running code!
+Changing the code like this will not save save the changes - it should only be used to test quick fixes.
+￼
+Automated Unit Testing
+When building a module you should also create an automated way to test it. A set of tests that test a module are called unit tests.
+Let’s say you want to create the unit tests for a module that exports a function that sums two integers:
+1 module.exports=function(a,b){ 2 return a + b;
+3 };
+For that you need two tools: a test runner and an assertion module.
+A test runner
+A test runner is a piece of software that loads your tests, runs them and then presents the test result. The result can be positive (test passed) or negative (test failed), generally accompanied by a description of the failure.
+There are various test runners, and my favorite nowadays is mocha. You can install it by running: 1 $npminstall-gmocha
+On your app you should create a “tests” dir under the root, and create a file module for each one of your modules.
+So, we would create a test module under tests/sum.js. This module should then define description scopes and tests for any functionality you need testing.
+Each one of these tests is a function that is launched asynchronously. When all are done or failed, mocha reports how many were run and how many failed / succeeded.
+A test file for the “sum” module would be something like this:
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+1
+1
+1 2 3 4 5
+require('should'); varsum=require('../lib/sum'); describe("SumLib",function(){
+it("should be able to sum 0 and 5", function() { sum(0, 5).should.equal(5);
+});
+it("should be able to sum 2 and 5", function() { sum(2, 5).should.equal(7);
+});
+it("should be able to sum do some sums", function() { sum(1, 1).should.equal(2);
+sum(1, 2).should.equal(3);
+     sum(2, 1).should.equal(3);
+    sum(10, 120).should.equal(130);
+}); });
+To run this test you’ll also need the should package to be installed:
+$npminstallshould
+To run expresso on all files inside the tests directory you can invoke the mocha executable like this:
+$mochatest/*.js
+You can also specify asynchronous tests by accepting a callback function that should be invoked once the test is done:
+it("shouldbeabletoexecuteasynchronously",function(done){ setTimeout(function() {
+    done();
+  }, 2000);
+});
+You can obtain more info about mocha here http://visionmedia.github.com/mocha/16. 16http://visionmedia.github.com/mocha/
+Automated Unit Testing 88
+￼
+Automated Unit Testing 89
+Assertion testing module
+An assertion testing module is something that allows you to easily compare results to what you expect. For instance, a module that sums two integers should be compared against some known cases.
+Node already comes with a basic assertion module named “assert”. You can use the following module functions:
+• assert.equal(a, b, [message]) - test shallow equality (with == );
+• assert.deepEqual(a, b, [message]) - test for deep equality;
+• assert.notEqual(a, b, [message]) - test shallow inequality (as with !=);
+• assert.notDeepEqual(a, b, [message]) - test for deep inequality;
+• assert.strictEqual(a, b, [message]) - test strict equality (as with ===);
+• assert.notStrictEqual(a, b, [message]) - test strict inequality (as with !==);
+• assert.throws(block, [error], [message]) - test if the block (given as function) throws an error.
+With the optional error argument you can pass in an Error instance to be compared with the thrown exception, a regular expression to be compared with the exception, or a validation function.
+• assert.doesNotThrow(block, [error], [message]) - the negation of the result of assert.throws() with the same arguments.
+All these messages have a final optional argument where you can pass the message in case of failure.
+should.js
+Another useful assertion testing module is “should.js”. Should.js provides a nice extension to the objects, into which you can perform tests using a nice API that you can chain like this:
+1 value.should.be.a('object').and.have.property('name','Pedro'); You can install Should.js using npm like this;
+1 $npminstallshould
+and then include the module
+1 require('should');
+There is no need to assign a variable to the module since should extends With it you can:
+Automated Unit Testing 90
+Assert truthfulness:
+1 true.should.be.ok; 2
+3 'yay'.should.be.ok;
+or untruthfulness:
+1 false.should.not.be.ok; 2
+3 ''.should.not.be.ok;
+=== true
+1 true.should.be.true;
+2
+3 '1'.should.not.be.true;
+=== false
+1 false.should.be.false; 2
+3 ''.should.not.be.false;
+emptiness
+1 [].should.be.empty; 2
+3 ''.should.be.empty;
+equality
+1 ({foo:'bar'}).should.eql({foo:'bar'}); 2
+3 [1,2,3].should.eql([1,2,3]);
+Automated Unit Testing 91
+equal (strict equality)
+1 (4).should.equal(4);
+2
+3 'test'.should.equal('test');
+4
+5 [1,2,3].should.not.equal([1,2,3]);
+assert numeric range (inclusive) with within 1 15.should.be.within(10,20);
+test numeric value is above given value:
+1 10.should.be.above(5);
+2
+3 10.should.not.be.above(15);
+test numeric value is below given value:
+1 10.should.not.be.below(5); 2
+3 10.should.be.below(15);
+matching regular expressions
+1 "562".should.match(/[0-9]{3}/); test length
+1 [1,2,3].should.have.length(3);
+substring inclusion
+1 "abcdef".should.include.string('bc');
+Automated Unit Testing 92
+assert typeof
+1 {a:1,b:2}.should.be.a('object'); 2
+3 "test".should.be.a('string');
+property existence
+1 {a:1,b:2}.should.have.property('a');
+2
+3 {a:1,b:2}.should.not.have.property('c');
+array containment
+1 [1,2,3].should.contain(3);
+2
+3 [1,2,3].should.not.contain(4);
+own object keys
+1 varobj={foo:'bar',baz:'raz'};
+2 obj.should.have.keys('foo','bar');
+3 obj.should.have.keys(['foo','bar']);
+responds to, asserting that a given property is a function:
+1 user.should.respondTo('email');
+Putting it all together
+The source code for this section can be found at chapters/testing So now we should be able to make a test for our “sum” module:
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+1
+1
+require('should'); varsum=require('../lib/sum'); describe("SumLib",function(){
+it("should be able to sum 0 to 5", function() { sum(0, 5).should.equal(5);
+});
+it("should be able to sum 2 to 5", function() { sum(2, 5).should.equal(7);
+});
+it("should be able to sum do some sums", function() { sum(1, 1).should.equal(2);
+sum(1, 2).should.equal(3);
+sum(2, 1).should.equal(3);
+    sum(10, 120).should.equal(130);
+  });
+});
+And then we can run our test from the command line like this;
+$mochatests/*.js
+Which should print out: ...âœ”3testscomplete(4ms)
+In case you are testing callbacks, you can also use a first argument given to all testing functions, which we can name beforeExit.
+This function can be used to attach callbacks before the tests end, so you can test if your callbacks have been called or not:
+Automated Unit Testing 93
+1 2 3 4 5 6 7 8 9
+10 11 12 13 14
+module.exports.testAsync=function(beforeExit){ varn=0;
+setTimeout(function(){
+++n;
+    assert.ok(true);
+  }, 200);
+  setTimeout(function(){
+    ++n;
+    assert.ok(true);
+  }, 200);
+  beforeExit(function(){
+     assert.equal(2, n, 'Ensure both timeouts are called');
+}); };
+Automated Unit Testing 94
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+Callback flow
+As you may have noticed, asynchronous programming does not rely on the stack to organize flow between caller and called function. Instead, it relies on callback functions that are usually passed as arguments.
+Imagine that you would have to build a script that does the following: Append bytes 10-20 from file a.txt into file b.txt. Both files already exist. A solution may be something like this:
+Source code in:
+flow/exercise_1.js
+varfs=require('fs');
+vardoWhatWasAsked=function(callback){ fs.open(__dirname + '/a.txt', 'r', function(err, aFd) {
+if (err) { callback(err); return; }
+var buffer = new Buffer(10);
+fs.read(aFd, buffer, 0, 10, 10, function(err, bytesRead) {
+if (err) { callback(err); return; }
+fs.open(__dirname + '/b.txt', 'a', function(err, bFd) { if (err) { callback(err); return; }
+fs.fstat(bFd, function(err, bStats) {
+if (err) { callback(err); return; }
+          fs.write(bFd, buffer, 0, 10, bStats.size, callback);
+        })
+}) });
+}) };
+console.log('starting...'); doWhatWasAsked(function(err){
+if (err) { throw err; }
+  console.log('done');
+});
+1
+2
+3
+4
+5
+6
+7 8} 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+Callback flow 96
+Here we devise a function sillily called “doWhatWasAsked”, which receives a callback to be invoked when there is an error or when the task is done.
+This function opens a.txt (line 4), and then reads 10 bytes starting at pos 10 (line 7).
+Then it opens b.txt (line 10), checks its size using fs.stat (line 12) and then writes into the end of the file (line 14).
+The boomerang effect
+In this example you can see what can be called a “boomerang effect” of callback chaining, where the text indentation increases and then decreases along with function nesting.
+This can turn your code into “callback spaghetti”, making it visually hard to track which context you are in. This style also makes debugging your application difficult, reducing even more the maintainability of your code.
+There is more than one way around this. One is: instead of using anonymous inline functions we can use named functions - like this:
+Source code in flow/exercise_2.js
+var fs = require('fs'); vardoWhatWasAsked=function(callback){
+var aFd, bFd, buffer = new Buffer(10); function openA() {
+    fs.open(__dirname + '/a.txt', 'r', readFromA);
+function readFromA(err, fd) {
+if (err) { callback(err); return; } aFd = fd;
+fs.read(aFd, buffer, 0, 10, 10, openB);
+}
+function openB(err) {
+if (err) { callback(err); return; } fs.open(__dirname + '/b.txt', 'a', statB);
+}
+function statB(err, fd) {
+if (err) { callback(err); return; }
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+bFd = fd;
+    fs.fstat(bFd, writeB);
+  }
+function writeB(err, bStats) {
+if (err) { callback(err); return; }
+fs.write(bFd, buffer, 0, 10, bStats.size, callback);
+}
+openA(); };
+console.log('starting...'); doWhatWasAsked(function(err){
+if (err) { throw err; }
+  console.log('done');
+});
+This code does what the previous code did, but it’s unarguably clearer. We are now declaring one named function for each callback all under the same scope, and using the function names to pass them as the next callback to be executed.
+The downside of this technique is that we lose the closure scopes, so we need to store the application state on a common scope (line 4).
+We could discuss which approach is more elegant, but this one is certainly more readable.
+Using caolan/async
+Async is a utility module which provides straight-forward, powerful functions for working with asynchronous JavaScript. Although originally designed for use with node.js, it can also be used directly in the browser.
+Collections Parallel Iterations
+When you have a collection and you need to resolve them in an async manner, you can use async.forEach():
+Here is a service that returns the square of a number:
+Source code in flow/squaring_server.js
+Callback flow 97
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+1
+1
+1
+require('http').createServer(function(req,res){ var body = '';
+req.setEncoding('utf8'); req.on('data', function(data) {
+    body += data;
+  });
+req.on('end', function() {
+var number = parseInt(body, 10); var squared = Math.pow(number, 2); res.end(squared.toString());
+  });
+}).listen(4001);
+You can save this snippet into a file named “squaring_server.js” and launch it:
+$nodesquaring_server.js
+You can install the “async” package using NPM inside the localhost:
+$npminstallasync
+For our purpose you should also install the “request” module using NPM:
+$npminstallrequest
+async.forEach
+You can then use async to iterate asynchronously and query the square of a collection of numbers:
+Source code in flow/squaring_client.js
+Callback flow 98
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+varasync=require('async'); varrequest=require('request');
+varcollection=[1,2,3,4];
+functioniterator(element,next){ request({ uri: 'http://localhost:4001/',
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+functioncallback(){ console.log('finished');
+} async.forEach(collection,iterator,callback);
+async.map
+You can also collect the results asynchronously using async.map like this:
+Source code in flow/squaring_client_map.js
+varasync=require('async'); varrequest=require('request');
+varcollection=[1,2,3,4];
+functioniterator(element,next){ request({ uri: 'http://localhost:4001/',
+Callback flow 99
+}
+}
+body: element.toString() }, function(err, res, body) {
+  console.log('square of %d is %d', element, body);
+  next(err);
+});
+body: element.toString() }, function(err, res, body) {
+  next(err, parseInt(body, 10));
+});
+functioncallback(err,result){ console.log('finished.');
+for (var i in collection) {
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+functioniterator(element,next){ request({ uri: 'http://localhost:4001/',
+Callback flow 100
+17 console.log('the square of %d is %d', collection[i], result[i]);
+18 }
+19 }
+20
+21 async.map(collection,iterator,callback);
+Notice that the results are in the same order as they were issued, even though they might have
+finished in a different order.
+async.forEachLimit
+You can limit the amount of parallelism by using async.forEachLimit like this:
+Source code in flow/squaring_client_limited.js
+1 varasync=require('async');
+2 varrequest=require('request');
+3
+4 varcollection=[];
+5
+6 for (var i = 0; i collection.push(i); 7}
+8
+9
+varmaxConcurrency=5;
+}
+body: element.toString() }, function(err, res, body) {
+  console.log('square of %d is %d', element, body);
+  next(err);
+});
+functioncallback(){ console.log('finished');
+}
+async.forEachLimit(collection,maxConcurrency,iterator,callback);
+async.filter
+You can also filter a collection asynchronously:
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+varasync=require('async'); varexists=require('path').exists;
+varfiles=[
+'filter.js', 'does_not_exist.js', 'squaring_client.js', 'also_does_not_exist.js', 'squaring_client_limited.js', 'squaring_client_map.js', 'also_does_not_exist_2.js', 'squaring_server.js'
+];
+functioncallback(result){
+console.log('of files %j, these exist: %j', files, result);
+} async.filter(files,exists,callback);
+Here we are using path.exists (which is asynchronous) to filter out a list of files.
+async.reject
+Reject is the opposite of filter:
+varasync=require('async'); varexists=require('path').exists;
+varfiles=[
+'filter.js', 'does_not_exist.js', 'squaring_client.js', 'also_does_not_exist.js', 'squaring_client_limited.js', 'squaring_client_map.js', 'also_does_not_exist_2.js', 'squaring_server.js'
+];
+functioncallback(result){
+console.log('of files %j, these do not exist: %j', files, result);
+Callback flow 101
+Callback flow 102
+17 }
+18
+19 async.reject(files,exists,callback);
+async.reduce
+This reduces a list of values using an asynchronous iterator to return each step.
+For instance, if we want to calculate the 100th Fibbonacci number, we can use a web service that sums two numbers:
+1 functionsum(a,b){
+return a + b;
+2 3} 4
+5 require('http').createServer(function(req,res){
+6 var body = '';
+7
+8 req.setEncoding('utf8');
+9 req.on('data', function(data) {
+10 body += data;
+11 });
+12
+13 req.on('end', function() {
+14 var numbers = body.split('&').map(function(arg){
+15 return arg.split('=');
+16 }).map(function(strs) {
+17 return parseInt(strs[1], 10);
+18 });
+19 console.log(numbers);
+20 var total = numbers.reduce(sum, 0);
+21 res.end(total.toString());
+22 });
+23
+24 }).listen(4001);
+Now we are ready to make a client to calculate the 100th Fibbonacci number:
+Source code in flow/fibbonacci.js
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+                     items.push(i);
+functioniterator(memo,item,next){
+request({uri: 'http://localhost:4001/', form: {a: memo[0], b: memo[1]}}, functi\
+on(err,res,body){
+next(err, [memo[1], parseInt(body, 10)]);
+}); }
+async.reduce(items,memo,iterator,function(err,result){ if (err) { throw err; }
+console.log('Fibbonacci of order %d: %d', order, result[1]);
+});
+async.detect
+async.detect returns the first value in a list that passes an async truth test:
+Source code in flow/detect.js
+varasync=require('async'); varexists=require('path').exists;
+varfiles=[
+'filter.js', 'does_not_exist.js', 'squaring_client.js', 'also_does_not_exist.js', 'squaring_client_limited.js', 'squaring_client_map.js', 'also_does_not_exist_2.js', 'squaring_server.js'
+1 2 3 4 5 6 7 8 9
+10 11 12
+Callback flow 103
+1 varasync=require('async');
+2 varrequest=require('request');
+3
+4 varitems=[];
+5 varorder=process.argv[2]&&parseInt(process.argv[2])||100;
+6 varorderMinus2=order-2;
+7
+8 for (var i = 0 ; i 9}
+varmemo=[0,1];
+13
+14
+15
+16
+17
+18
+19
+1
+1
+1 2 3 4 5 6 7 8 9
+10 11 12 13 14
+];
+functioncallback(result){
+console.log('this file exists: %s', result);
+}
+async.detect(files,exists,callback);
+If you save this to a file named detect.js, and run it:
+$nodedetect.js
+You should get the result:
+fileexists:filter.js
+async.some
+Returns true if at least one element in the array satisfies the asynchronous test.
+Source code in flow/some.js
+varasync=require('async'); varexists=require('path').exists;
+varfiles=[ 'does_not_exist.js', 'also_does_not_exist.js', 'also_does_not_exist_2.js', 'filter.js' ];
+functioncallback(result){
+console.log('at least one of these files exists: %j', result);
+}
+async.some(files,exists,callback);
+async.every
+Returns true if all elements in the array satisfies the asynchronous test.
+Source code in flow/every.js
+Callback flow 104
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+1
+varasync=require('async'); varexists=require('path').exists;
+varfiles=[
+'filter.js', 'does_not_exist.js', 'squaring_client.js', 'also_does_not_exist.js', 'squaring_client_limited.js', 'squaring_client_map.js', 'also_does_not_exist_2.js', 'squaring_server.js'
+];
+functioncallback(result){
+console.log('all these files exist: %j', result);
+} async.every(files,exists,callback);
+Running this example should result in:
+allthesefilesexist:false Flow Control
+async.series
+Executes a bunch of tasks in series. Returns results to callback as an array. Stops if an error occurs.
+Source code in flow/series.js
+varasync=require('async'); varrequest=require('request');
+varfunctions=[];
+for ( var i = 0; i functions.push(function(i) {
+return function(done) {
+1 2 3 4 5 6 7 8 9
+Callback flow 105
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+1
+1 2 3 4 5 6 7 8 9
+10 11
+      request({
+        uri: 'http://localhost:4001'
+, body: i.toString()}
+, function(err, res, body) {
+          done(err, body);
+        });
+}
+}(i)); }
+functioncallback(err,result){ if (err) { throw err; } console.log('done: %j', result);
+} async.series(functions,callback);
+async.parallel
+Run an array of functions in parallel without waiting for the previous function to have finished. Fire up the squaring server:
+$nodesquaring_server.js And then run this:
+Source code in flow/parallel.js
+varasync=require('async'); varrequest=require('request');
+varfunctions=[];
+for ( var i = 0; i functions.push(function(i) {
+return function(done) {
+      request({
+        uri: 'http://localhost:4001'
+Callback flow 106
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+, body: i.toString()}
+, function(err, res, body) {
+          done(err, body);
+        });
+}
+}(i)); }
+functioncallback(err,result){ if (err) { throw err; } console.log('done: %j', result);
+} async.parallel(functions,callback);
+async.whilst
+Repeatedly call fn, while test returns true. Here is an example for calculating the biggest integer whose square is smaller than 1000:
+varasync=require('async'); varrequest=require('request');
+Callback flow 107
+vari=-1; varn=i; varlastResult=-1;
+functiontest(){
+var pass = lastResult return pass;
+}
+functionaction(done){ n=i+1;
+request({
+if (pass) { i = n; }
+uri: 'http://localhost:4001/' , body: n.toString()}
+, function(err, res, body) {
+if (err) { return done(err); } lastResult = parseInt(body, 10);
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+done(); });
+}
+functioncallback(err){
+if (err) { throw err; }
+console.log('the biggest integer whose square is smaller than 1000: %d', i);
+} async.whilst(test,action,callback);
+async.until
+The same as async.whilst, except that the test is reversed.
+async.waterfall
+Runs an array of functions in series, each passing their results to the next in the array. Stops on the first error.
+Here we’re using our squaring server to calculate 5ˆ4:
+varasync=require('async'); varrequest=require('request');
+varfunctions=[
+  function(done) {
+    request(
+      { uri: 'http://localhost:4001'
+        , body: '5' }
+, done); },
+  function(res, body, done) {
+    request(
+        { uri: 'http://localhost:4001'
+        , body: body}
+      , done);
+} ];
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+Callback flow 108
+22
+23
+24
+25
+26
+27
+functioncallback(err,res,result){
+if (err) { throw err; } console.log('5^4 = 5^2^2 = %s', result);
+} async.waterfall(functions,callback);
+async.queue
+This creates a queue with a determined concurrency. You have to provide a worker function and push work to it. Example:
+varasync=require('async'); varrequest=require('request');
+functionworker(number,done){
+request({uri: 'http://localhost:4001/', body: number.toString()}, function(err,\
+ res, body) {
+    done(err, number, parseInt(body, 10));
+});
+varqueue=async.queue(worker,5);
+for ( var i = 0; i queue.push(i, function(err, number, squared) { if (err) {return console.log(err); }
+console.log('the square of %d is %d', number, squared);
+}); }
+queue.drain=function(){ console.log('queue drained!');
+};
+1
+2
+3
+4
+5
+6
+7
+8 9}
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+Callback flow 109
+Appendix - Exercise Results
+Chapter: Buffers Exercise 1
+Create an uninitialized buffer with 100 bytes length and fill it with bytes with values starting from 0 to 99. And then print its contents.
+One Solution:
+Source in exercises/buffer/1.js
+varbuffer=newBuffer(100); for(vari=0;i<buffer.length;i++){
+1
+2
+3
+4
+5}
+6 console.log(buffer);
+buffer[i] = i;
+Exercise 2
+Do what is asked on the previous exercise and then slice the buffer with bytes ranging 40 to 60. And then print it.
+One Solution:
+Source in exercises/buffer/2.js
+Appendix - Exercise Results 111
+varbuffer=newBuffer(100); for(vari=0;i<buffer.length;i++){
+1
+2
+3
+4
+5}
+6 console.log(buffer); 7
+buffer[i] = i;
+8 varbuffer2=buffer.slice(40,60);
+9
+10 console.log(buffer2);
+Exercise 3
+Do what is asked on exercise 1 and then copy bytes ranging 40 to 60 into a new buffer. And then print it.
+One Solution:
+Source in exercises/buffer/3.js
+1 varbuffer=newBuffer(100);
+2
+3 for(vari=0;i<buffer.length;i++){
+10
+11 console.log(buffer2);
+Chapter: Event Emitter
+Exercise 1
+Build a pseudo-class named “Ticker” that emits a “tick” event every 1 second.
+One Solution:
+Source in exercises/event_emitter/1.js
+buffer[i] = i;
+4
+5}
+6 console.log(buffer); 7
+8 varbuffer2=newBuffer(20);
+9 buffer.copy(buffer2,0,40,60);
+1 2 3 4 5 6 7 8 9
+varutil =require('util'),
+EventEmitter = require('events').EventEmitter;
+varTicker=function(){ var self = this; setInterval(function() {
+    self.emit('tick');
+  }, 1000);
+};
+Exercise 2
+Build a script that instantiates one Ticker and bind to the “tick” event, printing “TICK” every time it gets one.
+One Solution:
+Source in exercises/event_emitter/2.js
+Appendix - Exercise Results 112
+1 varutil =require('util'),
+2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+    EventEmitter = require('events').EventEmitter;
+varTicker=function(){ var self = this; setInterval(function() {
+    self.emit('tick');
+  }, 1000);
+}; util.inherits(Ticker,EventEmitter)
+varticker=newTicker(); ticker.on('tick',function(){
+  console.log('TICK');
+});
+Chapter: Low-level File System
+Exercise 1 - get the size of a file
+Having a file named a.txt, print the size of that files in bytes.
+1 2 3 4 5 6
+One Solution:
+Source code in exercises/fs/1.1.js
+varfs=require('fs');
+fs.stat(__dirname+'/a.txt',function(err,stats){ if (err) { throw err; }
+console.log(stats.size);
+});
+Exercise 2 - read a chunk from a file
+Having a file named a.txt, print bytes 10 to 14.
+One Solution:
+Source code in exercises/fs/1.2.js
+varfs=require('fs');
+fs.open(__dirname+'/a.txt','r',function(err,fd){ if (err) { throw err; }
+var buffer = Buffer(5);
+var readBytes = 0;
+(function readIt() {
+fs.read(fd, buffer, readBytes, buffer.length - readBytes, 10 + readBytes, fun\
+ction(err,bytesRead){
+if (err) { throw err; }
+readBytes += bytesRead;
+if (readBytes === buffer.length) {
+console.log(buffer); } else {
+readIt(); }
+}); })();
+});
+Appendix - Exercise Results 113
+￼1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+￼
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+Exercise 3 - read two chunks from a file
+Having a file named a.txt, print bytes 5 to 9, and when done, read bytes 10 to 14.
+One Solution:
+Source code in exercises/fs/1.3.js
+varfs=require('fs');
+fs.open(__dirname+'/a.txt','r',function(err,fd){ if (err) { throw err; }
+function readSome(startingAt, byteCount, callback) {
+var buffer = Buffer(byteCount); var readBytes = 0;
+(function readIt() {
+fs.read(fd, buffer, readBytes, buffer.length - readBytes, startingAt + read\ Bytes,function(err,bytesRead){
+if (err) { throw err; }
+readBytes += bytesRead;
+if (readBytes === buffer.length) {
+callback(buffer) } else {
+readIt(); }
+}); })();
+}
+readSome(5, 4, function(buffer1) {
+console.log(buffer1);
+readSome(10, 4, function(buffer2) {
+      console.log(buffer2);
+    });
+}) });
+Appendix - Exercise Results 114
+￼Exercise 4 - Overwrite a file
+Having a file named a.txt, Overwrite it with the UTF-8-encoded string “ABCDEFGHIJLKLMNOPQRSTU- VXYZ0123456789abcdefghijklmnopqrstuvxyz”.
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+One Solution:
+Source code in exercises/fs/1.4.js
+varfs=require('fs');
+fs.open(__dirname+'/a.txt','w',function(err,fd){
+if (err) { throw err; }
+var buffer = new Buffer('ABCDEFGHIJLKLMNOPQRSTUVXYZ0123456789abcdefghijklmnopqr\
+stuvxyz');
+var written = 0; (function writeIt() {
+fs.write(fd, buffer, 0 + written, buffer.length - written, 0 + written, funct\ ion(err,bytesWritten){
+if (err) { throw err; }
+written += bytesWritten;
+if (written === buffer.length) {
+console.log('done'); } else {
+writeIt(); }
+}); })();
+});
+Exercise 5 - append to a file
+Having a file named a.txt, append UTF-8-encoded string “abc” to file a.txt.
+One Solution:
+Source code in exercises/fs/1.5.js
+Appendix - Exercise Results 115
+￼
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+varfs=require('fs');
+fs.open(__dirname+'/a.txt','a',function(err,fd){ if (err) { throw err; }
+var buffer = new Buffer('abc');
+var written = 0;
+(function writeIt() {
+fs.write(fd, buffer, 0 + written, buffer.length - written, null, function(err\
+,bytesWritten){
+if (err) { throw err; }
+written += bytesWritten;
+if (written === buffer.length) {
+console.log('done'); } else {
+writeIt(); }
+}); })();
+});
+Exercise 6 - change the content of a file
+Having a file named a.txt, change byte at pos 10 to UTF-8 value of “7”.
+One Solution:
+Source code in exercises/fs/1.6.js
+varfs=require('fs');
+fs.open(__dirname+'/a.txt','a',function(err,fd){ if (err) { throw err; }
+var buffer = new Buffer('7');
+var written = 0;
+(function writeIt() {
+fs.write(fd, buffer, 0 + written, buffer.length - written, 10, function(err, \
+bytesWritten){
+if (err) { throw err; }
+      written += bytesWritten;
+Appendix - Exercise Results 116
+￼1 2 3 4 5 6 7 8 9
+10 11
+12
+13
+14
+15
+16
+17
+18
+19
+if (written === buffer.length) { console.log('done');
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+writeIt(); }
+}); })();
+});
+Chapter: HTTP Exercise 1
+Make an HTTP server that serves files. The file path is provided in the URL like this: http://localhost:4000/path/to/my
+One Solution:
+Source code in exercises/http/exercise_1.js
+varpath=require('path'), fs = require('fs');
+require('http').createServer(function(req,res){ var file = path.normalize(req.url); path.exists(file, function(exists) {
+if (exists) {
+fs.stat(file, function(err, stat) {
+var rs;
+if (err) { throw err; }
+if (stat.isDirectory()) { res.writeHead(403); res.end('Forbidden');
+} else {
+rs = fs.createReadStream(file); res.writeHead(200); rs.pipe(res);
+Appendix - Exercise Results 117
+}
+else {
+￼/
+20
+21
+22
+23
+24
+25
+26
+27
+} });
+else { res.writeHead(404); res.end('Not found');
+} })
+}).listen(4000);
+Exercise 2
+Make an HTTP server that outputs plain text with 100 timestamps new-line separated every second.
+One Solution:
+Source code in exercises/http/exercise_2.js
+require('http').createServer(function(req,res){
+res.writeHead(200, {'Content-Type': 'text/plain'}); var left = 10;
+var interval = setInterval(function() {
+for(var i = 0; i res.write(Date.now() + "\n");
+Appendix - Exercise Results 118
+}
+￼1
+2
+3
+4
+5
+6 7} 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+if (-- left === 0) { clearInterval(interval); res.end();
+}
+}, 1000);
+}).listen(4001);
+Exercise 3
+Make an HTTP server that saves the request body into a file.
+￼
+Appendix - Exercise Results 119
+One Solution:
+Source code in exercises/http/exercise_3.js
+1 varfs=require('fs'); 2
+3 varsequence=0;
+4 require('http').createServer(function(req,res){
+5 var fileName = '/tmp/' + sequence + '.bin';
+6 console.log("writing " + fileName);
+7 var writeStream = fs.createWriteStream(fileName);
+8
+9 req.pipe(writeStream);
+10 req.on('end', function() {
+11 res.writeHead(200);
+12 res.end();
+13 });
+14 sequence ++;
+15 }).listen(3000);
+Here we are creating a write stream (line number 7) every time there is a new request. Each file will have a sequential file name n.bin (1.bin, 2.bin, etc.), saved to /tmp.
+After creating the write stream we pipe the request data into it (line 9). From line 10 to line 13 we are responding after the request is done.
+You can test this by using curl from the command line and piping in a file like this:
+1 $curlhttp://localhost:3000-T/var/log/mail.log
+Exercise 4
+Make a script that accepts a file name as first command line argument and uploads this file into the server built on the previous exercise.
+One Solution:
+Source code in exercises/http/exercise_4.js
+￼
+1
+2
+3
+4
+5
+6 7} 8
+');
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+1
+varoptions={
+host: process.argv[2],
+port: parseInt(process.argv[3], 10), path: '/',
+method: 'PUT'
+}; varreq=http.request(options);
+console.log('piping'+process.argv[4]); fs.createReadStream(process.argv[4]).pipe(req);
+To test this you can try:
+$nodeexercise_4.jslocalhost3000/var/log/mail.log
+Appendix - Exercise Results
+120
+varhttp=require('http'), fs = require('fs');
+if(process.argv.length<5){
+console.log('Usage: ' + process.argv[0] + ' ' + process.argv[1] + ' return;
+Here we are initializing an HTTP put request on line 16, with the host name and ports passed in as command line. Then, on line 19 we are creating a read stream from the file name and piping it to the request object. When the file read stream is finished it will call end() on the request object.
+Chapter: Child processes Exercise 1
+Create a server that a) opens a file b) listens on a unix domain socket and c) spawns a client. This client opens the socket to the server and waits for a file descriptor. The server then passes in the file descriptor we opened on a). The client writes to the file and quits. When the client process quits, the server quits.
+One Solution:
+The server code:
+Source code in exercises/child_processes/exercise_1/server.js
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+varspawn=require('child_process').spawn; require('fs').open(__dirname+'/example.txt','a',function(err,fileDesc){
+var server = require('net').createServer(function(socket) {
+    socket.write('Here you go', fileDesc);
+    socket.end();
+    server.close();
+});
+server.listen('/tmp/ho_child_exercise_1.sock', function() {
+var child = spawn(process.argv[0], [__dirname + '/client.js']); child.on('exit', function() {
+      console.log('child exited');
+    });
+}); });
+First we open the file on line 3. Once it is opened, we create the server (line 5) and bind it to a well- known socket path (line 12). When we start listening, we spawn the child process (line 14), which is a node process executing ‘child.js’ from the current directory. This server will simply write the file descriptor into the first connecting client, end the connection and close the server socket.
+The client code:
+Source code in exercises/child_processes/exercise_1/client.js
+varfs=require('fs');
+varconn=require('net').createConnection('/tmp/ho_child_exercise_1.sock'); conn.on('fd',function(fileDesc){
+fs.write(fileDesc, "this is the child!\n", function() { conn.end();
+}); });
+The client is very simple: it will connect to the server and wait for a file descriptor to be handed down (line 4). When that happens, it will append the string “this is the child!” into the file and end the server connection, exiting the process.
+1 2 3 4 5 6 7 8
+Appendix - Exercise Results 121
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+Chapter: Streaming HTTP Chunked responses Exercise 1
+Create a mixed TCP and HTTP server that, for every HTTP request, streams all the TCP clients input into the request response.
+One Solution:
+varutil=require('util'),
+EventEmitter = require('events').EventEmitter;
+varHose=function(){
+var self = this; require('net').createServer(function(socket) {
+socket.on('data', function(data) { self.emit('data', data);
+    })
+  }).listen(4001);
+}; util.inherits(Hose,EventEmitter); varhoser=newHose();
+require('http').createServer(function(req,res){ res.writeHead(200, {'Content-Type': 'text/plain'}); hoser.on('data', function(data) {
+    res.write(data);
+  });
+}).listen(4002);
+Here we are creating a pseudo-class named “Hose” that inherits from EventEmitter. An instance of
+this class (hoser), when created, starts the TCP server, and on every message it emits a “data” event.
+Then, the HTTP server simply binds to that event on the hoser, and when the hoser emits it, that data is piped into the response.
+Appendix - Exercise Results 122
+1 2 3 4 5 6 7 8
+1
+Chapter: UDP Exercise 1
+Create a UDP server that echoes the messages ot receives back into the origin socket.
+One Solution:
+vardgram=require('dgram');
+varsocket=dgram.createSocket('udp4',function(message,rinfo){ console.log(rinfo);
+socket.send(message, 0, message.length, rinfo.port, rinfo.address);
+});
+socket.bind(4001);
+You can test this using netcat like this:
+$netcat-u-w1localhost4001
+and then you can type a message and hit Return, and you should get the same message back.
+Chapter: TCP Exercise 1
+Make a chat server that requires no authentication, just a TCP client connection. Each time the client sends some text, the server broadcasts it to the other clients.
+One Solution:
+Source code in exercises/http/exercise_1.js
+Appendix - Exercise Results 123
+1 2 3 4 5 6 7 8 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+varsockets=[]; require('net').createServer(function(socket){
+  sockets.push(socket);
+socket.on('data', function(data) { sockets.forEach(function(socket) {
+      socket.write(data);
+    });
+});
+socket.on('end', function() {
+var pos = sockets.indexOf(socket); if (pos > 0) {
+      sockets.splice(pos, 1);
+    }
+  });
+}).listen(4001);
+On line 5 we are adding every new connection to the sockets array. On line 8 and 9 we are broadcasting every message received to every client connection. On lines 14-17 we are removing the client socket from the sockets array if he disconnects.
+Exercise 2
+Make a chat client that accepts 2 command line arguments: host and port, and reads from stdin, sending data to the server on each new line.
+One Solution:
+Source code in exercises/http/exercise_2.js
+Appendix - Exercise Results 124
+￼
+1
+2
+3
+4
+5 6} 7
+Appendix - Exercise Results 125
+varnet=require('net');
+if(process.argv.length<4){
+console.log('Usage: ' + process.argv[0] + ' ' + process.argv[1] + ' '); return;
+8 varhost=process.argv[2],
+9 port = process.argv[3];
+10
+11 varconn=net.createConnection(port,host); 12
+13 process.stdin.resume();
+14 process.stdin.pipe(conn);
+15 conn.pipe(process.stdout,{end:false});
+Here we are opening a connection to the chat server on line 11. Then, we pipe the process stdin into the socket (line 13). Also, to print what we get from the server, we pipe that socket into the process stdout (line 15).
+Chapter: SSL / TLS Exercise 1
+Create a certificate authority. Create a client certificate signed by this new certificate authority.
+One Solution:
+Create the Certificate Authority (CA):
+1 $mkdirprivate
+2 $opensslreq-new-x509-days3650-extensionsv3_ca-keyoutprivate/cakey.pem-\
+3 outcacert.pem
+Here is an example output:
+Appendix - Exercise Results 126
+1 Generatinga1024bitRSAprivatekey
+2 ..............................................++++++
+3 ..............++++++
+4 writingnewprivatekeyto'private/cakey.pem'
+5 EnterPEMpassphrase:
+6 Verifying-EnterPEMpassphrase:
+7 -----
+8 Youareabouttobeaskedtoenterinformationthatwillbeincorporated
+9 intoyourcertificaterequest.
+10 WhatyouareabouttoenteriswhatiscalledaDistinguishedNameoraDN.
+11 Therearequiteafewfieldsbutyoucanleavesomeblank
+12 Forsomefieldstherewillbeadefaultvalue,
+13 Ifyouenter'.',thefieldwillbeleftblank.
+14 -----
+15 CountryName(2lettercode)[AU]:PT
+16 StateorProvinceName(fullname)[Some-State]:
+17 LocalityName(eg,city)[]:Lisbon
+18 OrganizationName(eg,company)[InternetWidgitsPtyLtd]:TestCA
+19 OrganizationalUnitName(eg,section)[]:
+20 CommonName(eg,YOURname)[]:PedroTeixeira
+21 EmailAddress[]:pedro.teixeira@gmail.com
+The CA should now be generated:
+1 $tree 2.
+3 --cacert.pem
+4 `--private
+5 `-- cakey.pem
+Now we create the client private and public keys:
+1 $mkdirclient1 2
+3 $cdclient1
+4
+5 $opensslgenrsa-outclient.pem1024
+Now we generate a Certificate Signing Request (CSR):
+Appendix - Exercise Results 127
+1 opensslreq-new-keyclient.pem-outclient_csr.pem The output should be something like this:
+1 Youareabouttobeaskedtoenterinformationthatwillbeincorporated
+2 intoyourcertificaterequest.
+3 WhatyouareabouttoenteriswhatiscalledaDistinguishedNameoraDN.
+4 Therearequiteafewfieldsbutyoucanleavesomeblank
+5 Forsomefieldstherewillbeadefaultvalue,
+6 Ifyouenter'.',thefieldwillbeleftblank.
+7 -----
+8 CountryName(2lettercode)[AU]:PT
+9 StateorProvinceName(fullname)[Some-State]:
+10 LocalityName(eg,city)[]:Lisbon
+11 OrganizationName(eg,company)[InternetWidgitsPtyLtd]:TestClient
+12 OrganizationalUnitName(eg,section)[]:
+13 CommonName(eg,YOURname)[]:PedroTeixeira
+14 EmailAddress[]:pedro.teixeira@gmail.com
+15
+16 Pleaseenterthefollowing'extra'attributes
+17 tobesentwithyourcertificaterequest
+18 Achallengepassword[]:
+19 Anoptionalcompanyname[]:
+Now we create a signed certificate:
+1 $opensslx509-req-inclient_csr.pem-signkey../private/cakey.pem-outclient_\
+2 cert.pem
+You will be prompted for the CA private key password, and he output will look something like this:
+1 Signatureok
+2 subject=/C=PT/ST=Some-State/L=Lisbon/O=TestClient/CN=PedroTeixeira/emailAddress\
+3 =pedro.teixeira@gmail.com
+4 GettingPrivatekey
+5 Enterpassphrasefor../private/cakey.pem:
+Now you should have the client certificate in the file named client_cert.pem.
+￼
+Appendix - Exercise Results 128
+Exercise 2
+Create a TLS echo server that uses the default certificate authorities.
+One Solution:
+Create a directory to store the keys named exercise2:
+1 $mkdirexercise2 2
+3 $cdexercise2
+Create the server private key:
+1 $opensslgenrsa-outserver-key.pem1024 Create the server certificate sigining request (CSR):
+1 $opensslreq-new-keyserver-key.pem-outserver-csr.pem Create a self-signed sertificate:
+1 $opensslx509-req-inserver-csr.pem-signkeyserver-key.pem-outserver-cert.p\
+2 em
+Now go down a dir and type the server script:
+1 $cd..
+Source code in exercise/ssl_tls/exercise_2.js
+Appendix - Exercise Results 129
+1 varfs=require('fs');
+2 varoptions={
+3 key: fs.readFileSync(__dirname + '/exercise_2/server-key.pem'),
+4 cert: fs.readFileSync(__dirname + '/exercise_2/server-cert.pem'),
+5 ca: fs.readFileSync(__dirname + '/exercise_1/private/cakey.pem')
+6 };
+7 require('tls').createServer(options,function(socket){
+8 socket.pipe(socket);
+9 }).listen(4001);
+Exercise 3
+Create a TLS client that reads from stdin and sends it to the echo TLS server created on exercise 2.
+One Solution:
+Source code in exercise/ssl_tls/exercise_3.js
+1 varfs=require('fs');
+2 varclient=require('tls').connect(4001,function(err){
+3 client.connected = true;
+4 console.log('connected');
+5 process.stdin.resume();
+6 process.stdin.pipe(client);
+7 client.pipe(process.stdout, {end: false});
+8 });
+Exercise 4
+Make the TLS server only accept connections if the client is certified. Verify that he does not let the client created on exercise 3 connect.
+One Solution:
+Source code in exercise/ssl_tls/exercise_4.js
+￼￼
+Appendix - Exercise Results 130
+1 varfs=require('fs');
+2 varoptions={
+3 key: fs.readFileSync(__dirname + '/exercise_2/server-key.pem'),
+4 cert: fs.readFileSync(__dirname + '/exercise_2/server-cert.pem'),
+5 ca: fs.readFileSync(__dirname + '/exercise_1/private/cakey.pem'),
+6 requestCert: true,
+7 rejectUnauthorized: true
+8 };
+9 require('tls').createServer(options,function(socket){
+10 socket.on('data', function(data) {
+11 console.log(data.toString());
+12 });
+13 socket.pipe(socket);
+14 }).listen(4001);
+Here we are passing in the requestCert and rejectUnauthorized options with a true value. Once our client connects the connection will be rejected since it is not using a certificate regognizable to the server.
+Exercise 5
+Make the TLS Server use the same certificate authority you used to sign the client certificate with. Verify that the server now accepts connections from this client.
+One Solution:
+Source code in exercise/ssl_tls/exercise_5.js
+1 varfs=require('fs');
+2 varoptions={
+3 key: fs.readFileSync(__dirname + '/exercise_1/client1/client.pem'),
+4 cert: fs.readFileSync(__dirname + '/exercise_1/client1/client_cert.pem')
+5 };
+6 varclient=require('tls').connect(4001,options,function(err){
+7 client.connected = true;
+8 console.log('connected');
+9 process.stdin.resume();
+10 process.stdin.pipe(client);
+11 client.pipe(process.stdout, {end: false});
+12 });
+￼
+Appendix - Exercise Results 131
+Here we are using the client key and certificate we generated on exercise 1, which should be recognizable by our server since it was signed by our Certificate Authority.
+
