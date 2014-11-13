@@ -1,8 +1,11 @@
 var express = require('express'),
 	udata = require('../data/users');
 var router = express.Router();
+var bodyParser = require('body-parser'),
+	methodOverride = require('method-override');
 
-/* GET users listing. */
+router.use(methodOverride('_method'));
+
 router.get('/', function(req, res) {
   res.render('users/index',{title:"User list",users:udata});
 });
@@ -33,14 +36,14 @@ router.post('/', function(req, res) {
 	}
 });
 
-/*router.del('/:name', function(req, res,next) {
+router.del('/:name', function(req, res,next) {
 	if(udata[req.params.name]){
 		delete udata[req.params.name];
-		res.redirect('/');
+		res.redirect('users');
 	}else{
 		next();
 	}
 
 });
-*/
+
 module.exports = router;
