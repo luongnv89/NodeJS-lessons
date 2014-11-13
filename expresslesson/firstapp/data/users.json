@@ -1,0 +1,17 @@
+{
+	"louis":{
+		"username":"louis",
+		"email":"louis@louis.com",
+		"married":true
+	},
+	"anie":{
+		"username":"anie",
+		"email":"anie@anie.com",
+		"married":false
+	},
+	"steve":{
+		"username":"steve",
+		"email":"steve@steve.com",
+		"married":true
+	}
+}

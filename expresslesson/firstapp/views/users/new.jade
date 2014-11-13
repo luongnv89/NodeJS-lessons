@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+	h1=title
+	p Create new user
+	form(method="POST",action="/users")
+		p
+			label(for="username") Username <br />
+			input#username(name="username")
+		p
+			label(for="email") Email <br />
+			input#email(name="email")
+		p
+			label(for="married") Married <br />
+			label(for="gender") Married
+			input(type='radio' name='married' value= 'true')
+			label(for="gender") Not married
+			input(type='radio' name='married' value= 'false')
+			
+		p
+			input(type='submit' value= 'Create')
+	

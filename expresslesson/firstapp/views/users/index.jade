@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+	h1=title
+	
+	ul
+		- for (var u in users){
+			li
+				a(href="/users/"+users[u].username)=users[u].username
+		- };
