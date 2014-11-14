@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include partials/templates/head.ejs%>
+	<style type="text/css">
+		#rs-description{
+      width: 100%;
+      margin: 10px;
+      font-size: 16px;
+      font-family: 'Comic Sans MS';
+    }
+    #myModal{
+      width: 100%;
+    }
+
+    #currentLogo{
+      width:150px;
+      height:150px;
+    }
+	</style>
+</head>
+<body>
+	<div id='big_wrapper' class="container">
+		<% include partials/contents/currentPlayer.ejs%>
+		<% include partials/contents/radioplayer2.ejs%>
+		<% include partials/templates/footer.ejs%>
+	</div><!-- big_wrapper -->
+	<div class="modal fade" id="myModal" tabindex="10001" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">Pick a radio station</h4>
+				</div>
+				<div class="modal-body">
+					<% include partials/contents/listChannels.ejs%>
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	<% include partials/templates/jsscript.ejs%>
+</body>
+</html>
