@@ -1,16 +1,16 @@
  <!-- PLAYER -->
-        <div id="radioplay">
-         <audio id="audioplayer" preload="true" autoplay="" controls="" currentrs="0" hidden="">
-          Your browser does not support "audio" tag!
-          <source src="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk"></audio>
-            <i class="fa fa-list fa-2x" alt="PlayList" id="btnPlayList" data-toggle="modal" data-target="#myModal" style="float:left;" title="List Channels"></i> 
-            
-             <i alt="Previous" id="btnPrevious" style="margin:3px;" class="fa fa-step-backward fa-2x" title="Previous Channel"></i>
-            <i id="btnPlay" class="fa fa-pause fa-2x" style="margin:3px;" title="Pause/Play"></i> 
-            <i class="fa fa-step-forward fa-2x" alt="Next" id="btnNext" style="margin:3px;" title="Next Channels"></i> 
-            
-            <span id="volumeValue" class="hidden-xs">5</span>   
-            <input id="volume" type="range" min="0" max="100" value="50" step="10" class="hidden-xs">
-          <span class="grow glyphicon glyphicon-new-window" onclick="window.location ='/';" style="float:right;" title="Change to impact version"></span>
-         <!-- <span alt="Set timeout" id="btnTime" style="margin:3px;float:right;" class="grow glyphicon glyphicon-time" title="Set time to stop listening"></span>  -->
-       </div>
+ <div id="radioplay">
+   <audio id="audioplayer" preload="true" autoplay="" controls="" currentrs="0" hidden="">
+    Your browser does not support "audio" tag!
+    <source src="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk"></audio>
+      <i class="fa fa-list" alt="PlayList" id="btnPlayList" data-toggle="modal" data-target="#myModal" style="float:left;" title="List Channels"></i> 
+
+      <i alt="Previous" id="btnPrevious" style="margin:3px;" class="fa fa-step-backward" title="Previous Channel"></i>
+      <i id="btnPlay" class="fa fa-pause" style="margin:3px;" title="Pause/Play"></i> 
+      <i class="fa fa-step-forward" alt="Next" id="btnNext" style="margin:3px;" title="Next Channels"></i> 
+
+      <span id="volumeValue" class="hidden-xs">5</span>   
+      <input id="volume" type="range" min="0" max="100" value="50" step="10" class="slider hidden-xs">
+      <i class="fa fa-expand" onclick="luongnvinfo.changeLayout(0)" style="float:right;" title="Change to compact version"></i>
+    </div>
+

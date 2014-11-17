@@ -1,119 +1,74 @@
 var express = require('express');
 var router = express.Router();
 var allChannels= require('../data/data.json');
-var data = allChannels.data;
-data.forEach(function(channel){
-	channel.lang = allChannels.langs[channel.language];
-	channel.cat = allChannels.cats[channel.category];
-	channel.logo = "/"+channel.logo;
+var listChs = allChannels.data,
+listLanguages = allChannels.langs,
+listCats = allChannels.cats;
+listChs.forEach(function(channel){
+	channel.lang = listLanguages[channel.language];
+	channel.cat = listCats[channel.category];
+});
+router.get('/',function (req,res) {
+	loadPage(req,res,'index',listLanguages,listCats);
 });
 
-router.get('/:filter1', function(req, res) {
-	console.log(req.params);
-	var listChannels  = [],
-		f1 = req.params.filter1,
-		f2 = req.params.filter2;
-	if(f1=='language'){
-		data.sort(function(a,b){
-			var al = a.language,
-			bl = b.language;
-			if(al<bl) return -1;
-			if(al>bl) return 1;
-			return 0;
-		});
-		allChannels.langs.forEach(function(lang){
-			var cat = {};
-			cat.name = lang.toUpperCase();
-			cat.list = [];
-			listChannels.push(cat);
-		});
-		var id = 0;
-		data.forEach(function(channel){
-			channel.id = id;
-			listChannels[channel.language].list.push(channel);
-			id++;
-		});
-	}else if(f1=='category'){
-		data.sort(function(a,b){
-			var al = a.category,
-			bl = b.category;
-			if(al<bl) return -1;
-			if(al>bl) return 1;
-			return 0;
-		});
-		allChannels.cats.forEach(function(c){
-			var cat = {};
-			cat.name = c.toUpperCase();
-			cat.list = [];
-			listChannels.push(cat);
-		});
-		var id = 0;
-		data.forEach(function(channel){
-			channel.id = id;
-			channel.lang = allChannels.langs[channel.language];
-			channel.cat = allChannels.cats[channel.category];
-			listChannels[channel.category].list.push(channel);
-			id++;
-		});
-	} 
-	//console.log(JSON.stringify(listChannels));
-	res.render('index', { title: 'Radio online', listChannel:listChannels});
+router.post('/filter.json',function (req,res) {
+	console.log('req.body');
+	// res.json(req.body);
 });
 
-/* GET home page. */
-router.get('/:filter1/:filter2', function(req, res) {
-	console.log(req.params);
-	var listChannels  = [],
-		f1 = req.params.filter1,
-		f2 = req.params.filter2;
-	if(f1=='language'){
-		data.sort(function(a,b){
-			var al = a.language,
-			bl = b.language;
-			if(al<bl) return -1;
-			if(al>bl) return 1;
-			return 0;
-		});
-
-		if(allChannels.langs.indexOf(f2.toLowerCase())>=0){
-			var catList = {},
-			id = 0;
-			catList.name=f2.toUpperCase();
-			catList.list=[];
-			data.forEach(function(channel){
-				if(channel.lang.toUpperCase()==catList.name){
-					channel.id = id;
-					catList.list.push(channel);
-					id++;
-				}
-			});
-			listChannels.push(catList);
-		}
-	}else if(f1=='category'){
-		data.sort(function(a,b){
-			var al = a.category,
-			bl = b.category;
-			if(al<bl) return -1;
-			if(al>bl) return 1;
-			return 0;
-		});
-		if(allChannels.cats.indexOf(f2)>=0){
-			var catList = {},
-			id = 0;
-			catList.name=f2.toUpperCase();
-			catList.list=[];
-			data.forEach(function(channel){
-				if(channel.cat.toUpperCase()==catList.name){
-					channel.id = id;
-					catList.list.push(channel);
-					id++;
-				}
-			});
-			listChannels.push(catList);
-		}
+router.get('/:tags',function (req,res) {
+	var pageType='index',
+	langs = listLanguages,
+	cats = listCats;
+	var tags = getTags(req.params.tags);
+	console.log("Tags: " + tags);
+	if(tags.length>0){
+		console.log(tags);
+		pageType = tags.indexOf('compact')<0?'index':'compact';
+		langs = getLanguages(tags);
+		cats = getCategories(tags);
 	}
-	//console.log(JSON.stringify(listChannels));
-	res.render('index', { title: 'Radio online', listChannel:listChannels});
+	loadPage(req,res,pageType,langs,cats);
 });
 
+function getTags (params) {
+	var tags = params.split(','),
+	ret = [];
+	for(var i=0;i<tags.length;i++){
+		if(tags[i]!="") ret.push(tags[i]);
+	}
+	return ret;
+}
+function loadPage (req,res,pageType,langs,cats) {
+	var listChannels = [];
+	for(var i=0;i<listChs.length;i++){
+		if(langs.indexOf(listChs[i].lang)>-1 && cats.indexOf(listChs[i].cat)>-1) listChannels.push(listChs[i]);
+	}
+	var id=0;
+	listChannels.forEach(function(channel){
+		channel.id = id;
+		id++;
+	});
+	var pa = (langs.concat(cats)).toString();
+	pa+=pageType=='compact'?',compact':'';
+	// console.log('data: ' + JSON.stringify(listChannels));
+	res.render(pageType, { title: 'Radio online', listChannel:listChannels,listLanguages:listLanguages,listCats:listCats,currentParams:pa});
+}
+
+function getLanguages (tags) {
+	var l = [];
+	for(var i=0;i<tags.length;i++){
+		if (listLanguages.indexOf(tags[i])>-1) l.push(tags[i]);
+	}
+	return l.length==0?listLanguages:l;
+}
+
+function getCategories (tags) {
+	var l = [];
+	for(var i=0;i<tags.length;i++){
+		if (listCats.indexOf(tags[i])>-1) l.push(tags[i]);
+	}
+	return l.length==0?listCats:l;
+}
 module.exports = router;

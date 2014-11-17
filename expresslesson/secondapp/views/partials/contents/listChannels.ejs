@@ -1,25 +1,20 @@
 <div class="bs-docs-container" id='main-contain'>
-  <% if(listChannel.length>0){ %>
-   <%listChannel.forEach(function(cat){ %>
-    <h2 class="languageList"><%=cat.name%></h2>
-    <div class="row">
-      <% if(cat.list.length>0 ) {cat.list.forEach(function(channel){ %>
+    <div class="row list-channel">
+      <% if(listChannel.length>0 ) {listChannel.forEach(function(channel){ %>
         <div class="col-sm-6 col-md-4" id="<%=channel.id%>" data-dismiss="modal" onclick="luongnvinfo.selectStream(<%=channel.id%>);" rsURLs="<%=channel.url%>">
         <div class="thumbnail">
           <img class="thumb-image grow-rotate box-shadow-outset hidden-xs" src="<%=channel.logo%>">
             <div class="caption">
               <h3 class="rsName"><%=channel.name%></h3>
               <div class="otherInfo hidden-xs">
-                <h4>[<%=channel.cat%>]</h4>
-                <p class="detail-desc"><%=channel.desc%></p>
+                <h4 class="detail-desc" title="<%=channel.desc%>">[<%=channel.cat%>]</h4>
               </div>
             </div>
           </div>
         </div>
-      <% });};%>
-    </div>
-  <% });%>
+      <% });%>
   <%}else{%>
     <h1>There is no data for this filter</h1>
   <%}%>
+  </div>
 </div> 

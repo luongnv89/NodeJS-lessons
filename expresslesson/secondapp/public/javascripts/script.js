@@ -31,6 +31,10 @@ luongnvinfo={
 		btnPlay.onclick = function () {
 			luongnvinfo.btnPlayClick();
 		}
+
+		rsName = document.getElementById('radioName');
+		rsDesc = document.getElementById('rs-description');
+		rsLogo = document.getElementById('currentLogo');
 	},
 	btnPlayClick:function () {
 		if(audioplayer.paused){
@@ -42,13 +46,10 @@ luongnvinfo={
 		}
 	},
 	selectStream:function (rsId) {
-		var rsName = document.getElementById('radioName'),
-			rsDesc = document.getElementById('rs-description'),
-			rsLogo = document.getElementById('currentLogo'),
-			rsDOM = document.getElementById(rsId);
+		var rsDOM = document.getElementById(rsId);
 		console.log('Selected: ' + rsId);
-		rsName.innerHTML=rsDOM.querySelector('.rsName').innerHTML;
-		if (rsDesc) rsDesc.innerHTML=rsDOM.querySelector('.otherInfo').innerHTML;
+		if (rsName) rsName.innerHTML=rsDOM.querySelector('.rsName').innerHTML;
+		if (rsDesc) rsDesc.innerHTML=rsDOM.querySelector('.detail-desc').title;
 		if (rsLogo) rsLogo.src=rsDOM.querySelector('.thumb-image').src;
 		audioplayer.setAttribute('currentRS',rsId);
 		var listSource = audioplayer.querySelectorAll('source');
@@ -67,6 +68,31 @@ luongnvinfo={
 	setVolume :function () {
 		audioplayer.volume=rsVolume.value/100;
 		volumeValue.innerHTML = rsVolume.value/10;
+	},
+	changeLayout:function (layout) {
+		var newURL;
+		if(layout===1){
+			newURL = window.location.origin + window.location.pathname+',compact';
+		}else{
+			newURL = window.location.origin + (window.location.pathname).replace('compact,','').replace(',compact','');
+		}
+		console.log("New URL: " + newURL);
+		window.location=newURL;
+	},
+	filter:function (tag,currentParams,added) {
+		console.log('new filter with tag: ' + tag +' and : ' + added+"\n Current Params: " + currentParams);
+		var newURL;
+		if(added){
+			newURL = window.location.origin + '/'+currentParams+','+tag;
+		}else{
+			newURL = window.location.origin +'/'+ currentParams.replace(tag+',','').replace(','+tag,'');
+		}
+		console.log("New URL: " + newURL);
+		window.location=newURL;
+	},
+	postFilter:function () {
+		var filter = document.getElementById('filter');
+		var checkList = filter.querySelectorAll('input');
 	}
 }
 

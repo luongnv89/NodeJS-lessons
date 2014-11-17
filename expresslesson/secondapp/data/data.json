@@ -4,7 +4,7 @@
       "url": [
         "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk"
       ],
-      "logo": "images/bbc.jpg",
+      "logo": "/images/bbc.jpg",
       "name": "bbc world service",
       "language": 0,
       "category": 0,
@@ -14,7 +14,7 @@
       "url": [
         "http://listen.onmyradio.net:8002/;"
       ],
-      "logo": "images/jazzfm.jpg",
+      "logo": "/images/jazzfm.jpg",
       "name": "jazz fm",
       "language": 0,
       "category": 1,
@@ -24,7 +24,7 @@
       "url": [
         "http://media-ice.musicradio.com:80/classicfmmp3"
       ],
-      "logo": "images/classicfm.gif",
+      "logo": "/images/classicfm.gif",
       "name": "classic fm",
       "language": 0,
       "category": 1,
@@ -34,7 +34,7 @@
       "url": [
         "http://newyorkcity.radiostreamlive.com:8014/radionylive_128"
       ],
-      "logo": "images/ny.jpg",
+      "logo": "/images/ny.jpg",
       "name": "new york radio",
       "language": 0,
       "category": 0,
@@ -44,7 +44,7 @@
       "url": [
         "http://5.152.208.98:8058/;"
       ],
-      "logo": "images/ancientfm.jpg",
+      "logo": "/images/ancientfm.jpg",
       "name": "ancient music",
       "language": 3,
       "category": 0,
@@ -54,7 +54,7 @@
       "url": [
         "http://streaming.hotmix-radio.net/hotmixradio-dance-128.mp3"
       ],
-      "logo": "images/hotmix.jpg",
+      "logo": "/images/hotmix.jpg",
       "name": "hotmix dance",
       "language": 0,
       "category": 1,
@@ -64,7 +64,7 @@
       "url": [
         "http://streaming64.radionomy.com/70s-disco-nights"
       ],
-      "logo": "images/70sdisco.jpg",
+      "logo": "/images/70sdisco.jpg",
       "name": "70s disco night",
       "language": 0,
       "category": 1,
@@ -74,7 +74,7 @@
       "url": [
         "http://lin2.ash.fast-serv.com:9022/"
       ],
-      "logo": "images/otr.jpg",
+      "logo": "/images/otr.jpg",
       "name": "old time radio",
       "language": 0,
       "category": 1,
@@ -84,7 +84,7 @@
       "url": [
         "http://stream.rfi.fr/2588/rfi_en_anglais/rfianglais.mp3"
       ],
-      "logo": "images/rfi.gif",
+      "logo": "/images/rfi.gif",
       "name": "rfi anglais",
       "language": 0,
       "category": 0,
@@ -94,7 +94,7 @@
       "url": [
         "http://telechargement.rfi.fr/rfi/francais/audio/last/rfi_24h_en_france_1_1.mp3"
       ],
-      "logo": "images/rfi24.png",
+      "logo": "/images/rfi24.png",
       "name": "rfi 24h en france",
       "language": 1,
       "category": 0,
@@ -104,7 +104,7 @@
       "url": [
         "http://telechargement.rfi.fr/rfi/francais/audio/last/rfi_jrn_dernier_journal.mp3"
       ],
-      "logo": "images/rfi.gif",
+      "logo": "/images/rfi.gif",
       "name": "rfi dernier journal monde",
       "language": 1,
       "category": 0,
@@ -114,7 +114,7 @@
       "url": [
         "http://mp3.live.tv-radio.com/rfimonde/all/rfimonde-64k.mp3"
       ],
-      "logo": "images/rfi.gif",
+      "logo": "/images/rfi.gif",
       "name": "rfi direct monde",
       "language": 1,
       "category": 0,
@@ -124,7 +124,7 @@
       "url": [
         "http://mp3.live.tv-radio.com/rfimusiquemonde/all/rfimusiquemonde-64k.mp3"
       ],
-      "logo": "images/rfi.gif",
+      "logo": "/images/rfi.gif",
       "name": "rfi musique",
       "language": 1,
       "category": 1,
@@ -134,7 +134,7 @@
       "url": [
         "http://telechargement.rfi.fr/rfi/francais/audio/last/rfi_jrn_dernier_journal_fr_facile.mp3"
       ],
-      "logo": "images/rfi.gif",
+      "logo": "/images/rfi.gif",
       "name": "rfi dernier journal en francais facile",
       "language": 1,
       "category": 0,
@@ -144,7 +144,7 @@
       "url": [
         "http://mp3tslg2.tdf-cdn.com/6675/francemusique.mp3"
       ],
-      "logo": "images/francemusique.jpg",
+      "logo": "/images/francemusique.jpg",
       "name": "france musique",
       "language": 1,
       "category": 1,
@@ -154,7 +154,7 @@
       "url": [
         "http://audio-mp3.ibiblio.org:8000/wcpe.mp3"
       ],
-      "logo": "images/wcpe.jpg",
+      "logo": "/images/wcpe.jpg",
       "name": "the classical station",
       "language": 0,
       "category": 1,
@@ -164,7 +164,7 @@
       "url": [
         "http://pianosolo.streamguys.net:80/live"
       ],
-      "logo": "images/piano.png",
+      "logo": "/images/piano.png",
       "name": "piano solo",
       "language": 2,
       "category": 1,
@@ -174,7 +174,7 @@
       "url": [
         "http://46.28.49.164:7504//stream"
       ],
-      "logo": "images/restrosoul.jpg",
+      "logo": "/images/restrosoul.jpg",
       "name": "restro soul",
       "language": 0,
       "category": 1,
@@ -184,7 +184,7 @@
       "url": [
         "http://kuvo-ice.streamguys.org:80/kuvo-mp3-64"
       ],
-      "logo": "images/kuvo.jpg",
+      "logo": "/images/kuvo.jpg",
       "name": "kuvo jazz",
       "language": 0,
       "category": 1,
@@ -194,7 +194,7 @@
       "url": [
         "http://wgltradio.ilstu.edu:8000/wgltmain.mp3"
       ],
-      "logo": "images/glt.jpg",
+      "logo": "/images/glt.jpg",
       "name": "glt news",
       "language": 0,
       "category": 0,
@@ -204,7 +204,7 @@
       "url": [
         "http://pd.npr.org/anon.npr-mp3/npr/news/newscast.mp3"
       ],
-      "logo": "images/npr.png",
+      "logo": "/images/npr.png",
       "name": "npr hourly news",
       "language": 0,
       "category": 0,
@@ -214,7 +214,7 @@
       "url": [
         "http://wgltradio.ilstu.edu:8000/wgltjazz.mp3"
       ],
-      "logo": "images/glt.jpg",
+      "logo": "/images/glt.jpg",
       "name": "glt jazz radio",
       "language": 0,
       "category": 1,
@@ -224,7 +224,7 @@
       "url": [
         "http://wgltradio.ilstu.edu:8000/wgltfolk.mp3"
       ],
-      "logo": "images/glt.jpg",
+      "logo": "/images/glt.jpg",
       "name": "glt acousticity",
       "language": 0,
       "category": 1,
@@ -234,7 +234,7 @@
       "url": [
         "http://50.31.180.202:80/"
       ],
-      "logo": "images/kexp.jpg",
+      "logo": "/images/kexp.jpg",
       "name": "kexp",
       "language": 0,
       "category": 1,
@@ -244,7 +244,7 @@
       "url": [
         "http://reachonair.net:8320/live320"
       ],
-      "logo": "images/reachonair.png",
+      "logo": "/images/reachonair.png",
       "name": "reach on air",
       "language": 0,
       "category": 1,
@@ -254,7 +254,7 @@
       "url": [
         "http://stereo.dfm.nu"
       ],
-      "logo": "images/dfm.jpg",
+      "logo": "/images/dfm.jpg",
       "name": "dfm rtv int",
       "language": 0,
       "category": 1,
@@ -264,7 +264,7 @@
       "url": [
         "http://icecast.uvm.edu:8005/wruv_fm_256"
       ],
-      "logo": "images/wruv.jpg",
+      "logo": "/images/wruv.jpg",
       "name": "wruv fm",
       "language": 0,
       "category": 1,
@@ -277,7 +277,7 @@
         "http://stream2.wfmu.org/freeform-128k",
         "http://stream3.wfmu.org/freeform-128k"
       ],
-      "logo": "images/wfmu.jpg",
+      "logo": "/images/wfmu.jpg",
       "name": "wfmu",
       "language": 0,
       "category": 2,

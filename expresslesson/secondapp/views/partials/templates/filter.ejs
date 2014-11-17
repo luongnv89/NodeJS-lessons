@@ -1,0 +1,29 @@
+
+<div id="filter">
+	<h3 > Languages</h3>
+	<div class="row fontawesome-icon-list">
+		<%listLanguages.forEach(function(lang){%>
+		<div class="fa-hover col-md-3 col-sm-4" >
+			<%if(currentParams.indexOf(lang)>-1){%>
+				<input type="checkbox" checked onclick="luongnvinfo.filter('<%=lang%>','<%=currentParams%>',false)"> <%=lang%>
+			<%}else{%>
+				<input type="checkbox" onclick="luongnvinfo.filter('<%=lang%>','<%=currentParams%>',true)"> <%=lang%>
+			<%}%>
+		</div>
+		<%});%>
+	</div>
+	<h3 > Categories </h3>
+	<div class="row fontawesome-icon-list">
+		<%listCats.forEach(function(cat){%>
+		<div class="fa-hover col-md-3 col-sm-4" >
+			<%if(currentParams.indexOf(cat)>-1){%>
+				<input type="checkbox" checked onclick="luongnvinfo.filter('<%=cat%>','<%=currentParams%>',false)"> <%=cat%>
+			<%}else{%>
+				<input type="checkbox" onclick="luongnvinfo.filter('<%=cat%>','<%=currentParams%>',true)"> <%=cat%>
+			<%}%>
+		</div>
+		<%});%>
+	</div>
+</div>
+
+<button type="submit" class="btn btn-default" onclick="luongnvinfo.postFilter();">Submit</button>
