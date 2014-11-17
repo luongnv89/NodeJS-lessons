@@ -13,8 +13,21 @@ router.get('/',function (req,res) {
 });
 
 router.post('/filter.json',function (req,res) {
-	console.log('req.body');
-	// res.json(req.body);
+	console.log(req.body);
+	var langs = req.body['languageBox'],
+		cats = req.body['catBox'];
+	var listChannels = [];
+	for(var i=0;i<listChs.length;i++){
+		if(langs.indexOf(listChs[i].lang)>-1 && cats.indexOf(listChs[i].cat)>-1) listChannels.push(listChs[i]);
+	}
+	var id=0;
+	listChannels.forEach(function(channel){
+		channel.id = id;
+		id++;
+	});
+	console.log(listChannels);
+	res.writeHeader(200,{"Content-type":"json/application"});
+	res.end(JSON.stringify(listChannels));
 });
 
 router.get('/:tags',function (req,res) {
