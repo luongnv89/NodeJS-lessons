@@ -35,6 +35,25 @@ luongnvinfo={
 		rsName = document.getElementById('radioName');
 		rsDesc = document.getElementById('rs-description');
 		rsLogo = document.getElementById('currentLogo');
+
+		if(localStorage.getItem('rsName')){
+			console.log('Found stream in local');
+			if (rsName) rsName.innerHTML=localStorage.getItem('rsName');
+			if (rsDesc) rsDesc.innerHTML = localStorage.getItem('rsDesc');
+			if (rsLogo) rsLogo.src = localStorage.getItem('rsLogo');
+			var listSource = audioplayer.querySelectorAll('source');
+			for(var i=0;i<listSource.length;i++){
+				listSource[i].remove();
+			}
+			var i=0;
+			while(localStorage.getItem('rsUrl'+i)){
+				var source = document.createElement('source');
+				source.src = localStorage.getItem('rsUrl'+i);
+				audioplayer.appendChild(source);
+				i++;
+			}
+			audioplayer.load();
+		}
 	},
 	btnPlayClick:function () {
 		if(audioplayer.paused){
@@ -48,11 +67,21 @@ luongnvinfo={
 	selectStream:function (rsId) {
 		var rsDOM = document.getElementById(rsId);
 		console.log('Selected: ' + rsId);
-		if (rsName) rsName.innerHTML=rsDOM.querySelector('.rsName').innerHTML;
-		if (rsDesc) rsDesc.innerHTML=rsDOM.querySelector('.detail-desc').title;
-		if (rsLogo) rsLogo.src=rsDOM.querySelector('.thumb-image').src;
+		var rName = rsDOM.querySelector('.rsName').innerHTML,
+			rDesc = rsDOM.querySelector('.detail-desc').title,
+			rLogo = rsDOM.querySelector('.thumb-image').src;
+		//Save to localStorage
+		localStorage.clear();
+		localStorage.setItem('rsName',rName);
+		localStorage.setItem('rsDesc',rDesc);
+		localStorage.setItem('rsLogo',rLogo);
+
+		if (rsName) rsName.innerHTML=rName;
+		if (rsDesc) rsDesc.innerHTML = rDesc;
+		if (rsLogo) rsLogo.src = rLogo;
 		audioplayer.setAttribute('currentRS',rsId);
 		var listSource = audioplayer.querySelectorAll('source');
+
 		for(var i=0;i<listSource.length;i++){
 			listSource[i].remove();
 		}
@@ -62,6 +91,7 @@ luongnvinfo={
 			var source = document.createElement('source');
 			source.src = urlStream[j];
 			audioplayer.appendChild(source);
+			localStorage.setItem('rsUrl'+i,urlStream[j]);
 		}
 		audioplayer.load();
 	},
