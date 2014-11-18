@@ -45,11 +45,11 @@
 						<td><%=ch.category%></td>
 						<td><%=ch.desc%></td>
 						<td><%=ch.url%></td>
-						<td><%=ch.logo%></td>
+						<td><img class="small-logo" src="<%=ch.logo%>"></td>
 						<td><%= ch.created_at%></td>
 						<!-- Single button -->
 						<td>
-							<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="editAction(<%=ch._id%>)" title="Edit information"></span>
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="console.log(JSON.parse('<%-JSON.stringify(ch)%>'));" title="Edit information"></span>
 							<span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="deleteAction(<%=ch._id%>)" title="Delete this radio"></span>
 							<span class="glyphicon glyphicon-music" aria-hidden="true" onclick="playAction(<%=ch._id%>)" title="Play this radio"></span>
 						</td>

@@ -186,3 +186,7 @@ input[type='range']::-moz-range-thumb {
 #btnSubmit{
   margin-top: 10px;
 }
+
+img.small-logo{
+  width: 50px;
+}

@@ -17,7 +17,6 @@ mongoClient.open(function (err,mongoClient) {
 
 	var db = mongoClient.db('radioDatabase');
 	collectionDriver = new CollectionDriver(db);
-	loadDataToDB();
 });
 
 var http = require('http'),
