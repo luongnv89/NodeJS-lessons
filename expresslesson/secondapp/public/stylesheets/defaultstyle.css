@@ -169,11 +169,20 @@ input[type='range']::-moz-range-thumb {
   width: 20px;
 }
 
-.glyphicon{
+.fa{
   font-size: 2em;
   margin: 3px;
   /*color: #0000FF;*/
 }
 .modal-dialog{
   width: 90%;
+}
+
+#cbFilter{
+  width: 100%;
+  margin-left: 30px;
+}
+
+#btnSubmit{
+  margin-top: 10px;
 }

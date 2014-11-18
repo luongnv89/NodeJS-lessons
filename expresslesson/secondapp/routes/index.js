@@ -12,23 +12,25 @@ router.get('/',function (req,res) {
 	loadPage(req,res,'index',listLanguages,listCats);
 });
 
-router.post('/filter.json',function (req,res) {
-	console.log(req.body);
-	var langs = req.body['languageBox'],
-		cats = req.body['catBox'];
-	var listChannels = [];
-	for(var i=0;i<listChs.length;i++){
-		if(langs.indexOf(listChs[i].lang)>-1 && cats.indexOf(listChs[i].cat)>-1) listChannels.push(listChs[i]);
-	}
-	var id=0;
-	listChannels.forEach(function(channel){
-		channel.id = id;
-		id++;
-	});
-	console.log(listChannels);
-	res.writeHeader(200,{"Content-type":"json/application"});
-	res.end(JSON.stringify(listChannels));
-});
+// router.post('/filter.json',function (req,res) {
+// 	console.log(req.body);
+// 	var langs = req.body['languageBox'],
+// 		cats = req.body['catBox'];
+// 	var listChannels = [];
+// 	for(var i=0;i<listChs.length;i++){
+// 		if(langs.indexOf(listChs[i].lang)>-1 && cats.indexOf(listChs[i].cat)>-1) listChannels.push(listChs[i]);
+// 	}
+// 	var id=0;
+// 	listChannels.forEach(function(channel){
+// 		channel.id = id;
+// 		id++;
+// 	});
+// 	console.log(listChannels);
+// 	var pa = (langs.concat(cats)).toString();
+// 	// res.writeHeader(200,{"Content-type":"json/application"});
+// 	// res.end(JSON.stringify(listChannels));\
+// 	res.render('index',{ title: 'Radio online', listChannel:listChannels,listLanguages:listLanguages,listCats:listCats,currentParams:pa});
+// });
 
 router.get('/:tags',function (req,res) {
 	var pageType='index',
@@ -49,7 +51,7 @@ function getTags (params) {
 	var tags = params.split(','),
 	ret = [];
 	for(var i=0;i<tags.length;i++){
-		if(tags[i]!="") ret.push(tags[i]);
+		if(tags[i]!="") ret.push(tags[i].replace(' ',''));
 	}
 	return ret;
 }

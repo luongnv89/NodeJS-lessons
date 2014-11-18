@@ -8,6 +8,8 @@ luongnvinfo={
 		rsVolume.addEventListener('change',luongnvinfo.setVolume,false);
 		volumeValue = document.getElementById('volumeValue');
 		volumeValue.innerHTML = rsVolume.value/10;
+		var btnSubmit = document.getElementById('btnSubmit');
+		btnSubmit.addEventListener('click',luongnvinfo.submitForm);
 
 		btnNext = document.getElementById('btnNext');
 		btnNext.onclick = function () {
@@ -109,20 +111,18 @@ luongnvinfo={
 		console.log("New URL: " + newURL);
 		window.location=newURL;
 	},
-	filter:function (tag,currentParams,added) {
-		console.log('new filter with tag: ' + tag +' and : ' + added+"\n Current Params: " + currentParams);
-		var newURL;
-		if(added){
-			newURL = window.location.origin + '/'+currentParams+','+tag;
-		}else{
-			newURL = window.location.origin +'/'+ currentParams.replace(tag+',','').replace(','+tag,'');
+	submitForm:function () {
+		var cbFilter = document.getElementById('cbFilter');
+		var listFilter = cbFilter.querySelectorAll('input');
+		var params = [];
+		if(window.location.pathname.indexOf('compact')>-1) params.push('compact');
+		for(var i=0;i<listFilter.length;i++){
+			if(listFilter[i].checked) params.push(listFilter[i].value);
 		}
+
+		var newURL = window.location.origin+'/'+params.toString();
 		console.log("New URL: " + newURL);
 		window.location=newURL;
-	},
-	postFilter:function () {
-		var filter = document.getElementById('filter');
-		var checkList = filter.querySelectorAll('input');
 	}
 }
 
