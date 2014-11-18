@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include templates/head.ejs%>
+	<style type="text/css">
+		.page-header{
+			margin-top: 100px;
+		}
+
+		#radioplay{
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+
+		.detail-desc{
+			display: none;
+		}
+	</style>
+</head>
+<body class="full"> 
+	<div id='big_wrapper' class="container">
+		<h1><%=title%></h1>
+		<div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Language</th>
+						<th>Category</th>
+						<th>Description</th>
+						<th>Stream</th>
+						<th>logo</th>
+						<th>created</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% data.forEach(function(ch){%>
+					<tr>
+						<td><%=ch._id%></td>
+						<td><%=ch.name%></td>
+						<td><%=ch.language%></td>
+						<td><%=ch.category%></td>
+						<td><%=ch.desc%></td>
+						<td><%=ch.url%></td>
+						<td><%=ch.logo%></td>
+						<td><%= ch.created_at%></td>
+						<!-- Single button -->
+						<td>
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="editAction(<%=ch._id%>)" title="Edit information"></span>
+							<span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="deleteAction(<%=ch._id%>)" title="Delete this radio"></span>
+							<span class="glyphicon glyphicon-music" aria-hidden="true" onclick="playAction(<%=ch._id%>)" title="Play this radio"></span>
+						</td>
+					</tr>
+					<% });%>
+				</tbody>
+			</table>
+		</div><!-- big_wrapper -->
+		<% include templates/jsscript.ejs%>
+		<% include templates/footer.ejs%>
+	</body>
+	</html>
