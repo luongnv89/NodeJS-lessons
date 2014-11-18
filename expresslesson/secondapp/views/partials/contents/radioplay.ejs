@@ -1,15 +1,4 @@
 <div id="radioplay-full">
-  <audio id="audioplayer" preload="true" autoplay="" controls="" currentrs="0" hidden="">
-    Your browser does not support "audio" tag!
-    <source src="http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk">
-    </audio>
     <span id="radioName">BBC World Service</span>
-    <i class="fa fa-compress fa-2x" onclick="luongnvinfo.changeLayout(1)" style="float:right;" title="Change to impact version"></i>
-    <div>   
-      <i alt="Previous" id="btnPrevious" style="margin:3px;" class="fa fa-step-backward fa-2x" title="Previous Channel"></i>
-      <i id="btnPlay" class="fa fa-pause fa-2x" style="margin:3px;" title="Pause/Play"></i> 
-      <i class="fa fa-step-forward fa-2x" alt="Next" id="btnNext" style="margin:3px;" title="Next Channels"></i> 
-      <span id="volumeValue" class="hidden-xs">5</span>   
-      <input id="volume" type="range" min="0" max="100" value="50" step="10" class="slider hidden-xs">
-    </div>
+    <% include ./corePlayer.ejs%>
   </div>

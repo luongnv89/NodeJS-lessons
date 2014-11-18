@@ -101,10 +101,11 @@ luongnvinfo={
 		audioplayer.volume=rsVolume.value/100;
 		volumeValue.innerHTML = rsVolume.value/10;
 	},
-	changeLayout:function (layout) {
+	changeLayout:function () {
+		var pn = window.location.pathname;
 		var newURL;
-		if(layout===1){
-			newURL = window.location.origin + window.location.pathname+',compact';
+		if(pn.indexOf('compact')<0){
+			newURL = window.location.origin + pn+',compact';
 		}else{
 			newURL = window.location.origin + (window.location.pathname).replace('compact,','').replace(',compact','');
 		}
