@@ -17,6 +17,7 @@ mongoClient.open(function (err,mongoClient) {
 
 	var db = mongoClient.db('radioDatabase');
 	collectionDriver = new CollectionDriver(db);
+	loadDataToDB();
 });
 
 var http = require('http'),
@@ -26,7 +27,7 @@ var http = require('http'),
 var app = express();
 app.use(bodyParser.json());
 
-app.set('port',process.env.PORT||3000);
+app.set('port',process.env.PORT||8888);
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 
