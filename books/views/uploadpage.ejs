@@ -1,0 +1,27 @@
+<!DOCTYPE>
+<html lang="en">
+<head>
+  <%include partials/templates/head.ejs%>
+  <%include partials/bookspage/style.ejs%>
+</head>
+<body>
+  <div id='big_wrapper'> <!-- big-wrapper -->
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Books <small class="hidden-xs">upload a book</small></h1>
+     </div>
+    
+    <!-- Main content -->
+    <%include partials/bookspage/uploadform.ejs%>
+
+    <!--footer -->
+    <%include partials/templates/footer.ejs%>
+
+  </div> <!-- big-wrapper -->
+
+  <!-- Script -->
+  <%include partials/templates/scriptDefault.ejs%>
+  <%include partials/bookspage/script.ejs%>
+
+</body>
+</html>
