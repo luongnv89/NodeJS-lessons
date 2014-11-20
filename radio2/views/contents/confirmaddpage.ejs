@@ -1,0 +1,17 @@
+<h3><strong>"<%=channel.name%> "</strong> radio stream was added successfully ! </h3>
+<div class="thumbnail">
+          <img alt="Radio logo" src="<%=channel.logo%>">
+          <div class="caption">
+            <p>Tags: <% channel.tags.forEach(function(t){ %>
+              <a href="/tags/<%=t%>"><%=t%></a>,
+              <% });%>
+            </p>
+            Stream urls:
+            <ul><% channel.urls.forEach(function(u){ %>
+              <li><%=u%></li>
+              <% });%>
+            </ul>
+          </div>
+        </div>
+
+<a href="/" role="button" class="btn btn-default">Go to home page</a>

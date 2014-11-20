@@ -1,0 +1,23 @@
+<form role="form" action="addnew" method="post">
+  <div class="form-group">
+    <input class="form-control" type="name" name="rsName" placeholder="Radio stream name" value="" required>
+  </div>
+  <div class="form-group">
+    <input  class="form-control" type="text" name="rsTags" placeholder="Tags, divided by a comma" value="" required>
+  </div>
+  <div class="form-group">
+    <textarea class="form-control" name="rsUrls" placeholder="Enter many stream url, divided by a comma" value="" required></textarea>
+  </div>
+  <div class="form-group">
+    <input  class="form-control" type="url" name="rsLogo" placeholder="Enter logo url" value="">
+    <div>
+      <input type="file" name="rslogoFile">
+    </div>
+  </div>
+  <div class="form-group">
+    <img src="" alt="Logo preview">
+  </div>
+  <button type="submit" class="btn btn-default">Add new stream</button>
+</form>
+
+<script src="/javascripts/addnew.js"></script>
