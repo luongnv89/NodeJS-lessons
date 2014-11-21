@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app>
   <head>
-   <%include templates/head.ejs%>
+   <% include templates/head.ejs%>
   </head>
   <body>
   	<div class="container">
-  		<%include contents/header.ejs%>
-   		<p>Welcome to <%= title %></p>
+  		<%include adminpage/header.ejs%>
+   		<%include contents/listChannel.ejs%>
   	</div>
   </body>
-  <%include templates/javascript.ejs%>
+  <% include templates/javascript.ejs%>
 </html>

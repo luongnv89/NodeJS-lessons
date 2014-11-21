@@ -37,10 +37,23 @@ CollectionDriver.prototype.get = function(collectionName,id,callback) {
 	});
 };
 
+CollectionDriver.prototype.getByTagname = function(collectionName,tagname,callback) {
+	this.getCollection(collectionName,function (err,theCollection) {
+		if(err) callback(err);
+		else{
+			theCollection.find({tags:tagname}).toArray(function(err,result){
+				if(err) callback(err);
+				else callback(null,result);
+			});
+		}
+	});
+};
+
 CollectionDriver.prototype.save = function (collectionName,obj,callback) {
 	this.getCollection(collectionName,function (err,theCollection) {
 		if(err) callback(err);
 		else{
+			obj.created_at = new Date();
 			theCollection.insert(obj,function () {
 				callback(null,obj);
 			});

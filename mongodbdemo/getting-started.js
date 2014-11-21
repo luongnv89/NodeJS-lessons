@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test2');
+var mongoose.connect('mongodb://localhost/test2');
 
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'connection error:'));

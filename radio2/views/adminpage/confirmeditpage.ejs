@@ -1,5 +1,5 @@
 <% if(success){%>
-<h3><strong>"<%=channel.name%> "</strong> radio stream was added successfully ! </h3>
+<h3><strong>"<%=channel.name%> "</strong> radio stream was updated successfully ! </h3>
 <div class="thumbnail">
           <img alt="Radio logo" src="<%=channel.logo%>">
           <div class="caption">
@@ -19,4 +19,4 @@
   <h4>Error code: <%=error.code%></h4>
   <p>Error message: <%=error.message%></p>
 <% }%>
-<a href="/" role="button" class="btn btn-default">Go to home page</a>
+<a href="/admin" role="button" class="btn btn-default">Go to admin page</a>
