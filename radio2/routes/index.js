@@ -69,6 +69,7 @@ router.post('/addnew', function(req, res) {
 	var ch = {};
 	ch.name = req.body.rsName;
 	ch.urls = ((req.body.rsUrls).replace(' ','')).split(',');
+	ch.tags=[];
 	addTags(ch.tags,req.body.rsName,' ');
 	addTags(ch.tags,req.body.rsTags,',');
 	ch.logo = req.body.rsLogo;
