@@ -19,7 +19,7 @@
       <p>
         <button class="btn btn-warning" role="button" data-toggle="modal" data-target="#editForm_<%=channel._id%>">Edit</button> 
         <button onclick="deleteRs('<%=channel._id%>','<%=channel.name%>')" class="btn btn-danger" role="button">Delete</button>
-        <% include ../../views/contents/editForm.ejs %>
+        <% include editForm.ejs %>
       </p>
       <% }else{%>
       <p><button type="button" class="btn btn-success">Play</button></p>
