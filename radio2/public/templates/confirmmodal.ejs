@@ -1,0 +1,37 @@
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%=modalTitle%></h4>
+      </div>
+      <div class="modal-body">
+        <% if(success){%>
+          <div class="thumbnail">
+            <img alt="Radio logo" src="<%=channel.logo%>" class="imgRadioLogo">
+            <div class="caption">
+              <h3><%=channel.name%></h3>
+              <p><% channel.tags.forEach(function(t){ %>
+                <span class="badge" onclick="searchByTag('<%=t%>');"><%=t%></span>
+                <% });%>
+              </p>
+              <p><span><%= channel.comments.star%><img src="/images/star.png" width="15px"></span> <span> listent:<%=channel.comments.listent%></span></p>
+              <p>
+                Stream urls:
+                <ul><% channel.urls.forEach(function(u){ %>
+                  <li><%=u%></li>
+                  <% });%>
+                </ul>
+              </p>
+            </div>
+          </div>
+          <%} else{%>
+            <h3>Cannot add new channel</h3>
+            <h4>Error code: <%=error.code%></h4>
+            <p>Error message: <%=error.message%></p>
+          <% }%>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,12 @@
+<% if(success){%>
+<% if(channels.length==0){%>
+<h3>There isn't any channels</h3>
+<% }else{%>
+<% channels.forEach(function(channel){ %>
+  <% include ./item.ejs %>
+<% });%>
+<% }%>
+<% }else{%>
+<h3>There is something wrong!</h3>
+<% }%>
+

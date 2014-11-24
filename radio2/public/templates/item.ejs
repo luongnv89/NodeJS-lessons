@@ -1,0 +1,29 @@
+<div class="col-sm-6 col-md-4" id="<%=channel._id%>">
+  <div class="thumbnail">
+    <img alt="Radio logo" src="<%=channel.logo%>" class="imgRadioLogo">
+    <div class="caption">
+      <h3><%=channel.name%></h3>
+      <p><% channel.tags.forEach(function(t){ %>
+        <span class="badge" onclick="searchByTag('<%=t%>');"><%=t%></span>
+        <% });%>
+      </p>
+      <p><span><%= channel.comments.star%><img src="/images/star.png" width="15px"></span> <span> listent:<%=channel.comments.listent%></span></p>
+      <% if(admin){%>
+      <p>
+        Stream urls:
+        <ul><% channel.urls.forEach(function(u){ %>
+          <li><%=u%></li>
+          <% });%>
+        </ul>
+      </p>
+      <p>
+        <button class="btn btn-warning" role="button" data-toggle="modal" data-target="#editForm_<%=channel._id%>">Edit</button> 
+        <button onclick="deleteRs('<%=channel._id%>','<%=channel.name%>')" class="btn btn-danger" role="button">Delete</button>
+        <% include ../../views/contents/editForm.ejs %>
+      </p>
+      <% }else{%>
+      <p><button type="button" class="btn btn-success">Play</button></p>
+      <% }%>
+    </div>
+  </div>
+</div>

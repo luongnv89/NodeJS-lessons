@@ -26,9 +26,9 @@ mongoClient.open(function (err,mongoClient) {
 router.get('/', function(req, res) {
 	collectionDriver.findAll(collectionDB,function (err,objs) {
 		if(err) {
-			res.render('index',{title:'enjoy every moments',slogan:"Radio Online",success:false,error:{code:400,message:"Cannot query to database: " + err}});
+			res.render('index',{admin:false,success:false,error:{code:400,message:"Cannot query to database: " + err}});
 		}else{
-		res.render('index', { title:'enjoy every moments',slogan:"Radio Online",success:true,channels:objs});
+			res.render('index', {admin:false,success:true,channels:objs,admin:false});
 		}
 	});
 });
@@ -41,7 +41,7 @@ router.get('/search/:keys', function(req, res) {
 			res.render('index',{title:'enjoy every moments',slogan:"Radio Online",success:false,error:{code:400,message:"Cannot query to database: " + JSON.stringify(err)}});
 		}else{
 			// res.render('index', { title:'enjoy every moments',success:true,slogan:"Radio Online",channels:objs});
-			res.json(objs);
+			res.json({success:true,channels:objs});
 		}
 	});
 });
@@ -53,19 +53,14 @@ router.get('/tags/:tagname', function(req, res) {
 		if(err) {
 			res.render('index',{title:'enjoy every moments',slogan:"Radio Online",success:false,error:{code:400,message:"Cannot query to database: " + JSON.stringify(err)}});
 		}else{
-			res.render('index', { title:'enjoy every moments',success:true,slogan:"Radio Online",channels:objs});
+			res.json({success:true,channels:objs});
 		}
 	});
 });
 
-/* GET add new stream page */
-router.get('/addnew', function(req, res) {
-  res.render('addnewpage', { title: 'add new stream',slogan:"Radio online"});
-});
-
 /* POST add new stream page */
 router.post('/addnew', function(req, res) {
-	console.log("New data is comming: " + JSON.stringify(req.body));
+	console.log("New stream is going to be added: "+JSON.stringify(req.body));
 	var ch = {};
 	ch.name = req.body.rsName;
 	ch.urls = ((req.body.rsUrls).replace(' ','')).split(',');
@@ -78,11 +73,12 @@ router.post('/addnew', function(req, res) {
 	ch.comments.star=[];
 	ch.comments.listent=0;
 	ch.last_updated_at = new Date();
+	console.log("New channel: " + JSON.stringify(ch));
 	collectionDriver.save(collectionDB,ch,function (err,docs) {
 		if(err){
-			res.render('confirmaddpage',{title:'add new stream',slogan:"Radio Online",success:false,error:{code:400,message:"Cannot add to database: " + err}});
+			res.json({success:false,error:{code:400,message:"Cannot add to database: " + err}});
 		}else{
-			res.render('confirmaddpage', { title: 'add new stream ',slogan:"Radio online",success:true,channel:docs});
+			res.json({success:true,channel:docs});
 		}
 	});
 });

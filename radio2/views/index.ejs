@@ -5,9 +5,24 @@
   </head>
   <body>
   	<div class="container">
-  		<%include adminpage/header.ejs%>
-   		<%include contents/listChannel.ejs%>
+    <% if(admin){%>
+        <% include adminpage/header.ejs%>
+   <%  }else{%>
+        <% include contents/header.ejs%>
+    <% }%>
+  		
+      <input type="text" class="form-control" id="ipSearchBox"><button id="btnSearch" class="btn btn-default" type="button">Search</button>
+      <button id="btnAddnew" class="btn btn-default btn-lg" data-toggle="modal" data-target="#addNewModel" type="button">Add new stream</button>
+      <div class="row" id="listAllChannel">
+      <%include ../public/templates/listChannels.ejs%>
+      </div>
   	</div>
   </body>
   <% include templates/javascript.ejs%>
+  <% include contents/addnewform.ejs%>
+   <% if(admin){%>
+        <script src="/javascripts/adminScript.js"></script>
+   <%  }else{%>
+        <script src="/javascripts/userScript.js"></script>
+    <% }%>
 </html>
