@@ -78,7 +78,9 @@ router.post('/addnew', function(req, res) {
 		if(err){
 			res.json({success:false,error:{code:400,message:"Cannot add to database: " + err}});
 		}else{
+			console.log(JSON.stringify(docs));
 			res.json({success:true,channel:docs});
+			// res.render('../public/templates/item.ejs',{success:false,admi:true,channel:docs});
 		}
 	});
 });

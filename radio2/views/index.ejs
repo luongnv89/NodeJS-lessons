@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="radioApp">
   <head>
    <% include templates/head.ejs%>
   </head>
-  <body>
+  <body ng-controller="radioListCtrl">
   	<div class="container">
     <% if(admin){%>
         <% include adminpage/header.ejs%>
    <%  }else{%>
         <% include contents/header.ejs%>
     <% }%>
-  		
       <input type="text" class="form-control" id="ipSearchBox"><button id="btnSearch" class="btn btn-default" type="button">Search</button>
       <button id="btnAddnew" class="btn btn-default btn-lg" data-toggle="modal" data-target="#addNewModel" type="button">Add new stream</button>
-      <div class="row" id="listAllChannel">
-      <%include ../public/templates/listChannels.ejs%>
+      <div class="row" id="listAllChannel" ng-repeat="channel in listStreams">
+      <%include /contents/listChannels.ejs%>
       </div>
   	</div>
   </body>

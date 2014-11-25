@@ -1,0 +1,16 @@
+doctype html
+html(ng-app="phonecatApp")
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
+    script(type="text/javascript", src="/javascripts/controller2.js")
+  body(ng-controller="PhoneListCtrl")
+      h1= title
+      p Welcome to #{title}
+      p This is some test {{2+4}}
+
+      ul
+        li(ng-repeat='phone in phones')
+            span {{phone.name}}
+            p {{phone.snippet}}

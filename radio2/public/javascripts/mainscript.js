@@ -24,7 +24,8 @@ function updateListChannels (data) {
 	}else{
 		data.admin=false;
 	}
-	var newContent = new EJS({url:'/templates/listChannels.ejs'}).render(data);
+	testdata = data;
+	var newContent = new EJS({url:'templates/listChannels.ejs'}).render(data);
 	document.getElementById('listAllChannel').innerHTML=newContent;
 }
 
@@ -37,9 +38,9 @@ function submitAddnewForm () {
 	params.rsLogo = document.querySelector('#rsLogo').value;
 	console.log(JSON.stringify(params));
 	postData('addnew',params,function (response) {
-		console.log(response);
+		console.log("Response: "+response);
 		test=response;
-		var data = JSON.parse(response);
+		var data = response;
 		if((window.location.pathname).indexOf('admin')>0){
 			data.admin=true;
 		}else{
