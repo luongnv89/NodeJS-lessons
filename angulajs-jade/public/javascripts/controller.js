@@ -368,6 +368,9 @@ var listRadioStream = [
 ];
 var radioApp = angular.module('radioApp', []);
 
-radioApp.controller('radioListCtrl', ["$scope",function ($scope) {
-  $scope.radios = listRadioStream;
+radioApp.controller('radioListCtrl', ["$scope","$http",function ($scope,$http) {
+  $http.get('/allStreams.json').success(function (data) {
+    $scope.radios = data;
+  });
+  $scope.orderProp='name';
 }]);
