@@ -17,8 +17,8 @@ div(class="thumbnail")
                     a(href="/tags/{{tag}}") {{tag}}
                     |,
             div
-                audio(class="audioplayer",controls,autoplay,ng-repeat="u in currentChannel.urls")
-                    source(ng-src="{{trustSrc(u)}}")
+                audio(class="audioplayer",controls,autoplay)
+                    source(ng-repeat="u in currentChannel.urls",ng-src="{{trustSrc(u)}}")
             div
                 span Star:{{currentChannel.comments.star.length}}
                 span Listent:{{currentChannel.comments.listent}}

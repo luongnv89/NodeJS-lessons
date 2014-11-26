@@ -43,9 +43,13 @@ radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$l
   $scope.radioId=$routeParams.radioId;
   $http.get('/radio/'+$routeParams.radioId).success(function (data) {
     $scope.channel = data;
+    $scope.form={};
+    $scope.form.rsName = $scope.channel.name;
+    $scope.form.rsTags = $scope.channel.tags;
+    $scope.form.urls = $scope.channel.urls;
   });
-  $scope.form={};
-  $scope.addNewSubmit=function () {
+  
+  $scope.updateSubmit=function () {
     $http.post('/editRadio/'+$routeParams.radioId,$scope.form).success(function (data) {
       $location.path('/');
       $.amaran({
