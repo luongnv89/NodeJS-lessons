@@ -67,6 +67,42 @@ router.post('/addRadio',function (req,res) {
 	});
 });
 
+router.post('/editRadio/:radioId',function (req,res) {
+	console.log(req.body);
+	console.log(req.params.radioId);
+	var ch = {};
+	ch._id=req.params.radioId;
+	ch.name = req.body.rsName;
+	ch.urls = ((req.body.urls).replace(' ','')).split(',');
+	ch.tags=[];
+	addTags(ch.tags,req.body.rsName,' ');
+	addTags(ch.tags,req.body.rsTags,',');
+	ch.logo = DEFAULT_LOGO;
+	ch.comments={};
+	ch.comments.star=[];
+	ch.comments.listent=0;
+	ch.last_updated_at = new Date();
+	collectionDriver.update(collectionDB,ch,ch._id,function (err,docs) {
+		if(err){
+			res.json(false);
+		}else{
+			res.json(docs);
+		}
+	});
+});
+
+router.post('/deleteRadio/:radioId',function (req,res) {
+	console.log(req.params);
+	var rsId = req.params.radioId;
+	collectionDriver.delete(collectionDB,rsId,function (err,docs) {
+		if(err){
+			res.json(false);
+		}else{
+			res.json(docs);
+		}
+	});
+});
+
 router.get('/partials/:name',function (req,res) {
 	var jadeFileName = req.params.name;
 	res.render('partials/'+jadeFileName);

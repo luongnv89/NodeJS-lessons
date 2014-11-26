@@ -13,10 +13,11 @@ html(ng-app="radioApp")
     script(src="/javascripts/jquery.amaran.min.js")
     script(type="text/javascript", src="/javascripts/app.js")
     script(type="text/javascript", src="/javascripts/controller.js")
+    script(type="text/javascript", src="/javascripts/filter.js")
   body
     h1 Radio Online {{2+3}}
     div(class="input-group")
         input(type="text", class="form-control",placeholder="Enter to search",ng-model="query")
-        a(href="#/add") Add New Radio Stream
+        a(href="#/add",role="button",class="btn btn-primary") Add New Radio Stream
     div(ng-view)                      
 

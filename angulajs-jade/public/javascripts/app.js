@@ -1,6 +1,7 @@
 var radioApp = angular.module('radioApp', [
   'ngRoute',
-  'radioControllers'
+  'radioControllers',
+  'radioFilter'
 ]);
 
 radioApp.config(['$routeProvider',function ($routeProvider) {
@@ -29,3 +30,11 @@ radioApp.config(['$routeProvider',function ($routeProvider) {
     redirectTo:'/list'
   });
 }]);
+// config(function ($sceDelegateProvider) {
+//   $sceDelegateProvider.resourceUrlWhitelist([
+//     'self',
+//     'http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk'
+//     ]);
+//   $sceDelegateProvider.resourceUrlWhitelist([
+//     ]);
+// });

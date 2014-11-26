@@ -1,1 +1,9 @@
-span This is edit page for {{radioId}}
+form(role="form")
+	div(class="form-group")
+		input(type="text",class="form-control",placeholder="Radio stream name",ng-model="form.rsName",value="{{channel.name}}")
+	div(class="form-group")
+		input(type="text",class="form-control",placeholder="tags",ng-model="form.rsTags",value="{{channel.tags}}")
+	div(class="form-group")
+		textarea(ng-model="form.urls",rows='3') {{channel.urls}}
+	div(class="form-group")
+		button(ng-click="updateSubmit()") Update
