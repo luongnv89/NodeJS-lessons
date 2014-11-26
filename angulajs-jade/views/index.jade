@@ -4,6 +4,7 @@ html(ng-app="radioApp")
     title(ng-bind-template="Radio Online| Search {{query}}| Order by: {{orderProp}}")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css")
     link(rel='stylesheet', href='/stylesheets/amaran.min.css')
     link(rel='stylesheet', href='/stylesheets/animate.min.css')
     script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
@@ -14,10 +15,34 @@ html(ng-app="radioApp")
     script(type="text/javascript", src="/javascripts/app.js")
     script(type="text/javascript", src="/javascripts/controller.js")
     script(type="text/javascript", src="/javascripts/filter.js")
-  body
-    h1 Radio Online {{2+3}}
-    div(class="input-group")
-        input(type="text", class="form-control",placeholder="Enter to search",ng-model="query")
-        a(href="#/add",role="button",class="btn btn-primary") Add New Radio Stream
-    div(ng-view)                      
+  body(ng-controller="ListRadioCtrl")
+    nav(class="navbar navbar-default navbar-fixed-top",role="navigation")
+        div(class="container-fluid")
+            div(class="navbar-header")
+                button(type="button", class="navbar-toggle collapsed",data-toggle="collapse" data-target="#collapseMenu")
+                    span(class="sr-only") Toggle navigation
+                    span(class="icon-bar")
+                    span(class="icon-bar") 
+                    span(class="icon-bar")
+                audio(class="audioplayer",controls,autoplay,hidden,id="radioPlayer")
+                    source(ng-repeat="u in currentChannel.urls",ng-src="{{trustSrc(u)}}")
+                div(ng-if="isPlay!=true")
+                    i(class="fa fa-play-circle-o fa-2x navbar-brand",ng-click="btnPlayClick()")
+                        small  {{currentChannel.name}}
+                div(ng-if="isPlay==true")
+                    i(class="fa fa-pause fa-2x navbar-brand",ng-click="btnPlayClick()")
+                        small  {{currentChannel.name}}
+            div(class="collapse navbar-collapse",id="collapseMenu")
+                form(class="navbar-form navbar-right",role="search")
+                    div(class="form-group")
+                        input(type="text",class="form-control",placeholder="Enter to search",ng-model="query")
+                    a(href="#/add",role="button",class="btn btn-default")
+                        i(class="fa fa-plus")  Add new
+    div(class="container",id="wrapper")
+        div(ng-view)
+    div(id="footer")
+        div(class="container")
+            p
+                | Contact me 
+                a(href="mailto:luongnv89@gmail.com") luongnv89@gmail.com
 

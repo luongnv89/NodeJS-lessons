@@ -2,39 +2,27 @@ var radioApp = angular.module('radioApp', [
   'ngRoute',
   'radioControllers',
   'radioFilter'
-]);
+  ]);
 
 radioApp.config(['$routeProvider',function ($routeProvider) {
   $routeProvider.
-  when('/list', {
+  when('/list/:usertype', {
     templateUrl:'partials/listradio.jade',
     controller:'ListRadioCtrl'
   }).
-  when('/view/:radioId',{
-    templateUrl:'partials/viewradio.jade',
-    controller:'ViewRadioCtrl'
+  when('/admin/edit/:radioId',{
+    templateUrl:'partials/editradio.jade',
+    controller:'EditRadioCtrl'
+  }).
+  when('/admin/delete/:radioId',{
+    templateUrl:'partials/deleteradio.jade',
+    controller:'DeleteRadioCtrl'
   }).
   when('/add',{
     templateUrl:'partials/addradio.jade',
     controller:'AddRadioCtrl'
   }).
-  when('/edit/:radioId',{
-    templateUrl:'partials/editradio.jade',
-    controller:'EditRadioCtrl'
-  }).
-  when('/delete/:radioId',{
-    templateUrl:'partials/deleteradio.jade',
-    controller:'DeleteRadioCtrl'
-  }).
   otherwise({
-    redirectTo:'/list'
+    redirectTo:'/list/anymoususer'
   });
 }]);
-// config(function ($sceDelegateProvider) {
-//   $sceDelegateProvider.resourceUrlWhitelist([
-//     'self',
-//     'http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-eieuk'
-//     ]);
-//   $sceDelegateProvider.resourceUrlWhitelist([
-//     ]);
-// });

@@ -6,4 +6,5 @@ form(role="form")
 	div(class="form-group")
 		textarea(ng-model="form.urls",class="form-control")
 	div(class="form-group")
-		button(ng-click="updateSubmit()") Update
+		button(class="btn btn-info",ng-click="updateSubmit()") Update
+		button(class="btn btn-default",ng-click="updateSubmit()") Cancel

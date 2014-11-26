@@ -10,3 +10,11 @@ a {
 .thumbnail>img{
 	width: 120px;
 }
+
+.small-logo{
+	height: 20px;
+}
+
+#wrapper{
+	padding-top: 20px;
+}
