@@ -1,1 +1,9 @@
-span This is the addnew template
+form(role="form")
+	div(class="form-group")
+		input(type="text",class="form-control",placeholder="Radio stream name",ng-model="form.rsName")
+	div(class="form-group")
+		input(type="text",class="form-control",placeholder="tags",ng-model="form.rsTags")
+	div(class="form-group")
+		textarea(ng-model="form.urls",rows='3')
+	div(class="form-group")
+		button(ng-click="addNewSubmit()") Submit

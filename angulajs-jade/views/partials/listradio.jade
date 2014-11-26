@@ -1,7 +1,7 @@
 div(class="container-fluid")
         div(class="row")
             div(class="col-sm-6 col-md-4",ng-repeat='radio in radios|filter:query|orderBy:orderProp')
-                div(class="thumbnail")
+                div(class="thumbnail",id="{{radio._id}}")
                     img(ng-src="{{radio.logo}}", alt="Radio logo")
                     div(class="caption")
                         h3 {{radio.name}}

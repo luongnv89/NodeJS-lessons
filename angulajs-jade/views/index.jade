@@ -4,16 +4,19 @@ html(ng-app="radioApp")
     title(ng-bind-template="Radio Online| Search {{query}}| Order by: {{orderProp}}")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
+    link(rel='stylesheet', href='/stylesheets/amaran.min.css')
+    link(rel='stylesheet', href='/stylesheets/animate.min.css')
     script(type="text/javascript", src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
     script(type="text/javascript", src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js")
     script(src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.js')
+    script(src="/javascripts/jquery.amaran.min.js")
     script(type="text/javascript", src="/javascripts/app.js")
     script(type="text/javascript", src="/javascripts/controller.js")
   body
     h1 Radio Online {{2+3}}
     div(class="input-group")
         input(type="text", class="form-control",placeholder="Enter to search",ng-model="query")
-        button(type="button",class="btn btn-primary",data-toggle="modal",data-target="#addNewModal") Add new radio stream
+        a(href="#/add") Add New Radio Stream
     div(ng-view)                      
 
