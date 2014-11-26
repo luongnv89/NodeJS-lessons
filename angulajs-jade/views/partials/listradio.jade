@@ -47,6 +47,6 @@ div(class="container-fluid")
                             span Star:{{radio.comments.star.length}}
                             span Listent:{{radio.comments.listent}}
                         div
-                            a(role="button",class="btn btn-primary",href="#/view/{{radio._id}}") Play
+                            button(role="button",class="btn btn-primary",ng-click="btnPlay(radio)") Play
                             a(role="button",class="btn btn-primary",href="#/edit/{{radio._id}}") Edit
                             a(role="button",class="btn btn-primary",href="#/delete/{{radio._id}}") Delete

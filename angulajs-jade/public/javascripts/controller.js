@@ -2,16 +2,15 @@ var radioControllers = angular.module('radioControllers',[]);
 
 radioControllers.controller('ListRadioCtrl',['$scope','$http','$sce',
   function ($scope,$http,$sce) {
-    $scope.currentChannelIndex=0;
-    $scope.currentChannel={};
     $http.get('/allStreams.json').success(function (data) {
       $scope.radios=data;
       $scope.currentChannelIndex=0;
-      $scope.currentChannel=$scope.radios[0];
-      $scope.trustSrc=function (src) {
+      $scope.currentChannel=$scope.radios[$scope.currentChannelIndex];
+    });
+
+    $scope.trustSrc=function (src) {
         return $sce.trustAsResourceUrl(src);
       }
-    });
 
     $scope.previousChannel=function () {
       if($scope.currentChannelIndex==0){
@@ -29,6 +28,11 @@ radioControllers.controller('ListRadioCtrl',['$scope','$http','$sce',
         $scope.currentChannelIndex++;
       }
       $scope.currentChannel=$scope.radios[$scope.currentChannelIndex];
+    }
+
+    $scope.btnPlay=function (radiostream) {
+        $scope.currentChannelIndex=$scope.radios.indexOf(radiostream);
+        $scope.currentChannel=radiostream;
     }
   }]);
 
