@@ -1,33 +1,36 @@
 var radioControllers = angular.module('radioControllers',[]);
-radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','Radio','$sce',function ($scope,$routeParams,Radio,$sce) {
+radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','$http','$sce',function ($scope,$routeParams,$http,$sce) {
   $scope.isAdmin=($routeParams.usertype=='admin');
   console.log($scope.isAdmin);
   console.log($routeParams.usertype);
-  // $http.get('/allStreams.json').success(function (data) {
-  //   $scope.radios=data;
-    
-  // });
-  $scope.radios = Radio.query();
-  console.log($scope.radios);
-  if(!$scope.isAdmin) {
-      $scope.currentChannelIndex=0;
-      // currentPlay($scope.currentChannelIndex);
-    }
+  $http.get('/allStreams.json').success(function (data) {
+    $scope.radios=data;
+    console.log($scope.radios);
+    currentPlay(data[0]);
+  });
+  
   $scope.trustSrc=function (src) {
     return $sce.trustAsResourceUrl(src);
   }
 
   $scope.btnPlay=function (radiostream) {
     console.log(radiostream);
-    $scope.currentChannelIndex=$scope.radios.indexOf(radiostream);
-    currentPlay($scope.currentChannelIndex);
+    currentPlay(radiostream);
   }
 
-  function currentPlay (rsIndex) {
-    $scope.currentChannel=$scope.radios[$scope.currentChannelIndex];
+  function currentPlay (radiostream) {
+    var rsPlayer = document.querySelector('#radioPlayer');
+    document.querySelector('#radioName').innerHTML=radiostream.name;
+    rsPlayer.innerHTML="";
+    for(var i=0;i<radiostream.urls.length;i++){
+      var s = document.createElement('source');
+      s.src=radiostream.urls[i];
+      rsPlayer.appendChild(s);
+    }
+    rsPlayer.load();
     $.amaran({
       content:{
-        title:$scope.currentChannel.name,
+        title:radiostream.name,
         message:'is playing!',
         info:new Date(),
         icon:'fa fa-add'
@@ -35,6 +38,7 @@ radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','Radio','$s
       theme:'awesome ok',
       closeButton:true
     });
+
   }
 
   $scope.btnPlayClick=function () {
