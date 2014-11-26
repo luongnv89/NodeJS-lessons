@@ -34,4 +34,9 @@ router.get('/allStreams.json',function (req,res) {
 		}
 	});
 });
+
+router.get('/partials/:name',function (req,res) {
+	var jadeFileName = req.params.name;
+	res.render('partials/'+jadeFileName);
+})
 module.exports = router;
