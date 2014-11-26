@@ -1,7 +1,8 @@
 var radioApp = angular.module('radioApp', [
   'ngRoute',
   'radioControllers',
-  'radioFilter'
+  'radioFilter',
+  'radioService'
   ]);
 
 radioApp.config(['$routeProvider',function ($routeProvider) {

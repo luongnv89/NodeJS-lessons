@@ -1,22 +1,24 @@
 var radioControllers = angular.module('radioControllers',[]);
-
-radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','$http','$sce',function ($scope,$routeParams,$http,$sce) {
+radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','Radio','$sce',function ($scope,$routeParams,Radio,$sce) {
   $scope.isAdmin=($routeParams.usertype=='admin');
   console.log($scope.isAdmin);
   console.log($routeParams.usertype);
-  $http.get('/allStreams.json').success(function (data) {
-    $scope.radios=data;
-    if(!$scope.isAdmin) {
+  // $http.get('/allStreams.json').success(function (data) {
+  //   $scope.radios=data;
+    
+  // });
+  $scope.radios = Radio.query();
+  console.log($scope.radios);
+  if(!$scope.isAdmin) {
       $scope.currentChannelIndex=0;
-      currentPlay($scope.currentChannelIndex);
+      // currentPlay($scope.currentChannelIndex);
     }
-  });
-
   $scope.trustSrc=function (src) {
     return $sce.trustAsResourceUrl(src);
   }
 
   $scope.btnPlay=function (radiostream) {
+    console.log(radiostream);
     $scope.currentChannelIndex=$scope.radios.indexOf(radiostream);
     currentPlay($scope.currentChannelIndex);
   }
@@ -55,7 +57,7 @@ radioControllers.controller('ViewRadioCtrl',['$scope','$routeParams','$http',fun
   })
 }]);
 
-radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$location',function ($scope,$routeParams,$http,$location)  {
+radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$window',function ($scope,$routeParams,$http,$window)  {
   $scope.radioId=$routeParams.radioId;
   $http.get('/radio/'+$routeParams.radioId).success(function (data) {
     $scope.channel = data;
@@ -67,7 +69,7 @@ radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$l
   
   $scope.updateSubmit=function () {
     $http.post('/editRadio/'+$routeParams.radioId,$scope.form).success(function (data) {
-      $location.path('/');
+      $window.history.back();
       $.amaran({
         content:{
           title:data.name,
@@ -81,14 +83,17 @@ radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$l
     });
   }
 
+  $scope.cancelUpdate=function () {
+    $window.history.back();
+  }
 }]);
 
-radioControllers.controller('DeleteRadioCtrl',['$scope','$routeParams','$http','$location',function ($scope,$routeParams,$http,$location) {
+radioControllers.controller('DeleteRadioCtrl',['$scope','$routeParams','$http','$window',function ($scope,$routeParams,$http,$window) {
   $scope.radioId=$routeParams.radioId;
   $scope.deleteRadio=function () {
     $http.post('/deleteRadio/'+$routeParams.radioId).success(function (data) {
       console.log(data);
-      $location.path('/');
+      $window.history.back();
       $.amaran({
         content:{
           title:$routeParams.radioId,
@@ -103,15 +108,15 @@ radioControllers.controller('DeleteRadioCtrl',['$scope','$routeParams','$http','
   }
 
   $scope.cancelDelete=function () {
-    $location.path('/');
+    $window.history.back();
   }
 }]);
 
-radioControllers.controller('AddRadioCtrl',['$scope','$location','$http',function ($scope,$location,$http) {
+radioControllers.controller('AddRadioCtrl',['$scope','$window','$http',function ($scope,$window,$http) {
   $scope.form={};
   $scope.addNewSubmit=function () {
     $http.post('/addRadio',$scope.form).success(function (data) {
-      $location.path('/');
+      $window.history.back();
       $.amaran({
         content:{
           title:data.name,
@@ -123,6 +128,10 @@ radioControllers.controller('AddRadioCtrl',['$scope','$location','$http',functio
         closeButton:true
       });
     });
+  }
+
+  $scope.cancelAddSubmit = function () {
+    $window.history.back();
   }
 }]);
 

@@ -1,3 +1,4 @@
+h1 Add new radio stream
 form(role="form")
 	div(class="form-group")
 		input(type="text",class="form-control",placeholder="Radio stream name",ng-model="form.rsName")
@@ -7,3 +8,4 @@ form(role="form")
 		textarea(ng-model="form.urls",class="form-control")
 	div(class="form-group")
 		button(ng-click="addNewSubmit()") Submit
+		button(ng-click="cancelAddSubmit()") Cancel
