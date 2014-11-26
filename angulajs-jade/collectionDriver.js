@@ -37,17 +37,17 @@ CollectionDriver.prototype.get = function(collectionName,id,callback) {
 	});
 };
 
-CollectionDriver.prototype.getByTagname = function(collectionName,tagname,callback) {
-	this.getCollection(collectionName,function (err,theCollection) {
-		if(err) callback(err);
-		else{
-			theCollection.find({tags:tagname}).toArray(function(err,result){
-				if(err) callback(err);
-				else callback(null,result);
-			});
-		}
-	});
-};
+// CollectionDriver.prototype.getByTagname = function(collectionName,tagname,callback) {
+// 	this.getCollection(collectionName,function (err,theCollection) {
+// 		if(err) callback(err);
+// 		else{
+// 			theCollection.find({tags:tagname}).toArray(function(err,result){
+// 				if(err) callback(err);
+// 				else callback(null,result);
+// 			});
+// 		}
+// 	});
+// };
 
 CollectionDriver.prototype.save = function (collectionName,obj,callback) {
 	this.getCollection(collectionName,function (err,theCollection) {
@@ -66,7 +66,7 @@ CollectionDriver.prototype.update = function(collectionName,obj,entityId,callbac
 		if(err) callback(err);
 		else{
 			obj._id = ObjectID(entityId);
-			obj.updated_at = new Date();
+			obj.last_updated_at = new Date();
 			theCollection.save(obj,function (err,doc) {
 				if(err) callback(err);
 				else callback(null,obj);

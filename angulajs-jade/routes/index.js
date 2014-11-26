@@ -52,12 +52,11 @@ router.post('/addRadio',function (req,res) {
 	ch.tags=[];
 	addTags(ch.tags,req.body.rsName,' ');
 	addTags(ch.tags,req.body.rsTags,',');
-	ch.logo = req.body.rsLogo;
-	ch.logo = DEFAULT_LOGO;
+	if(req.body.rsLogo!="")	ch.logo = req.body.rsLogo;
+	else ch.logo = DEFAULT_LOGO;
 	ch.comments={};
 	ch.comments.star=[];
 	ch.comments.listent=0;
-	ch.last_updated_at = new Date();
 	collectionDriver.save(collectionDB,ch,function (err,docs) {
 		if(err){
 			res.json(false);
@@ -67,25 +66,32 @@ router.post('/addRadio',function (req,res) {
 	});
 });
 
-router.post('/editRadio/:radioId',function (req,res) {
+router.post('/editRadio',function (req,res) {
+	console.log("request body: ");
 	console.log(req.body);
-	console.log(req.params.radioId);
+	var radioId=req.body.radioId;
+	console.log("radio id: ");
+	console.log(radioId);
 	var ch = {};
-	ch._id=req.params.radioId;
 	ch.name = req.body.rsName;
 	ch.urls = ((req.body.urls).replace(' ','')).split(',');
 	ch.tags=[];
+	console.log("New item after set urls:");
+	console.log(ch);
 	addTags(ch.tags,req.body.rsName,' ');
 	addTags(ch.tags,req.body.rsTags,',');
-	ch.logo = req.body.rsLogo;
-	ch.logo = DEFAULT_LOGO;
+	if(req.body.rsLogo!="")	ch.logo = req.body.rsLogo;
+	else ch.logo = DEFAULT_LOGO;
 	ch.comments={};
 	ch.comments.star=[];
 	ch.comments.listent=0;
-	ch.last_updated_at = new Date();
-	collectionDriver.update(collectionDB,ch,ch._id,function (err,docs) {
+	console.log("New item:");
+	console.log(ch);
+	collectionDriver.update(collectionDB,ch,radioId,function (err,docs) {
 		if(err){
-			res.json(false);
+			console.log("Update fail");
+			console.log(err);
+			res.json(err);
 		}else{
 			res.json(docs);
 		}

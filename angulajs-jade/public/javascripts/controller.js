@@ -6,9 +6,12 @@ radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','$http','$s
   $http.get('/allStreams.json').success(function (data) {
     $scope.radios=data;
     console.log($scope.radios);
-    currentPlay(data[0]);
+    if(data.length>0){
+      currentPlay($scope.radios[0]);  
+    }
   });
   
+  $scope.orderProp="name";
   $scope.trustSrc=function (src) {
     return $sce.trustAsResourceUrl(src);
   }
@@ -60,13 +63,16 @@ radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$w
     $scope.channel = data;
     $scope.form={};
     $scope.form.rsName = $scope.channel.name;
-    $scope.form.rsTags = $scope.channel.tags;
-    $scope.form.urls = $scope.channel.urls;
+    $scope.form.rsTags = $scope.channel.tags.toString();
+    $scope.form.urls = $scope.channel.urls.toString();
     $scope.form.rsLogo = $scope.channel.logo;
+    $scope.form.radioId=$routeParams.radioId
   });
   
   $scope.updateSubmit=function () {
-    $http.post('/editRadio/'+$routeParams.radioId,$scope.form).success(function (data) {
+    $http.post('/editRadio',$scope.form).success(function (data) {
+      console.log("Response: \n");
+      console.log(data);
       $window.history.back();
       $.amaran({
         content:{
