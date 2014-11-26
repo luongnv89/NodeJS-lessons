@@ -28,6 +28,7 @@ radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','$http','$s
       rsPlayer.appendChild(s);
     }
     rsPlayer.load();
+    $scope.isPlay=true;
     $.amaran({
       content:{
         title:radiostream.name,
@@ -53,14 +54,6 @@ radioControllers.controller('ListRadioCtrl',['$scope','$routeParams','$http','$s
   }
 }]);
 
-
-radioControllers.controller('ViewRadioCtrl',['$scope','$routeParams','$http',function ($scope,$routeParams,$http) {
-  $scope.radioId=$routeParams.radioId;
-  $http.get('/radio/'+$routeParams.radioId).success(function (data) {
-    $scope.channel = data;
-  })
-}]);
-
 radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$window',function ($scope,$routeParams,$http,$window)  {
   $scope.radioId=$routeParams.radioId;
   $http.get('/radio/'+$routeParams.radioId).success(function (data) {
@@ -69,6 +62,7 @@ radioControllers.controller('EditRadioCtrl',['$scope','$routeParams','$http','$w
     $scope.form.rsName = $scope.channel.name;
     $scope.form.rsTags = $scope.channel.tags;
     $scope.form.urls = $scope.channel.urls;
+    $scope.form.rsLogo = $scope.channel.logo;
   });
   
   $scope.updateSubmit=function () {

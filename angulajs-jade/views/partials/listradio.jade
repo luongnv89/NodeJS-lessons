@@ -16,9 +16,9 @@ div(class="container-fluid")
                             ul(class="streams")
                                 li(ng-repeat="u in radio.urls")
                                     span {{u}}
-                    div
-                        span Star:{{radio.comments.star.length}} 
-                        span Listent:{{radio.comments.listent}}
+                    //- div
+                    //-     span Star:{{radio.comments.star.length}} 
+                    //-     span Listent:{{radio.comments.listent}}
                     div
                         button(role="button",class="btn btn-success",ng-click="btnPlay(radio)") Play
                         span(ng-if="isAdmin==true")

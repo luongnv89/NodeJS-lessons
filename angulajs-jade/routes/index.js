@@ -52,7 +52,7 @@ router.post('/addRadio',function (req,res) {
 	ch.tags=[];
 	addTags(ch.tags,req.body.rsName,' ');
 	addTags(ch.tags,req.body.rsTags,',');
-	// ch.logo = req.body.rsLogo;
+	ch.logo = req.body.rsLogo;
 	ch.logo = DEFAULT_LOGO;
 	ch.comments={};
 	ch.comments.star=[];
@@ -77,6 +77,7 @@ router.post('/editRadio/:radioId',function (req,res) {
 	ch.tags=[];
 	addTags(ch.tags,req.body.rsName,' ');
 	addTags(ch.tags,req.body.rsTags,',');
+	ch.logo = req.body.rsLogo;
 	ch.logo = DEFAULT_LOGO;
 	ch.comments={};
 	ch.comments.star=[];
