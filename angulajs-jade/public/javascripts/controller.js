@@ -5,7 +5,7 @@ radioControllers.controller('ListRadioCtrl',['$scope','$http','$sce',
     $http.get('/allStreams.json').success(function (data) {
       $scope.radios=data;
       $scope.currentChannelIndex=0;
-      $scope.currentChannel=$scope.radios[$scope.currentChannelIndex];
+      currentPlay(0);
     });
 
     $scope.trustSrc=function (src) {
@@ -18,7 +18,7 @@ radioControllers.controller('ListRadioCtrl',['$scope','$http','$sce',
       }else{
         $scope.currentChannelIndex--;
       }
-      $scope.currentChannel=$scope.radios[$scope.currentChannelIndex];
+      currentPlay($scope.currentChannelIndex);
     }
 
     $scope.nextChannel=function () {
@@ -27,12 +27,26 @@ radioControllers.controller('ListRadioCtrl',['$scope','$http','$sce',
       }else{
         $scope.currentChannelIndex++;
       }
-      $scope.currentChannel=$scope.radios[$scope.currentChannelIndex];
+      currentPlay($scope.currentChannelIndex);
     }
 
     $scope.btnPlay=function (radiostream) {
         $scope.currentChannelIndex=$scope.radios.indexOf(radiostream);
-        $scope.currentChannel=radiostream;
+        currentPlay($scope.currentChannelIndex);
+    }
+
+    function currentPlay (rsIndex) {
+      $scope.currentChannel=$scope.radios[$scope.currentChannelIndex];
+      $.amaran({
+            content:{
+                title:$scope.currentChannel.name,
+                message:'is playing!',
+                info:new Date(),
+                icon:'fa fa-add'
+            },
+            theme:'awesome ok',
+            closeButton:true
+        });
     }
   }]);
 
