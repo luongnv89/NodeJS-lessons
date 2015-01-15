@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    .container
+        .page-header
+            h1 Chat<small> with anybody</small>
+        div.share-button
+        .row
+            div#listevent.col-xs-12.col-sm-6.col-md-8
+                div.msg-history
+                .form-group
+                    input.form-control(type='text', placeholder='Enter message to send',id="m")
+            .col-xs-6.col-md-4
+                span#myname
+                p#listuser
+        span -- License 
+        a(href='mailto:konal89@gmail.com',target='_blank') konal89@gmail.com
+        span  more at 
+        a(href='http://luongnv.info',target='_blank') luongnv.info 
+    script(src="https://cdn.socket.io/socket.io-1.2.1.js")
+    script(src="http://code.jquery.com/jquery-1.11.1.js")
+    script(src='/javascripts/sharebutton.js')
+    script(src="/javascripts/script.js")

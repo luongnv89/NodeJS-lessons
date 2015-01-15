@@ -1,0 +1,63 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#listevent{
+	height: 400px;
+	padding: 5px;
+	overflow: auto;
+}
+
+#listuser{
+	height: 400px;
+	padding: 5px;
+	overflow: auto;
+}
+
+#myname{
+	border-bottom: solid gray 1px;	
+	font-weight: bold;
+}
+
+.message-text{
+    font:italic 15px Tahoma;
+    margin-left: 10px;
+}
+
+.send-user{
+    font:bold 14px Tahoma;
+    color: blue;
+}
+
+.reply-user{
+    font:bold 14px Tahoma;
+    color: red;
+}
+
+.msg-history{
+    margin: 3px;
+    padding: 3px;
+    width: 100%;
+    height: 300px;
+    font: bold italic 12px Tahoma;
+    overflow: auto;
+    border-right: solid green 1px;
+}
+
+.message-time{
+	color:gray;
+	font-size: 0.8em;
+	/*float: right;*/
+	margin-left: 3px;
+	padding-left: 3px;
+}
+
+.message{
+	/*border-bottom: dashed gray 1px;*/
+	margin: 3px;
+}

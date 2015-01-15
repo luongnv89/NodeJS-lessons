@@ -1,5 +1,5 @@
 var net = require('net'),
-	port = 4000,
+	port = 4001,
 	quitting = false,
 	conn,
 	retryTimeOut = 3000,
@@ -16,7 +16,7 @@ process.stdin.on(
 			conn.end();
 			process.stdin.pause();
 		}else { 
-			con.write(data);
+			conn.write(data);
 		}
 	}
 );

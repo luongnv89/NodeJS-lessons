@@ -1,6 +1,10 @@
-afwaef
-afwafaewf
-adfawfwae
-afwafawef
-agfawgearyg
-afwagfwea
+GET / HTTP/1.1
+User-Agent: curl/7.37.1
+Host: localhost:4001
+Accept: */*
+
+GET / HTTP/1.1
+User-Agent: curl/7.37.1
+Host: localhost:4001
+Accept: */*
+
