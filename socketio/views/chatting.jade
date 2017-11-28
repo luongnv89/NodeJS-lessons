@@ -5,14 +5,13 @@ block content
         .page-header
             h1 Chat<small> with anybody</small>
         .row
-            div#listevent.col-md-9
+            div#listevent.col-xs-12.col-sm-6.col-md-8
                 div.msg-history
                 .form-group
                     input.form-control(type='text', placeholder='Enter message to send',id="m")
-            .col-md-3.hidden-xs
+            .col-xs-6.col-md-4
                 span#myname
                 p#listuser
     script(src="https://cdn.socket.io/socket.io-1.2.1.js")
     script(src="http://code.jquery.com/jquery-1.11.1.js")
-    script(src="/libs/crypto-js/crypto-js.js")
     script(src="/javascripts/script.js")
