@@ -1,4 +1,4 @@
-nodejs-example
+NodeJS lessons
 ==============
 
-Some NodeJS example during time I was learning nodejs
+Some NodeJS exercises that I gave to my students
